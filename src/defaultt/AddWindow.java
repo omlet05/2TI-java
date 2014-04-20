@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import net.sf.nachocalendar.CalendarFactory;
 import net.sf.nachocalendar.components.DateField;
 
+
+
 import java.util.Date;
 
 public class AddWindow extends JFrame {
@@ -149,7 +151,7 @@ public class AddWindow extends JFrame {
 	
 	private String getNextfreeID() throws SQLException{
 		String toReturn = null;
-		String sql = "SELECT MAX(IdInstallation)+1 FROM installation";
+		String sql = "SELECT MAX(IdInstallation)+1 FROM Installation";
 		try {
 			
 			 Statement prep = MainWindow.conn.createStatement();
@@ -169,7 +171,7 @@ public class AddWindow extends JFrame {
 	private Object[] getCodeSoftware() throws SQLException{
 		Object[] toReturn = null;
 		try {
-			PreparedStatement prep = MainWindow.conn.prepareStatement("SELECT CodeSoftware FROM software");
+			PreparedStatement prep = MainWindow.conn.prepareStatement("SELECT CodeSoftware FROM Software");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 			
 		} catch (Exception e) {
@@ -181,7 +183,7 @@ public class AddWindow extends JFrame {
 	private Object[] getMatricule() throws SQLException{
 		Object[] toReturn = null;
 		try {
-			PreparedStatement prep = MainWindow.conn.prepareStatement("SELECT Matricule FROM responsablereseaux");
+			PreparedStatement prep = MainWindow.conn.prepareStatement("SELECT Matricule FROM ResponsableReseaux");
 			toReturn =AccesBDGen.creerListe1Colonne(prep);
 		}
 		catch (Exception e) {
@@ -194,7 +196,7 @@ public class AddWindow extends JFrame {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = MainWindow.conn.prepareStatement("SELECT CodeOS FROM os");
+			prep = MainWindow.conn.prepareStatement("SELECT CodeOS FROM OS");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		}
 		catch (Exception e) {
@@ -237,13 +239,17 @@ public class AddWindow extends JFrame {
  			if(!(textField_5.getText().equals("") || textField_5.getText().equals(null)))
  				refProcInsert = textField_5.getText();
  			
+ 			
+ 			
  			//format the date
  			Date date = (Date) datefield.getValue();
  			Timestamp dateInsert = new Timestamp(date.getTime());
  			System.out.println(dateInsert);
  			
  			try {
- 				prep = MainWindow.conn.prepareStatement("INSERT INTO  `test`.`installation` VALUES ('"+getNextfreeID()+"',  '"+dateInsert+"', '"+commentInsert+"' ,  '"+spinner.getValue()+"', '"+refProcInsert+"' ,  '"+comboBox.getSelectedItem().toString()+"',  '"+comboBox_1.getSelectedItem().toString()+"',  '"+comboBox_2.getSelectedItem().toString()+"')");
+ 				prep = MainWindow.conn.prepareStatement("INSERT INTO  `test`.`Installation` VALUES ('"+getNextfreeID()+"',  '"+dateInsert+"', ? ,  '"+spinner.getValue()+"', ? ,  '"+comboBox.getSelectedItem().toString()+"',  '"+comboBox_1.getSelectedItem().toString()+"',  '"+comboBox_2.getSelectedItem().toString()+"')");
+ 				prep.setString(1, commentInsert);
+ 				prep.setString(2, refProcInsert);
  				modif = AccesBDGen.executerInstruction(prep);
  				JOptionPane.showMessageDialog(null, modif+" ligne(s) modifiée(s).", "Ajout réussit!", JOptionPane.INFORMATION_MESSAGE);
  				//must reset form
@@ -251,6 +257,8 @@ public class AddWindow extends JFrame {
  			catch (Exception e1) {
  				JOptionPane.showMessageDialog(null, e1, "Erreur", JOptionPane.WARNING_MESSAGE);
  			}
+ 			
+ 			
  		}
  	}
 }

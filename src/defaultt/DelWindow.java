@@ -60,7 +60,7 @@ public class DelWindow extends JFrame {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = MainWindow.conn.prepareStatement("SELECT Designation FROM editeur");
+			prep = MainWindow.conn.prepareStatement("SELECT Designation FROM Editeur");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		}
 		catch (Exception e) {
@@ -75,7 +75,7 @@ public class DelWindow extends JFrame {
 		public void actionPerformed(ActionEvent e){
 			
 			try {
-				prep = MainWindow.conn.prepareStatement("SELECT * FROM software soft INNER JOIN editeur edit ON edit.Designation = '"+comboBox.getSelectedItem().toString()+"'");
+				prep = MainWindow.conn.prepareStatement("SELECT * FROM Software soft INNER JOIN Editeur edit ON edit.Designation = '"+comboBox.getSelectedItem().toString()+"'");
 				toReturn = AccesBDGen.creerTableModel(prep);
 				
 			}
