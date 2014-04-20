@@ -4,6 +4,10 @@
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.29-bin.jar"/>
-	<classpathentry kind="lib" path="/home/omlet/workspace/Application_Java/lib/nachocalendar-0.23.jar"/>
+	<classpathentry kind="lib" path="/home/omlet/workspace/Application_Java/lib/nachocalendar-0.23.jar" sourcepath="lib/nachocalendar-0.23.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Application_Java/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
