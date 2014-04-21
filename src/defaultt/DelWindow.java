@@ -11,11 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+
 public class DelWindow extends JFrame {
 
 	private JPanel contentPane;
 	private static JTable table;
 	private JComboBox comboBox;
+	private JScrollPane scrollPane;
 
 	public DelWindow() {
 		setTitle("Supression d'un software.");
@@ -28,8 +33,7 @@ public class DelWindow extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Editeur:");
-		lblNewLabel.setBounds(351, 15, 47, 14);
-		contentPane.add(lblNewLabel);
+		
 		
 		try {
 			comboBox = new JComboBox(getEditeur());
@@ -47,9 +51,30 @@ public class DelWindow extends JFrame {
 		btnFiltrer.addActionListener(new GetJTable());
 		contentPane.add(btnFiltrer);
 		
-		table = new JTable();
-		table.setBounds(10, 421, 718, -362);
-		contentPane.add(table);
+		
+		//table
+		try {
+			PreparedStatement reqStat = MainWindow.conn.prepareStatement("SELECT * FROM Editeur");
+			MonTableModel result = AccesBDGen.creerTableModel(reqStat);
+			table = new JTable(result);
+			//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			//table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			table.setBackground(Color.white);
+			//JscrollPane pane
+			scrollPane = new JScrollPane(table);
+			scrollPane.setBounds(10, 428, 719, -375);
+			contentPane.add(scrollPane);
+		}
+		catch (SQLException e2){
+			JOptionPane.showMessageDialog(null, e2, "Erreur", JOptionPane.WARNING_MESSAGE);
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -72,7 +97,7 @@ public class DelWindow extends JFrame {
 	private class GetJTable implements ActionListener{
 		MonTableModel toReturn = null;
 		PreparedStatement prep;
-		public void actionPerformed(ActionEvent e){
+		public MonTableModel getJTable(){
 			
 			try {
 				prep = MainWindow.conn.prepareStatement("SELECT * FROM Software soft INNER JOIN Editeur edit ON edit.Designation = '"+comboBox.getSelectedItem().toString()+"'");
@@ -83,8 +108,11 @@ public class DelWindow extends JFrame {
 				JOptionPane.showMessageDialog(null, e1, "Erreur", JOptionPane.WARNING_MESSAGE);
 			}
 			
-			table = new JTable(toReturn);	
-			System.out.println(table);
+			
+			return toReturn;
+		}
+		public void actionPerformed(ActionEvent e) {
+			scrollPane = new JScrollPane(table);	
 		}
 	}
 }
