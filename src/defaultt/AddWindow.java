@@ -16,6 +16,7 @@ import net.sf.nachocalendar.components.DateField;
 
 
 import java.util.Date;
+import java.awt.Color;
 
 public class AddWindow extends JFrame {
 
@@ -30,7 +31,7 @@ public class AddWindow extends JFrame {
 	public AddWindow() {
 		setTitle("Ajouter une installation.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 350);
+		setSize(400, 450);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
@@ -40,64 +41,66 @@ public class AddWindow extends JFrame {
 		
 		textField = new JTextField();
 		textField.setEnabled(false);
-		textField.setBounds(195, 20, 144, 20);
+		textField.setBounds(195, 11, 144, 27);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("IdInstallation");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(21, 20, 162, 20);
+		lblNewLabel.setBounds(21, 14, 162, 24);
 		contentPane.add(lblNewLabel);
 		
 		//date
-		datefield.setBounds(195, 52, 144, 19);
+		datefield.setBounds(195, 53, 144, 27);
 		datefield.setValue(new Date());
 		contentPane.add(datefield);
 		//datefield.getValue();
 		
 		
 		JLabel lblCommentaires = new JLabel("Commentaires");
+		lblCommentaires.setForeground(Color.RED);
 		lblCommentaires.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCommentaires.setBounds(21, 223, 162, 20);
+		lblCommentaires.setBounds(21, 319, 162, 20);
 		contentPane.add(lblCommentaires);
 		
 		JLabel lblDureeinstallation = new JLabel("DureeInstallation");
 		lblDureeinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDureeinstallation.setBounds(21, 78, 162, 14);
+		lblDureeinstallation.setBounds(21, 95, 162, 27);
 		contentPane.add(lblDureeinstallation);
 		
 		JLabel lblRefprocedureinstallation = new JLabel("RefProcedureInstallation");
+		lblRefprocedureinstallation.setForeground(Color.RED);
 		lblRefprocedureinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblRefprocedureinstallation.setBounds(21, 103, 162, 14);
+		lblRefprocedureinstallation.setBounds(21, 135, 162, 27);
 		contentPane.add(lblRefprocedureinstallation);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(195, 103, 144, 20);
+		textField_5.setBounds(195, 135, 144, 27);
 		contentPane.add(textField_5);
 		
 		JLabel lblNewLabel_1 = new JLabel("CodeSoftware");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(21, 131, 162, 16);
+		lblNewLabel_1.setBounds(21, 183, 162, 22);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblMatricule = new JLabel("Matricule");
 		lblMatricule.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMatricule.setBounds(21, 161, 162, 16);
+		lblMatricule.setBounds(21, 222, 162, 27);
 		contentPane.add(lblMatricule);
 		
 		JLabel lblCodeos = new JLabel("CodeOS");
 		lblCodeos.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCodeos.setBounds(21, 189, 162, 16);
+		lblCodeos.setBounds(10, 273, 173, 22);
 		contentPane.add(lblCodeos);
 		
 		JButton btnInserer = new JButton("Insérer");
-		btnInserer.setBounds(24, 287, 118, 28);
+		btnInserer.setBounds(21, 382, 118, 28);
 		btnInserer.addActionListener(new Insert());
 		contentPane.add(btnInserer);
 		
 		JButton btnRinitialiser = new JButton("Réinitialiser");
-		btnRinitialiser.setBounds(154, 287, 118, 28);
+		btnRinitialiser.setBounds(151, 382, 118, 28);
 		btnRinitialiser.addActionListener(new Reinit());
 		contentPane.add(btnRinitialiser);
 				
@@ -111,13 +114,13 @@ public class AddWindow extends JFrame {
 			dispose();
 		}
 		
-		comboBox.setBounds(195, 126, 144, 26);
+		comboBox.setBounds(195, 178, 144, 27);
 		contentPane.add(comboBox);
 				
-		comboBox_1.setBounds(195, 156, 144, 26);
+		comboBox_1.setBounds(195, 222, 144, 27);
 		contentPane.add(comboBox_1);
 				
-		comboBox_2.setBounds(195, 184, 144, 26);
+		comboBox_2.setBounds(195, 271, 144, 27);
 		contentPane.add(comboBox_2);
 		
 		JButton btnRetour = new JButton("Retour");
@@ -126,22 +129,27 @@ public class AddWindow extends JFrame {
 				dispose();
 			}
 		});
-		btnRetour.setBounds(284, 287, 90, 28);
+		btnRetour.setBounds(281, 382, 90, 28);
 		contentPane.add(btnRetour);
 		
 		JLabel lblDateinstallation = new JLabel("DateInstallation");
-		lblDateinstallation.setBounds(39, 46, 144, 25);
+		lblDateinstallation.setBounds(39, 55, 144, 25);
 		contentPane.add(lblDateinstallation);
 		lblDateinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 500, 1));
-		spinner.setBounds(195, 74, 144, 20);
+		spinner.setBounds(195, 91, 144, 27);
 		contentPane.add(spinner);
 		
 		textPane = new JTextPane();
-		textPane.setBounds(195, 219, 144, 56);
+		textPane.setBounds(195, 315, 144, 56);
 		contentPane.add(textPane);
+		
+		JLabel lblChamp = new JLabel("* Champ Facultatif.");
+		lblChamp.setForeground(Color.RED);
+		lblChamp.setBounds(21, 357, 162, 14);
+		contentPane.add(lblChamp);
 		
 		
 		
