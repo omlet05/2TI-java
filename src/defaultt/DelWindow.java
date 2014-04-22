@@ -48,21 +48,28 @@ public class DelWindow extends JFrame {
 		
 		JButton btnFiltrer = new JButton("Filtrer");
 		btnFiltrer.setBounds(665, 11, 80, 23);
-		btnFiltrer.addActionListener(new GetJTable());
+		//btnFiltrer.addActionListener(new GetJTable());
 		contentPane.add(btnFiltrer);
 		
 		
 		//table
 		try {
-			PreparedStatement reqStat = MainWindow.conn.prepareStatement("SELECT * FROM Editeur");
+			PreparedStatement reqStat = MainWindow.conn.prepareStatement("SELECT DateInstallation,CodeSoftware,CodeOS FROM Installation");
 			MonTableModel result = AccesBDGen.creerTableModel(reqStat);
 			table = new JTable(result);
-			//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			//table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			
+			table.setFillsViewportHeight(true);
+			
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			table.setBackground(Color.white);
 			//JscrollPane pane
 			scrollPane = new JScrollPane(table);
-			scrollPane.setBounds(10, 428, 719, -375);
+			//
+			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			//
+			scrollPane.setBounds(10, 51, 735, 380);
 			contentPane.add(scrollPane);
 		}
 		catch (SQLException e2){
@@ -94,7 +101,7 @@ public class DelWindow extends JFrame {
 		return toReturn;
 		
 	}
-	private class GetJTable implements ActionListener{
+	/*private class GetJTable implements ActionListener{
 		MonTableModel toReturn = null;
 		PreparedStatement prep;
 		public MonTableModel getJTable(){
@@ -114,5 +121,5 @@ public class DelWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			scrollPane = new JScrollPane(table);	
 		}
-	}
+	}*/
 }

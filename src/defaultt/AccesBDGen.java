@@ -53,7 +53,7 @@ public class AccesBDGen
     }
 
     /* Exécute une requête d'accès en lecture à la BD (select)
-     * et récupère le modéle des données résultant de la requête (ensemble de lignes et de colonnes)
+     * et récupère le modèle des données résultant de la requête (ensemble de lignes et de colonnes)
      */
     public static MonTableModel creerTableModel (PreparedStatement prepStat)
          throws SQLException
