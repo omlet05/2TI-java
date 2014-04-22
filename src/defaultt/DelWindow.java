@@ -37,6 +37,7 @@ public class DelWindow extends JFrame {
 		
 		try {
 			comboBox = new JComboBox(getEditeur());
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			dispose();
@@ -48,45 +49,31 @@ public class DelWindow extends JFrame {
 		
 		JButton btnFiltrer = new JButton("Filtrer");
 		btnFiltrer.setBounds(665, 11, 80, 23);
-		//btnFiltrer.addActionListener(new GetJTable());
+		btnFiltrer.addActionListener(new Filter());
 		contentPane.add(btnFiltrer);
 		
 		
 		//table
-		try {
-			PreparedStatement reqStat = MainWindow.conn.prepareStatement("SELECT DateInstallation,CodeSoftware,CodeOS FROM Installation");
-			MonTableModel result = AccesBDGen.creerTableModel(reqStat);
-			table = new JTable(result);
+			table = new JTable(null);
 			
-			table.setFillsViewportHeight(true);
-			
+			//table.setFillsViewportHeight(true);
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			table.setBackground(Color.white);
 			//JscrollPane pane
-			scrollPane = new JScrollPane(table);
-			//
-			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			//
+			scrollPane = new JScrollPane(table);			
 			scrollPane.setBounds(10, 51, 735, 380);
 			contentPane.add(scrollPane);
-		}
-		catch (SQLException e2){
-			JOptionPane.showMessageDialog(null, e2, "Erreur", JOptionPane.WARNING_MESSAGE);
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		setVisible(true);
 	}
+	
+	
+	private class Filter implements ActionListener{
+ 		public void actionPerformed(ActionEvent e){
+ 			updateTable();
+ 		}
+ 	}
 	
 	private Object[] getEditeur() throws SQLException{
 		Object[] toReturn = null;
@@ -101,25 +88,16 @@ public class DelWindow extends JFrame {
 		return toReturn;
 		
 	}
-	/*private class GetJTable implements ActionListener{
-		MonTableModel toReturn = null;
-		PreparedStatement prep;
-		public MonTableModel getJTable(){
-			
-			try {
-				prep = MainWindow.conn.prepareStatement("SELECT * FROM Software soft INNER JOIN Editeur edit ON edit.Designation = '"+comboBox.getSelectedItem().toString()+"'");
-				toReturn = AccesBDGen.creerTableModel(prep);
-				
-			}
-			catch (Exception e1) {
-				JOptionPane.showMessageDialog(null, e1, "Erreur", JOptionPane.WARNING_MESSAGE);
-			}
-			
-			
-			return toReturn;
+	
+		
+	private void updateTable(){
+		try {
+			PreparedStatement prep = MainWindow.conn.prepareStatement("SELECT * FROM Software INNER JOIN Editeur ON Software.CodeEdit=Editeur.CodeEdit INNER JOIN Installation ON Software.CodeSoftware=Installation.CodeSoftware WHERE Designation='"+comboBox.getSelectedItem().toString()+"'");
+			table.setModel(AccesBDGen.creerTableModel(prep));
 		}
-		public void actionPerformed(ActionEvent e) {
-			scrollPane = new JScrollPane(table);	
+		catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, e1, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
-	}*/
+		
+	}
 }

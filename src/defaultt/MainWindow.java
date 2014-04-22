@@ -19,7 +19,7 @@ public class MainWindow extends JFrame{
 	private Container cont;
 	private JLabel motd;
 	private JMenuBar barMenu;
-	private JMenu menuDb, menuEncode, menuListing, menuExit;
+	private JMenu menuDb, MenuInstal, menuListing, menuExit;
 	private static JMenuItem menuItemLogin;
 	private static JMenuItem menuItemLogout;
 	private static JMenuItem menuItemAdd;
@@ -57,7 +57,7 @@ public class MainWindow extends JFrame{
         barMenu = new JMenuBar();
         
         menuDb = new JMenu("Base de données");
-        menuEncode = new JMenu("Encoder");
+        MenuInstal = new JMenu("Installation");
         menuListing = new JMenu("Listing");
         menuExit = new JMenu("Quitter");
         
@@ -77,8 +77,8 @@ public class MainWindow extends JFrame{
 		menuDb.add(menuItemLogin);
 		menuDb.add(menuItemLogout);
 		
-		menuEncode.add(menuItemAdd);
-		menuEncode.add(menuItemDel);
+		MenuInstal.add(menuItemAdd);
+		MenuInstal.add(menuItemDel);
 		
 		menuListing.add(menuItemSearch1);
 		menuListing.add(menuItemSearch2);
@@ -86,7 +86,7 @@ public class MainWindow extends JFrame{
 		menuExit.add(menuItemExit);
 		
 		barMenu.add(menuDb);
-        barMenu.add(menuEncode);
+        barMenu.add(MenuInstal);
         barMenu.add(menuListing);
         barMenu.add(menuExit);
         
