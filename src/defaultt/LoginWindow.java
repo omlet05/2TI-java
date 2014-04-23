@@ -75,8 +75,10 @@ public class LoginWindow extends JFrame{
 
 		//default button allow the user to press enter to get connection.
 		getRootPane().setDefaultButton(buttonConnexion);
-		
 		setVisible(true);
+		passwordField.requestFocusInWindow();
+		
+		
 		
 	}	
 	private class Connexion implements ActionListener {

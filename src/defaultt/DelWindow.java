@@ -67,6 +67,7 @@ public class DelWindow extends JFrame {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBackground(Color.white);
+		updateTable();
 		//JscrollPane pane
 		scrollPane = new JScrollPane(table);			
 		scrollPane.setBounds(10, 43, 735, 375);
