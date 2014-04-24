@@ -20,14 +20,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 
-public class DelWindow extends JFrame {
+public class DelFrame extends JFrame {
 
 	private JPanel contentPane;
 	private static JTable table;
 	private JComboBox comboBox;
 	private JScrollPane scrollPane;
 
-	public DelWindow() {
+	public DelFrame() {
 		setTitle("Supression d'un software.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(771, 500);

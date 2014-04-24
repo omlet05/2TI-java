@@ -18,7 +18,7 @@ import net.sf.nachocalendar.components.DateField;
 import java.util.Date;
 import java.awt.Color;
 
-public class AddWindow extends JFrame {
+public class AddFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -28,7 +28,7 @@ public class AddWindow extends JFrame {
 	private JTextPane textPane;
 	private JSpinner spinner;
 
-	public AddWindow() {
+	public AddFrame() {
 		setTitle("Ajouter une installation.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 450);

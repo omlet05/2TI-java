@@ -164,21 +164,21 @@ public class MainWindow extends JFrame{
     
 	private class Login implements ActionListener{
  		public void actionPerformed(ActionEvent e){
- 			new LoginWindow();
+ 			new LoginFrame();
  			
  		}
  	}
 	
 	private class Add implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			new AddWindow();
+			new AddFrame();
 			
 		}
 	}
 	
 	private class Del implements ActionListener{
  		public void actionPerformed(ActionEvent e){
- 			new DelWindow();
+ 			new DelFrame();
  			
  		}
  	}

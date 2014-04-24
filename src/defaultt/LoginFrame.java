@@ -10,7 +10,7 @@ import javax.swing.*;
 
 
 
-public class LoginWindow extends JFrame{
+public class LoginFrame extends JFrame{
 	private Container cont;
 	private JPanel mainPanel;
 	private JLabel dbLabel, loginLabel, passwordLabel;
@@ -20,7 +20,7 @@ public class LoginWindow extends JFrame{
 	private JComboBox typedb;
 	
 	
-	public LoginWindow(){
+	public LoginFrame(){
 		super("Connexion");
 		setSize(223, 161);
 		setLocationRelativeTo(null);
