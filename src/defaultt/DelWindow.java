@@ -124,9 +124,9 @@ public class DelWindow extends JFrame {
 	                	JOptionPane.showMessageDialog(null, "Aucune selection!", "Erreur", JOptionPane.WARNING_MESSAGE);
 	                }
                 else{
-                	System.out.println(idInstall);
-                	//PreparedStatement prep = MainWindow.conn.prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+idInstall);
-                	//AccesBDGen.executerInstruction(prep);
+                	//System.out.println(idInstall);
+                	PreparedStatement prep = MainWindow.conn.prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+idInstall);
+                	AccesBDGen.executerInstruction(prep);
                 }
                 JOptionPane.showMessageDialog(null, "l'enregistrement a bien été supprimé", "Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
                 
