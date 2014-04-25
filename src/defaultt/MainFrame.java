@@ -11,43 +11,39 @@ import java.sql.Connection;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import AccesBD.AccesBDGen;
 
 
 
 
-public class MainWindow extends JFrame{
-	private Container cont;
+
+public class MainFrame extends JFrame{
+	private static Container cont;
+	public static MainPane mainPane;
+	public static AproposPane proposPane;
 	private JLabel motd;
 	private JMenuBar barMenu;
 	private JMenu menuDb, MenuInstal, menuListing, menuExit;
-	private static JMenuItem menuItemLogin;
-	private static JMenuItem menuItemLogout;
-	private static JMenuItem menuItemAdd;
-	private static JMenuItem menuItemDel;
-	private static JMenuItem menuItemSearch1;
-	private static JMenuItem menuItemSearch2;
-	private JMenuItem menuItemExit;
+	private static JMenuItem menuItemLogin, menuItemLogout, menuItemAdd, menuItemDel, menuItemSearch1, menuItemSearch2, menuItemAPropos, menuItemExit;
 	private static StatusBar bar;
 	public static Connection conn = null;
-	private JPanel panel;
-	private JMenuItem mntmLookChange;
-	
+	private Image icon;
 	
 	
 		
 	
-	public MainWindow() {
+	public MainFrame() {
         super("Java 2014 Serie U LM-KG 2TIc: Fenêtre Principale.");
         setSize(640, 480);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         //icon
-        Image icon = new javax.swing.ImageIcon("res/icon.png").getImage();
+        icon = new javax.swing.ImageIcon("res/icon.png").getImage();
         this.setIconImage(icon);
         
         
-        
+              
         //container
         cont = getContentPane();
         cont.setLayout(new BorderLayout());
@@ -83,6 +79,9 @@ public class MainWindow extends JFrame{
 		menuListing.add(menuItemSearch1);
 		menuListing.add(menuItemSearch2);
 		
+		JMenuItem menuItemAPropos = new JMenuItem("A Propos");
+		menuExit.add(menuItemAPropos);
+		
 		menuExit.add(menuItemExit);
 		
 		barMenu.add(menuDb);
@@ -98,27 +97,24 @@ public class MainWindow extends JFrame{
         menuItemLogout.addActionListener(new Logout());
         menuItemAdd.addActionListener(new Add());
         menuItemDel.addActionListener(new Del());
-
-        
+        menuItemAPropos.addActionListener(new Apropos());
         menuItemExit.addActionListener(new Exit());
         
-        //welcome message
-        motd = new JLabel("<html><br><br><br><br><b>&nbsp;&nbsp;&nbsp;&nbsp;<u>Bienvenue</u></b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<li><ul>Ce programme...</ul><ul>Ce programme...</ul><ul>Ce programme...</ul></li></html>", SwingConstants.LEFT);
-        motd.setVerticalAlignment(SwingConstants.TOP);
-        getContentPane().add(motd, BorderLayout.CENTER);
-        motd.setPreferredSize(new Dimension(0, 150));
+
             
         //statusBar
         bar  = new StatusBar();
         getContentPane().add(bar, java.awt.BorderLayout.SOUTH);
-        
-        panel = new JPanel();
-        getContentPane().add(panel, BorderLayout.NORTH);
         setBarStat(false);
         
         //setup the JMenuBar
         setJMenuBar(barMenu);
         
+        
+        //mainPanel
+        mainPane = new MainPane();
+        proposPane = new AproposPane();
+        getContentPane().add(mainPane, BorderLayout.CENTER);
         
         //set visible the window
         setVisible(true);
@@ -161,6 +157,8 @@ public class MainWindow extends JFrame{
 		bar.setBorder(border);
 		
 	}
+	
+	
     
 	private class Login implements ActionListener{
  		public void actionPerformed(ActionEvent e){
@@ -198,6 +196,16 @@ public class MainWindow extends JFrame{
  		}
  	}
 	
+	private class Apropos implements ActionListener{
+ 		public void actionPerformed(ActionEvent e){
+ 			proposPane = new AproposPane();
+ 			
+ 			cont.remove(mainPane);
+ 			cont.add(proposPane, BorderLayout.CENTER);
+ 			cont.repaint();
+ 		}
+ 	}
+	
 	private class Exit implements ActionListener{
  		public void actionPerformed(ActionEvent e){
  			System.exit(0);
@@ -205,8 +213,12 @@ public class MainWindow extends JFrame{
  	}
 	
 	
-
-	
-	
-	
+	public static void redrawNewMain(){
+ 			mainPane = new MainPane();
+ 			
+ 			cont.remove(proposPane);
+ 			cont.add(mainPane, BorderLayout.CENTER);
+ 			cont.repaint();
+ 			System.out.println("test");
+ 	}
 }

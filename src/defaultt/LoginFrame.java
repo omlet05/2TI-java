@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+import AccesBD.AccesBDGen;
+
 
 
 
@@ -85,8 +87,8 @@ public class LoginFrame extends JFrame{
   	 	public void actionPerformed(ActionEvent e){
   	 		try{
 	  	 		String passwordString=new String(passwordField.getPassword());
-	  	 		MainWindow.conn = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(), passwordString);
-	  	 		MainWindow.setBarStat(true);
+	  	 		MainFrame.conn = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(), passwordString);
+	  	 		MainFrame.setBarStat(true);
 	  	 		dispose();
   	 		}
   	 		catch (Exception e1){

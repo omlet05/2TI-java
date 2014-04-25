@@ -10,7 +10,7 @@ public class Principal {
     public static void main(String[] args) {
     	try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            MainWindow w = new MainWindow();
+            MainFrame w = new MainFrame();
         } catch(Exception e) {
             System.out.println("Impossible de définir le Look & feel par défaut: " + e);
         }

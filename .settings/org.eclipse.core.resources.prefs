@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
-encoding//src/defaultt/AccesBDGen.java=UTF-8
-encoding//src/defaultt/MonTableModel.java=UTF-8
+encoding//src/AccesBD/AccesBDGen.java=UTF-8
+encoding//src/AccesBD/MonTableModel.java=UTF-8
 encoding//src/defaultt/Principal.java=UTF-8
 encoding/<project>=UTF-8
 encoding/src=UTF-8
