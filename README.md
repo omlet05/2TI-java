@@ -6,13 +6,6 @@
 	<ul>
 		<li>Lobet Mathieu</li>
 		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 		<li>Kevin Gouverneur</li>
 	</ul>
 </html>
