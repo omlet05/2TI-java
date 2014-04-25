@@ -17,9 +17,10 @@ public class DelPane extends JPanel {
 	private JComboBox comboBox;
 	private JScrollPane scrollPane;
 	private JLabel lblEditeur;
-	public static DelFrame myParentFen;
+	private DelFrame myParentFen;
 	private JButton btnRetour;
 
+	
 	
 	public DelPane(DelFrame p) {
 			myParentFen = p;
@@ -50,7 +51,7 @@ public class DelPane extends JPanel {
 			//table
 			table = new JTable(null);
 			
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			table.setBackground(Color.white);
 			updateTable();
@@ -95,12 +96,12 @@ public class DelPane extends JPanel {
 		
 		private class Retour implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
-				AddPane.myFenParent.dispose();
+				myParentFen.dispose();
 			}
 		}
 		
 		
-		private void deleteRow(){ //must add exception if null
+		private void deleteRow(){ 
             try {
             	
             	int rowcheck = table.getSelectedRow();

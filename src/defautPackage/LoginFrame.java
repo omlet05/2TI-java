@@ -15,17 +15,21 @@ import AccesBD.AccesBDGen;
 public class LoginFrame extends JFrame{
 	private Container cont;
 	private LoginPane panel;
+	private MainFrame mainF;
 	
 	
 	
-	public LoginFrame(){
+	public LoginFrame(MainFrame f){
 		super("Connexion");
-		setSize(250, 250);
+		setSize(258, 215);
 		setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         
-        panel = new LoginPane();
+        mainF = f;
+        
+        panel = new LoginPane(mainF, LoginFrame.this);
+        panel.setLocation(10, 11);
 		
 		
 		//container

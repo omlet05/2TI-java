@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 import javax.swing.*;
 
@@ -16,10 +19,13 @@ public class LoginPane extends JPanel{
 	private JPasswordField passwordField;
 	private JButton buttonConnexion, buttonBack;
 	private JComboBox typedb;
+	private LoginFrame myParentFrame;
+	private MainFrame myParentMainFrame;
 	
 	
-	public LoginPane(){
-		
+	public LoginPane(MainFrame mainF,LoginFrame f){
+		myParentFrame = f;
+		myParentMainFrame = mainF;
 		
 	 	setBounds(10,10,220,160); 
 	 	setLayout(new GridLayout(5,2));
@@ -62,31 +68,48 @@ public class LoginPane extends JPanel{
 		buttonBack.addActionListener(new Exit());
 
 		//default button allow the user to press enter to get connection.
-		//getRootPane().setDefaultButton(buttonConnexion);
 		
-		//passwordField.requestFocusInWindow();
+		myParentFrame.getRootPane().setDefaultButton(buttonConnexion);
+		
+		//choose the JpasswordField
+		myParentFrame.addWindowFocusListener(new FocusPass());
+
 		
 				
 				
-			}	
-			private class Connexion implements ActionListener {
-		  	 	public void actionPerformed(ActionEvent e){
-		  	 		try{
-			  	 		String passwordString=new String(passwordField.getPassword());
-			  	 		MainFrame.conn = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(), passwordString);
-			  	 		MainFrame.setBarStat(true);
-			  	 		//dispose();
-		  	 		}
-		  	 		catch (Exception e1){
-		  	 			JOptionPane.showMessageDialog(null,"Erreur lors de la connexion : "+e1.getMessage(),"Erreur!",JOptionPane.ERROR_MESSAGE);
-		  	 		}
-		  	 	}
-		  	 }
-			private class Exit implements ActionListener{
-		  	 	public void actionPerformed(ActionEvent e){
-		  	 		//dispose();
-		  	 	}
-		  	 }
+	}	
+
+	private class FocusPass implements WindowFocusListener{
+		public void windowGainedFocus(WindowEvent e) {
+	        passwordField.requestFocusInWindow();
+	    }
+
+	
+		public void windowLostFocus(WindowEvent e) {
+			//nothing
+			
+		}
+	}
+	
+	private class Connexion implements ActionListener {
+	 	public void actionPerformed(ActionEvent e){
+	 		try{
+	  	 		String passwordString=new String(passwordField.getPassword());
+	  	 		MainFrame.conn = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(), passwordString);
+	  	 		myParentMainFrame.setBarStat(true);
+	  	 		myParentFrame.dispose();
+	 		}
+	 		catch (Exception e1){
+	 			JOptionPane.showMessageDialog(null,"Erreur lors de la connexion : "+e1.getMessage(),"Erreur!",JOptionPane.ERROR_MESSAGE);
+	 		}
+	 	}
+	 }
+	
+	private class Exit implements ActionListener{
+	 	public void actionPerformed(ActionEvent e){
+	 		myParentFrame.dispose();
+		}
+	}
 		
 
 	

@@ -42,7 +42,7 @@ public class AddFrame extends JFrame {
 		
 		cont = getContentPane(); 
 		cont.setLayout(null); 
-		cont.add (panel);
+		cont.add(panel);
 		
 		setVisible(true);
 	}

@@ -112,7 +112,7 @@ public class MainFrame extends JFrame{
         
         //mainPanel
         mainPane = new MainPane();
-        proposPane = new AproposPane();
+        proposPane = new AproposPane(MainFrame.this);
         getContentPane().add(mainPane, BorderLayout.CENTER);
         
         //set visible the window
@@ -121,7 +121,7 @@ public class MainFrame extends JFrame{
 
 	}
 	
-	public static void setBarStat(Boolean boo){
+	public void setBarStat(Boolean boo){
 		String txt = null; 
 		if(!boo){
 			//disable who require login
@@ -161,7 +161,7 @@ public class MainFrame extends JFrame{
     
 	private class Login implements ActionListener{
  		public void actionPerformed(ActionEvent e){
- 			new LoginFrame();
+ 			new LoginFrame(MainFrame.this);
  			
  		}
  	}
@@ -197,7 +197,7 @@ public class MainFrame extends JFrame{
 	
 	private class Apropos implements ActionListener{
  		public void actionPerformed(ActionEvent e){
- 			proposPane = new AproposPane();
+ 			proposPane = new AproposPane(MainFrame.this);
  			
  			cont.remove(mainPane);
  			cont.add(proposPane, BorderLayout.CENTER);
@@ -212,12 +212,10 @@ public class MainFrame extends JFrame{
  	}
 	
 	
-	public static void redrawNewMain(){
+	public void redrawNewMain(){
  			mainPane = new MainPane();
- 			
  			cont.remove(proposPane);
  			cont.add(mainPane, BorderLayout.CENTER);
  			cont.repaint();
- 			System.out.println("test");
  	}
 }

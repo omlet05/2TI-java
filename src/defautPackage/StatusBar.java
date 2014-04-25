@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 
 public class StatusBar extends JLabel {
     
-    /** Creates a new instance of StatusBar */
+    // Creates a new instance of StatusBar
     public StatusBar() {
         super();
         super.setPreferredSize(new Dimension(100, 16));

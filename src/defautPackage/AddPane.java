@@ -24,7 +24,7 @@ public class AddPane extends JPanel {
 	private DateField datefield = CalendarFactory.createDateField();
 	private JTextPane textPane;
 	private JSpinner spinner;
-	public static AddFrame myFenParent;
+	private AddFrame myFenParent;
 	
 	public AddPane(AddFrame p){
 		//réception mypanel pour interagir sur la frame.
@@ -203,7 +203,7 @@ public class AddPane extends JPanel {
 	
 	private class Retour implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
-			AddPane.myFenParent.dispose();
+			myFenParent.dispose();
 		}
 	}
 	
@@ -229,31 +229,28 @@ public class AddPane extends JPanel {
 			comboBox_2.setSelectedIndex(0);
 	}
 	
+	private String setNullIfBlank(String toVerif){
+		if(toVerif.equals("") || toVerif.equals(null))
+			return null;
+		else
+			return toVerif;
+	}
+	
 	private class Insert implements ActionListener {
  		public void actionPerformed(ActionEvent e){
  			PreparedStatement prep;
- 			int modif;
- 			String commentInsert = null, refProcInsert = null;
+ 			int nbModif;
  			
- 			//set to null blank field
- 			//Commentaires 
- 			if(!(textPane.getText().equals("") || textPane.getText().equals(null)))
- 				commentInsert = textPane.getText();
- 			if(!(textField_5.getText().equals("") || textField_5.getText().equals(null)))
- 				refProcInsert = textField_5.getText();
- 			
- 			
- 			
- 			//format the date for mysql instert
+ 			//format the date for mysql insert
  			Date date = (Date) datefield.getValue();
  			Timestamp dateInsert = new Timestamp(date.getTime());
  			
  			try {
  				prep = MainFrame.conn.prepareStatement("INSERT INTO  `test`.`Installation` VALUES ('"+getNextfreeID()+"',  '"+dateInsert+"', ? ,  '"+spinner.getValue()+"', ? ,  '"+comboBox.getSelectedItem().toString()+"',  '"+comboBox_1.getSelectedItem().toString()+"',  '"+comboBox_2.getSelectedItem().toString()+"')");
- 				prep.setString(1, commentInsert);
- 				prep.setString(2, refProcInsert);
- 				modif = AccesBDGen.executerInstruction(prep);
- 				JOptionPane.showMessageDialog(null, modif+" ligne(s) modifiée(s).", "Ajout réussit!", JOptionPane.INFORMATION_MESSAGE);
+ 				prep.setString(1, setNullIfBlank(textPane.getText()));
+ 				prep.setString(2, setNullIfBlank(textField_5.getText()));
+ 				nbModif = AccesBDGen.executerInstruction(prep);
+ 				JOptionPane.showMessageDialog(null, nbModif+" ligne(s) modifiée(s).", "Ajout réussit!", JOptionPane.INFORMATION_MESSAGE);
  				reinit();
  			}
  			catch (Exception e1) {

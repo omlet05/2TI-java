@@ -157,27 +157,27 @@ public class AccesBDGen
      java.util.Date dateLue = new java.util.Date();
 
      for (int i = 1; i <= meta.getColumnCount();i++)
-     {	System.out.println(meta.getColumnType(i));
-    	 switch (meta.getColumnType(i))
-      {case Types.VARCHAR: objetTypes.add(stringLu);
-                           break;
-       case Types.CHAR: objetTypes.add(stringLu);
-                        break;
-       case Types.INTEGER: objetTypes.add(new Integer(entierLu));
-                           break;
-       case Types.SMALLINT: objetTypes.add(new Integer(entierLu));
-                           break;
-       case Types.TINYINT: objetTypes.add(new Integer(entierLu));
-                           break;
-       case Types.REAL: objetTypes.add(new Float(floatLu));
-       						break;
-       case Types.DOUBLE: objetTypes.add(new Double(doubleLu));
-                          break;
-       case Types.DATE: 
-       case Types.TIMESTAMP: objetTypes.add(dateLue);
-                             break;
-      case Types.BIT: objetTypes.add(new Boolean(booleenLu));
-                      break;
+     {
+    	 switch (meta.getColumnType(i)){
+    	 case Types.VARCHAR: objetTypes.add(stringLu);
+    	 	break;
+    	 case Types.CHAR: objetTypes.add(stringLu);
+ 	 		break;
+    	 case Types.INTEGER: objetTypes.add(new Integer(entierLu));
+ 	 		break;
+    	 case Types.SMALLINT: objetTypes.add(new Integer(entierLu));
+ 	 		break;
+    	 case Types.TINYINT: objetTypes.add(new Integer(entierLu));
+    	 	break;
+    	 case Types.REAL: objetTypes.add(new Float(floatLu));
+    	 	break;
+    	 case Types.DOUBLE: objetTypes.add(new Double(doubleLu));
+    	 	break;
+    	 case Types.DATE: 
+    	 case Types.TIMESTAMP: objetTypes.add(dateLue);
+    	 	break;
+    	 case Types.BIT: objetTypes.add(new Boolean(booleenLu));
+    	 	break;
       }
      }
      return objetTypes;
@@ -187,98 +187,108 @@ public class AccesBDGen
      * La requete doit être un select portant sur une seule colonne
      */
     public static Object[] creerListe1Colonne(PreparedStatement prepStat)
-             throws SQLException
-    {
-     ResultSet donnees = prepStat.executeQuery();
-     ResultSetMetaData meta = donnees.getMetaData();
-     Object[] uneColonne = new Object[100];
-     int index = 0;
+            throws SQLException
+   {
+    int max;
+    Object[] uneColonne ;
+    int index = 0;
 
-     String stringLu;
-     int entierLu;
-     float floatLu;
-     double doubleLu;
-     boolean booleenLu;
-     java.util.Date dateLue;
-
-     while (donnees.next())
-     {switch (meta.getColumnType(1))
-      {case Types.VARCHAR:
-            stringLu = donnees.getString(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index] = stringLu;
-             index++;
-            }
-            break;
-       case Types.CHAR:
-            stringLu = donnees.getString(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index] = stringLu;
-             index++;
-            }
-            break;
-       case Types.INTEGER:
-            entierLu = donnees.getInt(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index] = new Integer(entierLu);
-             index++;
-            }
-            break;
-       case Types.SMALLINT:
-            entierLu = donnees.getInt(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index] = new Integer(entierLu);
-             index++;
-            }
-            break;
-       case Types.TINYINT:
-            entierLu = donnees.getInt(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index] = new Integer(entierLu);
-             index++;
-            }
-            break;
-       case Types.REAL:
-    	    floatLu = donnees.getFloat(1);
-    	    if (donnees.wasNull() == false)
-            {
-             uneColonne[index]=  new Float(floatLu);
-             index++;
-            }
-            break;
-       case Types.DOUBLE:
-            doubleLu = donnees.getDouble(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index]=  new Double(doubleLu);
-             index++;
-            }
-            break;
-       case Types.TIMESTAMP:
-            dateLue = donnees.getDate(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index]= dateLue;
-             index++;
-            }
-            break;
-      case Types.BIT:
-            booleenLu = donnees.getBoolean(1);
-            if (donnees.wasNull() == false)
-            {
-             uneColonne[index]=  new Boolean(booleenLu);
-             index++;
-            }
-            break;
-      }
+    String stringLu;
+    int entierLu;
+    float floatLu;
+    double doubleLu;
+    boolean booleenLu;
+    java.util.Date dateLue;
+    
+    ResultSet donnees2 = prepStat.executeQuery();
+    max=0;
+    while (donnees2.next()){max ++;}
+    
+    uneColonne = new Object[max];
+   
+    ResultSet donnees = prepStat.executeQuery();
+    ResultSetMetaData meta = donnees.getMetaData();
+    
+    while (donnees.next())
+    {switch (meta.getColumnType(1))
+     {case Types.VARCHAR:
+           stringLu = donnees.getString(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index] = stringLu;
+            index++;
+           }
+           break;
+      case Types.CHAR:
+           stringLu = donnees.getString(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index] = stringLu;
+            index++;
+           }
+           break;
+      case Types.INTEGER:
+           entierLu = donnees.getInt(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index] = new Integer(entierLu);
+            index++;
+           }
+           break;
+      case Types.SMALLINT:
+           entierLu = donnees.getInt(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index] = new Integer(entierLu);
+            index++;
+           }
+           break;
+      case Types.TINYINT:
+           entierLu = donnees.getInt(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index] = new Integer(entierLu);
+            index++;
+           }
+           break;
+      case Types.REAL:
+   	    floatLu = donnees.getFloat(1);
+   	    if (donnees.wasNull() == false)
+           {
+            uneColonne[index]=  new Float(floatLu);
+            index++;
+           }
+           break;
+      case Types.DOUBLE:
+           doubleLu = donnees.getDouble(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index]=  new Double(doubleLu);
+            index++;
+           }
+           break;
+			
+      case Types.DATE:
+      case Types.TIMESTAMP:
+           dateLue = donnees.getDate(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index]= dateLue;
+            index++;
+           }
+           break;
+     case Types.BIT:
+           booleenLu = donnees.getBoolean(1);
+           if (donnees.wasNull() == false)
+           {
+            uneColonne[index]=  new Boolean(booleenLu);
+            index++;
+           }
+           break;
      }
-     return uneColonne ;
     }
+    return uneColonne ;
+   }
 
 }
 

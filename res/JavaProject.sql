@@ -163,9 +163,9 @@ CREATE TABLE IF NOT EXISTS `Installation` (
 --
 
 INSERT INTO `Installation` (`IdInstallation`, `DateInstallation`, `Commentaires`, `DureeInstallation`, `RefProcedureInstallation`, `CodeSoftware`, `Matricule`, `CodeOS`) VALUES
-(1, '0000-00-00', 'Sans problème', 20, NULL, 'NB02', 'AVK', 'W7ProfEn'),
-(2, '0000-00-00', 'Trois essais', 120, 'Procedure num 125', 'Or11', 'AlBa', 'W8ProfFr'),
-(3, '0000-00-00', NULL, 100, NULL, 'Vs12', 'MarGob', 'W8ProfEn');
+(1, '2014-03-01', 'Sans problème', 20, NULL, 'NB02', 'AVK', 'W7ProfEn'),
+(2, '2014-02-21', 'Trois essais', 120, 'Procedure num 125', 'Or11', 'AlBa', 'W8ProfFr'),
+(3, '2013-08-19', NULL, 100, NULL, 'Vs12', 'MarGob', 'W8ProfEn');
 
 -- --------------------------------------------------------
 
@@ -298,11 +298,11 @@ CREATE TABLE IF NOT EXISTS `Software` (
 --
 
 INSERT INTO `Software` (`CodeSoftware`, `Nom`, `Version`, `DateAcquisition`, `CoutAcquisition`, `CodeInstallation`, `CleInstallation`, `CapaciteDisqueMin`, `MemoireViveMin`, `ProcesseurMin`, `MemCarteVideoMin`, `CarteSonExigee`, `ReseauLocal`, `CodeEdit`, `IdFamSoft`, `CodeFourn`) VALUES
-('Bob001', 'Bob50', 'v1.1', '0000-00-00', 1000, NULL, 'XZE4-O569-YT65', 1000, 128, NULL, 4, b'0', b'1', 'Ed03', 1, 'Fou3'),
-('NB02', 'NetBeans', 'v7.4', '0000-00-00', 0, NULL, NULL, 400, 500, 'core I3', 4, b'0', b'1', 'Ed02', 7, 'Fou2'),
-('Of13', 'Office 2013', 'v1.0', '0000-00-00', 2000, NULL, 'BUI89-LOI6-KOP3-FR58', 800, 2000, 'dualcore', 4, b'0', b'1', 'Ed01', 10, 'Fou1'),
-('Or11', 'Oracle 11g', '11g', '0000-00-00', 500, NULL, NULL, 100, 500, 'core I3', 4, b'0', b'0', 'Ed02', 5, 'Fou1'),
-('Vs12', 'Visual Studio', 'v1.0', '0000-00-00', 600, NULL, NULL, 500, 500, 'core I3', 4, b'0', b'1', 'Ed01', 3, 'Fou2');
+('Bob001', 'Bob50', 'v1.1', '2010-02-07', 1000, NULL, 'XZE4-O569-YT65', 1000, 128, NULL, 4, b'0', b'1', 'Ed03', 1, 'Fou3'),
+('NB02', 'NetBeans', 'v7.4', '2014-03-07', 0, NULL, NULL, 400, 500, 'core I3', 4, b'0', b'1', 'Ed02', 7, 'Fou2'),
+('Of13', 'Office 2013', 'v1.0', '2014-03-01', 2000, NULL, 'BUI89-LOI6-KOP3-FR58', 800, 2000, 'dualcore', 4, b'0', b'1', 'Ed01', 10, 'Fou1'),
+('Or11', 'Oracle 11g', '11g', '2012-09-10', 500, NULL, NULL, 100, 500, 'core I3', 4, b'0', b'0', 'Ed02', 5, 'Fou1'),
+('Vs12', 'Visual Studio', 'v1.0', '2011-09-10', 600, NULL, NULL, 500, 500, 'core I3', 4, b'0', b'1', 'Ed01', 3, 'Fou2');
 
 -- --------------------------------------------------------
 
