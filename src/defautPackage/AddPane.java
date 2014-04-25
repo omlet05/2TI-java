@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -24,8 +24,13 @@ public class AddPane extends JPanel {
 	private DateField datefield = CalendarFactory.createDateField();
 	private JTextPane textPane;
 	private JSpinner spinner;
+	public static AddFrame myFenParent;
 	
-	public AddPane(){
+	public AddPane(AddFrame p){
+		//réception mypanel pour interagir sur la frame.
+		myFenParent = p;
+		
+		
 		setBounds(10, 10, 400, 450);
 		setLayout(null);
 		
@@ -114,11 +119,7 @@ public class AddPane extends JPanel {
 		add(comboBox_2);
 		
 		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//dispose();
-			}
-		});
+		btnRetour.addActionListener(new Retour());
 		btnRetour.setBounds(281, 382, 90, 28);
 		add(btnRetour);
 		
@@ -202,8 +203,7 @@ public class AddPane extends JPanel {
 	
 	private class Retour implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
-			//dispose();
-			
+			AddPane.myFenParent.dispose();
 		}
 	}
 	
@@ -217,7 +217,6 @@ public class AddPane extends JPanel {
 		try {
 			textField.setText(getNextfreeID());
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
 			//textField_1.setText("");

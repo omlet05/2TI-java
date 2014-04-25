@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,7 +55,7 @@ public class MainFrame extends JFrame{
         menuDb = new JMenu("Base de données");
         MenuInstal = new JMenu("Installation");
         menuListing = new JMenu("Listing");
-        menuExit = new JMenu("Quitter");
+        menuExit = new JMenu("Application");
         
         
         menuItemLogin = new JMenuItem("Connexion");
@@ -67,6 +67,7 @@ public class MainFrame extends JFrame{
 		menuItemSearch1 = new JMenuItem("Software sans code d'installation, en fonction d'une année scolaire.");
 		menuItemSearch2 = new JMenuItem("Software après une date et par un responsable réseau particulier.");
 		
+		menuItemAPropos = new JMenuItem("A Propos");
 		menuItemExit = new JMenuItem("Quitter");
 		
 		
@@ -79,9 +80,7 @@ public class MainFrame extends JFrame{
 		menuListing.add(menuItemSearch1);
 		menuListing.add(menuItemSearch2);
 		
-		JMenuItem menuItemAPropos = new JMenuItem("A Propos");
 		menuExit.add(menuItemAPropos);
-		
 		menuExit.add(menuItemExit);
 		
 		barMenu.add(menuDb);

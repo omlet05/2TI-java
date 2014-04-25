@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 

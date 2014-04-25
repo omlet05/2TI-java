@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 
 import java.awt.*;
@@ -17,9 +17,12 @@ public class DelPane extends JPanel {
 	private JComboBox comboBox;
 	private JScrollPane scrollPane;
 	private JLabel lblEditeur;
+	public static DelFrame myParentFen;
+	private JButton btnRetour;
 
 	
-	public DelPane() {
+	public DelPane(DelFrame p) {
+			myParentFen = p;
 		 	this.setBounds(10,10,753,462); 
 		 	this.setBorder(BorderFactory.createLineBorder(Color.BLUE)); 
 		 	this.setLayout(null);
@@ -56,9 +59,14 @@ public class DelPane extends JPanel {
 			scrollPane.setBounds(10, 43, 735, 375);
 			this.add(scrollPane);
 			
+			btnRetour = new JButton("Retour");
+			btnRetour.setBounds(10, 429, 137, 23);
+			btnRetour.addActionListener(new Retour());
+			this.add(btnRetour);
+			
 			JButton btnSupprimer = new JButton("Supprimer la selection");
-			btnSupprimer.addActionListener(new Del());
 			btnSupprimer.setBounds(608, 429, 137, 23);
+			btnSupprimer.addActionListener(new Del());
 			this.add(btnSupprimer);
 			
 			lblEditeur = new JLabel("Editeur:");
@@ -69,8 +77,7 @@ public class DelPane extends JPanel {
 			}
 	private void updateTable(){
 		try {
-			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT IdInstallation, DateInstallation, Software.CodeSoftware, CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
-			//PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT * FROM Installation JOIN Software ON Installation.CodeSoftware=Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit=Software.CodeEdit  WHERE Designation='"+comboBox.getSelectedItem().toString()+"'");
+			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			
 		}
@@ -85,6 +92,12 @@ public class DelPane extends JPanel {
 	 			updateTable();
 	 		}
 	 	}
+		
+		private class Retour implements ActionListener{
+			public void actionPerformed(ActionEvent arg0) {
+				AddPane.myFenParent.dispose();
+			}
+		}
 		
 		
 		private void deleteRow(){ //must add exception if null
