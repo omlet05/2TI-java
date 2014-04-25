@@ -3,6 +3,7 @@ package defautPackage;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,9 +27,11 @@ public class AddPane extends JPanel {
 	private JSpinner spinner;
 	private AddFrame myFenParent;
 	
+	
 	public AddPane(AddFrame p){
 		//réception mypanel pour interagir sur la frame.
 		myFenParent = p;
+		
 		
 		
 		setBounds(10, 10, 400, 450);
@@ -149,7 +152,7 @@ public class AddPane extends JPanel {
 		String sql = "SELECT MAX(IdInstallation)+1 FROM Installation";
 		try {
 			
-			 Statement prep = MainFrame.conn.createStatement();
+			 Statement prep = myFenParent.getConn().createStatement();
 			 ResultSet result = prep.executeQuery(sql);
 			 while(result.next()){
 				 toReturn = result.getString(1);
@@ -166,7 +169,7 @@ public class AddPane extends JPanel {
 	private Object[] getCodeSoftware() throws SQLException{
 		Object[] toReturn = null;
 		try {
-			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT CodeSoftware FROM Software");
+			PreparedStatement prep = myFenParent.getConn().prepareStatement("SELECT CodeSoftware FROM Software");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 			
 		} catch (Exception e) {
@@ -178,7 +181,7 @@ public class AddPane extends JPanel {
 	private Object[] getMatricule() throws SQLException{
 		Object[] toReturn = null;
 		try {
-			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT Matricule FROM ResponsableReseaux");
+			PreparedStatement prep = myFenParent.getConn().prepareStatement("SELECT Matricule FROM ResponsableReseaux");
 			toReturn =AccesBDGen.creerListe1Colonne(prep);
 		}
 		catch (Exception e) {
@@ -191,7 +194,7 @@ public class AddPane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = MainFrame.conn.prepareStatement("SELECT CodeOS FROM OS");
+			prep = myFenParent.getConn().prepareStatement("SELECT CodeOS FROM OS");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		}
 		catch (Exception e) {
@@ -246,7 +249,7 @@ public class AddPane extends JPanel {
  			Timestamp dateInsert = new Timestamp(date.getTime());
  			
  			try {
- 				prep = MainFrame.conn.prepareStatement("INSERT INTO  `test`.`Installation` VALUES ('"+getNextfreeID()+"',  '"+dateInsert+"', ? ,  '"+spinner.getValue()+"', ? ,  '"+comboBox.getSelectedItem().toString()+"',  '"+comboBox_1.getSelectedItem().toString()+"',  '"+comboBox_2.getSelectedItem().toString()+"')");
+ 				prep = myFenParent.getConn().prepareStatement("INSERT INTO  `test`.`Installation` VALUES ('"+getNextfreeID()+"',  '"+dateInsert+"', ? ,  '"+spinner.getValue()+"', ? ,  '"+comboBox.getSelectedItem().toString()+"',  '"+comboBox_1.getSelectedItem().toString()+"',  '"+comboBox_2.getSelectedItem().toString()+"')");
  				prep.setString(1, setNullIfBlank(textPane.getText()));
  				prep.setString(2, setNullIfBlank(textField_5.getText()));
  				nbModif = AccesBDGen.executerInstruction(prep);

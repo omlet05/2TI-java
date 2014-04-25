@@ -19,7 +19,7 @@ public class DelPane extends JPanel {
 	private JLabel lblEditeur;
 	private DelFrame myParentFen;
 	private JButton btnRetour;
-
+	
 	
 	
 	public DelPane(DelFrame p) {
@@ -78,7 +78,7 @@ public class DelPane extends JPanel {
 			}
 	private void updateTable(){
 		try {
-			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
+			PreparedStatement prep = myParentFen.getConn().prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			
 		}
@@ -109,7 +109,7 @@ public class DelPane extends JPanel {
             	
                 
 	                if(rowcheck > -1){
-	                	PreparedStatement prep = MainFrame.conn.prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+idInstall);
+	                	PreparedStatement prep = myParentFen.getConn().prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+idInstall);
 	                	AccesBDGen.executerInstruction(prep);
 	                	JOptionPane.showMessageDialog(null, "l'enregistrement a bien été supprimé", "Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
 	                }
@@ -127,7 +127,7 @@ public class DelPane extends JPanel {
 			Object[] toReturn = null;
 			PreparedStatement prep;
 			try {
-				prep = MainFrame.conn.prepareStatement("SELECT Designation FROM Editeur");
+				prep = myParentFen.getConn().prepareStatement("SELECT Designation FROM Editeur");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 			}
 			catch (Exception e) {

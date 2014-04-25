@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.sql.Connection;
 
 import javax.swing.*;
 
@@ -94,8 +95,11 @@ public class LoginPane extends JPanel{
 	private class Connexion implements ActionListener {
 	 	public void actionPerformed(ActionEvent e){
 	 		try{
+	 			Connection conTMP = null;
 	  	 		String passwordString=new String(passwordField.getPassword());
-	  	 		MainFrame.conn = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(), passwordString);
+	  	 		
+	  	 		conTMP = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(), passwordString);
+	  	 		myParentMainFrame.setConn(conTMP);
 	  	 		myParentMainFrame.setBarStat(true);
 	  	 		myParentFrame.dispose();
 	 		}

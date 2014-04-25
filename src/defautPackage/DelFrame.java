@@ -2,6 +2,7 @@ package defautPackage;
 
 
 import java.awt.Container;
+import java.sql.Connection;
 
 import javax.swing.*;
 
@@ -12,13 +13,19 @@ public class DelFrame extends JFrame {
 	
 	private Container cont;
 	private DelPane panel;
+	private Connection conn;
+	private MainFrame mainFrame;
+
 	
-	public DelFrame() {
+	public DelFrame(MainFrame mainFrame) {
 		setTitle("Supression d'un software.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(792, 526);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		
+		mainFrame = mainFrame;
+		setConn(mainFrame.getConn());
 		
 		panel = new DelPane(DelFrame.this);
 		
@@ -30,7 +37,14 @@ public class DelFrame extends JFrame {
 		setVisible(true);
 	}
 	
-	
+	public Connection getConn() {
+		return conn;
+	}
+
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
 	
 
 	

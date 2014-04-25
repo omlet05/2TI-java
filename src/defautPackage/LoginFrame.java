@@ -3,6 +3,7 @@ package defautPackage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class LoginFrame extends JFrame{
 	private Container cont;
 	private LoginPane panel;
 	private MainFrame mainF;
+	private Connection conn;
 	
 	
 	
@@ -27,6 +29,7 @@ public class LoginFrame extends JFrame{
         setResizable(false);
         
         mainF = f;
+		setConn(mainF.getConn());
         
         panel = new LoginPane(mainF, LoginFrame.this);
         panel.setLocation(10, 11);
@@ -40,6 +43,16 @@ public class LoginFrame extends JFrame{
 		
 		
 		setVisible(true);
+	}
+	
+	
+	public Connection getConn() {
+		return conn;
+	}
+
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
 	}
 }
 		

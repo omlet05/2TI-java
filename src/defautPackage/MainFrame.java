@@ -26,7 +26,12 @@ public class MainFrame extends JFrame{
 	private JMenu menuDb, MenuInstal, menuListing, menuExit;
 	private static JMenuItem menuItemLogin, menuItemLogout, menuItemAdd, menuItemDel, menuItemSearch1, menuItemSearch2, menuItemAPropos, menuItemExit;
 	private static StatusBar bar;
-	public static Connection conn = null;
+	private Connection conn = null;
+	
+
+
+
+
 	private Image icon;
 	
 	
@@ -168,14 +173,14 @@ public class MainFrame extends JFrame{
 	
 	private class Add implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			new AddFrame();
+			new AddFrame(MainFrame.this);
 			
 		}
 	}
 	
 	private class Del implements ActionListener{
  		public void actionPerformed(ActionEvent e){
- 			new DelFrame();
+ 			new DelFrame(MainFrame.this);
  			
  		}
  	}
@@ -212,10 +217,20 @@ public class MainFrame extends JFrame{
  	}
 	
 	
+	
+	
 	public void redrawNewMain(){
  			mainPane = new MainPane();
  			cont.remove(proposPane);
  			cont.add(mainPane, BorderLayout.CENTER);
  			cont.repaint();
  	}
+	
+	public Connection getConn() {
+		return conn;
+	}
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
 }
