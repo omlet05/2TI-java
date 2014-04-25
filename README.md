@@ -5,7 +5,6 @@
 	&nbsp;&nbsp;Ce groupe est composé de deux étudiants:
 	<ul>
 		<li>Lobet Mathieu</li>
-		<br>
 		<li>Kevin Gouverneur</li>
 	</ul>
 </html>
