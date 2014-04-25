@@ -1,12 +1,11 @@
 package defautPackage;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
-import java.io.IOException;
 import java.net.URL;
 
 
@@ -25,27 +24,28 @@ public class AproposPane extends JPanel {
 		lblAPropos.setVerticalAlignment(SwingConstants.TOP);
 		lblAPropos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAPropos.setBounds(33, 26, 451, 60);
+		add(lblAPropos);
 		
 		//Pictures importation 
 				
 		iconKevin = new ImageIcon("res/kevin.jpg");
 		lblKevin = new JLabel(iconKevin);
 		lblKevin.setBounds(139, 129, 118, 145);
+		add(lblKevin);
 		
 		iconMath = new ImageIcon("res/Mathieu.jpg");
 		lblMath = new JLabel(iconMath);
 		lblMath.setBounds(319, 129, 130, 145);
-		
+		add(lblMath);
 		
 		btnBack = new JButton("Retour");
 		btnBack.addActionListener(new Back());
 		btnBack.setBounds(553, 361, 65, 23);
-		
-		
-		add(lblKevin);
-		add(lblMath);
-		add(lblAPropos);
 		add(btnBack);
+		
+		
+		
+		
 		
 		JLabel lblPnom = new JLabel("Kevin Gouverneur               &&               Mathieu Lobet");
 		lblPnom.setBounds(139, 285, 310, 14);
