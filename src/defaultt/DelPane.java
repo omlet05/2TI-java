@@ -69,8 +69,8 @@ public class DelPane extends JPanel {
 			}
 	private void updateTable(){
 		try {
-			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT IdInstallation, DateInstallation, Software.CodeSoftware, CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
-			//PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT * FROM Installation JOIN Software ON Installation.CodeSoftware=Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit=Software.CodeEdit  WHERE Designation='"+comboBox.getSelectedItem().toString()+"'");
+			//PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT IdInstallation, DateInstallation, Software.CodeSoftware, CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
+			PreparedStatement prep = MainFrame.conn.prepareStatement("SELECT * FROM Installation JOIN Software ON Installation.CodeSoftware=Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit=Software.CodeEdit  WHERE Designation='"+comboBox.getSelectedItem().toString()+"'");
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			
 		}
