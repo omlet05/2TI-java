@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.*;
 
@@ -28,7 +29,6 @@ public class DelPane extends JPanel {
 	public DelPane(DelFrame p) {
 			myParentFen = p;
 		 	this.setBounds(10,10,753,462); 
-		 	this.setBorder(BorderFactory.createLineBorder(Color.BLUE)); 
 		 	this.setLayout(null);
 
 			
@@ -53,10 +53,10 @@ public class DelPane extends JPanel {
 			
 			//table
 			table = new JTable(null);
-			
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			table.setBackground(Color.white);
+			
 			updateTable();
 			//JscrollPane pane
 			scrollPane = new JScrollPane(table);			
@@ -83,6 +83,7 @@ public class DelPane extends JPanel {
 		try {
 			PreparedStatement prep = myParentFen.getConn().prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+comboBox.getSelectedItem().toString()+"'");
 			table.setModel(AccesBDGen.creerTableModel(prep));
+			centerJtable(table);
 			
 		}
 		catch (Exception e1) {
@@ -138,6 +139,11 @@ public class DelPane extends JPanel {
 			}
 			return toReturn;
 			
+		}
+		
+		private void centerJtable(JTable table) {     DefaultTableCellRenderer custom = new DefaultTableCellRenderer(); 
+		custom.setHorizontalAlignment(JLabel.CENTER); 
+		for (int i=0 ; i<table.getColumnCount() ;table.getColumnModel().getColumn(i).setCellRenderer(custom), i++); 
 		}
 
 	}
