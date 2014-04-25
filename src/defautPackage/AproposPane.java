@@ -30,11 +30,11 @@ public class AproposPane extends JPanel {
 				
 		iconKevin = new ImageIcon("res/kevin.jpg");
 		lblKevin = new JLabel(iconKevin);
-		lblKevin.setBounds(317, 129, 118, 145);
+		lblKevin.setBounds(139, 129, 118, 145);
 		
 		iconMath = new ImageIcon("res/Mathieu.jpg");
 		lblMath = new JLabel(iconMath);
-		lblMath.setBounds(131, 129, 130, 145);
+		lblMath.setBounds(319, 129, 130, 145);
 		
 		
 		btnBack = new JButton("Retour");
