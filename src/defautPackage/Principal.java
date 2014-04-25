@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 
 import javax.swing.UIManager;

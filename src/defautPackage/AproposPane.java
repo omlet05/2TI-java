@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

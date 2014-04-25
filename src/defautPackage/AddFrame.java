@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -37,7 +37,7 @@ public class AddFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
-		panel = new AddPane();
+		panel = new AddPane(AddFrame.this); //passer fenêtre 
 		
 		
 		cont = getContentPane(); 

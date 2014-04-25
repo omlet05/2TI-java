@@ -130,6 +130,7 @@ public class AccesBDGen
             doubleLu = donnees.getDouble(i);
             ligneCourante.add(donnees.wasNull()?null:new Double(doubleLu));
             break;
+       case Types.DATE: 
        case Types.TIMESTAMP:
             dateLue = donnees.getDate(i);
             ligneCourante.add(donnees.wasNull()?null:dateLue);
@@ -156,7 +157,8 @@ public class AccesBDGen
      java.util.Date dateLue = new java.util.Date();
 
      for (int i = 1; i <= meta.getColumnCount();i++)
-     {switch (meta.getColumnType(i))
+     {	System.out.println(meta.getColumnType(i));
+    	 switch (meta.getColumnType(i))
       {case Types.VARCHAR: objetTypes.add(stringLu);
                            break;
        case Types.CHAR: objetTypes.add(stringLu);
@@ -171,6 +173,7 @@ public class AccesBDGen
        						break;
        case Types.DOUBLE: objetTypes.add(new Double(doubleLu));
                           break;
+       case Types.DATE: 
        case Types.TIMESTAMP: objetTypes.add(dateLue);
                              break;
       case Types.BIT: objetTypes.add(new Boolean(booleenLu));

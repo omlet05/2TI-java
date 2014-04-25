@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 
 import java.awt.Container;
@@ -20,7 +20,7 @@ public class DelFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
-		panel = new DelPane();
+		panel = new DelPane(DelFrame.this);
 		
 		
 		cont = getContentPane(); 

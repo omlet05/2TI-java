@@ -1,4 +1,4 @@
-package defaultt;
+package defautPackage;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
