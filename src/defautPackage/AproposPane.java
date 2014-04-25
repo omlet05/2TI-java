@@ -28,7 +28,7 @@ public class AproposPane extends JPanel {
 		
 		//Pictures importation 
 				
-		iconKevin = new ImageIcon("res/kevin.jpg");
+		iconKevin = new ImageIcon("res/Kevin.jpg");
 		lblKevin = new JLabel(iconKevin);
 		lblKevin.setBounds(139, 129, 118, 145);
 		add(lblKevin);
