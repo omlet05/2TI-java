@@ -3,9 +3,6 @@ package defautPackage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.sql.Connection;
 
 import javax.swing.*;
@@ -17,14 +14,14 @@ import AccesBD.AccesBDGen;
 
 
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame{
 	private static Container cont;
 	public static MainPane mainPane;
 	public static AproposPane proposPane;
-	private JLabel motd;
 	private JMenuBar barMenu;
 	private JMenu menuDb, MenuInstal, menuListing, menuExit;
-	private static JMenuItem menuItemLogin, menuItemLogout, menuItemAdd, menuItemDel, menuItemSearch1, menuItemSearch2, menuItemAPropos, menuItemExit;
+	private static JMenuItem menuItemLogin, menuItemLogout, menuItemAdd, menuItemDel, menuItemSearch1, menuItemSearch2, menuItemAPropos;
 	private static StatusBar bar;
 	private Connection conn = null;
 	
@@ -73,7 +70,6 @@ public class MainFrame extends JFrame{
 		menuItemSearch2 = new JMenuItem("Software après une date et par un responsable réseau particulier.");
 		
 		menuItemAPropos = new JMenuItem("A Propos");
-		menuItemExit = new JMenuItem("Quitter");
 		
 		
 		menuDb.add(menuItemLogin);
@@ -86,13 +82,16 @@ public class MainFrame extends JFrame{
 		menuListing.add(menuItemSearch2);
 		
 		menuExit.add(menuItemAPropos);
-		menuExit.add(menuItemExit);
 		
 		barMenu.add(menuDb);
         barMenu.add(MenuInstal);
         barMenu.add(menuListing);
         barMenu.add(menuExit);
         
+        JButton btnExit = new JButton("Quitter");
+        btnExit.addActionListener(new Exit());
+        barMenu.add(btnExit);
+
         
         
         //menu actions
@@ -102,7 +101,6 @@ public class MainFrame extends JFrame{
         menuItemAdd.addActionListener(new Add());
         menuItemDel.addActionListener(new Del());
         menuItemAPropos.addActionListener(new Apropos());
-        menuItemExit.addActionListener(new Exit());
         
 
             
@@ -184,6 +182,13 @@ public class MainFrame extends JFrame{
  			
  		}
  	}
+	
+	private class Exit implements ActionListener{
+ 		public void actionPerformed(ActionEvent e){
+ 			System.exit(0);
+ 			
+ 		}
+ 	}
 
 	private class Logout implements ActionListener{
  		public void actionPerformed(ActionEvent e){
@@ -207,12 +212,6 @@ public class MainFrame extends JFrame{
  			cont.remove(mainPane);
  			cont.add(proposPane, BorderLayout.CENTER);
  			cont.repaint();
- 		}
- 	}
-	
-	private class Exit implements ActionListener{
- 		public void actionPerformed(ActionEvent e){
- 			System.exit(0);
  		}
  	}
 	

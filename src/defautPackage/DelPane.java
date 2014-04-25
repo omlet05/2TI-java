@@ -12,8 +12,10 @@ import javax.swing.*;
 import AccesBD.*;
 
 
+@SuppressWarnings("serial")
 public class DelPane extends JPanel {
 	private static JTable table;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 	private JScrollPane scrollPane;
 	private JLabel lblEditeur;
@@ -22,6 +24,7 @@ public class DelPane extends JPanel {
 	
 	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DelPane(DelFrame p) {
 			myParentFen = p;
 		 	this.setBounds(10,10,753,462); 

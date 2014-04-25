@@ -1,6 +1,7 @@
 package AccesBD;
 
 import javax.swing.table.*;
+
 import java.util.*;
 
 /**
@@ -15,6 +16,7 @@ import java.util.*;
  * Un modèle de données contient également le nom des colonnes.
  * Un modèle de données peut être affiché dans une JTable.
  */
+@SuppressWarnings("serial")
 public class MonTableModel extends AbstractTableModel
     {// Liste des noms de colonnes
      ArrayList <String> nomCol = new ArrayList <String>();
@@ -46,7 +48,7 @@ public class MonTableModel extends AbstractTableModel
 
      // Retourne la valeur de la cellule à l'intersection de la ligne numéro "row" et de la colonne numéro "col"
      public Object getValueAt(int row, int col)
-     { ArrayList vect = (ArrayList)(contenu.get(row));
+     { ArrayList<?> vect = (ArrayList<?>)(contenu.get(row));
        return vect.get(col);
      }
 
@@ -55,7 +57,7 @@ public class MonTableModel extends AbstractTableModel
       * afin d'afficher le bon type des colonnes (numériques alignés à droite, 
       * chaînes de caractères alignées à gauche, booléens sous forme de cases à cocher, date avec format de date, ...)
       */
-     public Class getColumnClass (int c)
+     public Class<? extends Object> getColumnClass (int c)
      {return (objetTypes.get(c)).getClass();
      }
 

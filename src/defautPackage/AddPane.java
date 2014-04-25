@@ -3,21 +3,19 @@ package defautPackage;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Date;
-
 import javax.swing.*;
+
+
 
 import AccesBD.AccesBDGen;
 import net.sf.nachocalendar.CalendarFactory;
 import net.sf.nachocalendar.components.DateField;
 
+@SuppressWarnings("serial")
 public class AddPane extends JPanel {
+	@SuppressWarnings("unused")
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_5;
@@ -28,6 +26,7 @@ public class AddPane extends JPanel {
 	private AddFrame myFenParent;
 	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public AddPane(AddFrame p){
 		//réception mypanel pour interagir sur la frame.
 		myFenParent = p;

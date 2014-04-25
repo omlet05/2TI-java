@@ -1,18 +1,13 @@
 package defautPackage;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.SQLException;
-
 import javax.swing.*;
 
-import AccesBD.AccesBDGen;
 
 
 
-
+@SuppressWarnings("serial")
 public class LoginFrame extends JFrame{
 	private Container cont;
 	private LoginPane panel;

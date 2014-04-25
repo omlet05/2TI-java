@@ -5,10 +5,10 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
-import java.net.URL;
 
 
+
+@SuppressWarnings("serial")
 public class AproposPane extends JPanel {
 	private JLabel lblKevin, lblMath, lblAPropos;
 	private JButton btnBack;
@@ -30,12 +30,14 @@ public class AproposPane extends JPanel {
 				
 		iconKevin = new ImageIcon("res/Kevin.jpg");
 		lblKevin = new JLabel(iconKevin);
-		lblKevin.setBounds(139, 129, 118, 145);
+		lblKevin.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.black));
+		lblKevin.setBounds(139, 143, 118, 129);
 		add(lblKevin);
 		
 		iconMath = new ImageIcon("res/Mathieu.jpg");
 		lblMath = new JLabel(iconMath);
-		lblMath.setBounds(319, 129, 130, 145);
+		lblMath.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.black));
+		lblMath.setBounds(319, 143, 130, 129);
 		add(lblMath);
 		
 		btnBack = new JButton("Retour");

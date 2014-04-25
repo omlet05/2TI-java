@@ -2,6 +2,7 @@ package defautPackage;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class MainPane extends JPanel{
 	private JLabel motd;
 	

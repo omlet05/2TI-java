@@ -9,11 +9,13 @@ import javax.swing.*;
 
 
 
+@SuppressWarnings("serial")
 public class DelFrame extends JFrame {
 	
 	private Container cont;
 	private DelPane panel;
 	private Connection conn;
+	@SuppressWarnings("unused")
 	private MainFrame mainFrame;
 
 	
@@ -24,7 +26,6 @@ public class DelFrame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
-		mainFrame = mainFrame;
 		setConn(mainFrame.getConn());
 		
 		panel = new DelPane(DelFrame.this);

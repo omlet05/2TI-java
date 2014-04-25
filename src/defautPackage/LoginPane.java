@@ -1,10 +1,8 @@
 package defautPackage;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.sql.Connection;
@@ -14,16 +12,19 @@ import javax.swing.*;
 import AccesBD.AccesBDGen;
 
 
+@SuppressWarnings("serial")
 public class LoginPane extends JPanel{
 	private JLabel dbLabel, loginLabel, passwordLabel;
 	private JTextField dbField, loginField;
 	private JPasswordField passwordField;
 	private JButton buttonConnexion, buttonBack;
+	@SuppressWarnings("rawtypes")
 	private JComboBox typedb;
 	private LoginFrame myParentFrame;
 	private MainFrame myParentMainFrame;
 	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public LoginPane(MainFrame mainF,LoginFrame f){
 		myParentFrame = f;
 		myParentMainFrame = mainF;
