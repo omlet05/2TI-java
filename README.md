@@ -1,0 +1,1 @@
+<html>\r\n\t<i>\"Ce Projet a été réalisé dans le cadre du cours de programmation orientée objet de deuxièmes TI à l'Henallux durant l'année académique 2013-2014.\"</i>\r\n\t<br>\r\n\t<br>\r\n\t&nbsp;&nbsp;Ce groupe est composé de deux étudiants:\r\n\t<ul>\r\n\t\t<li>Lobet Mathieu</li>\r\n\t\t<br><br><br><br><br><br><br><br>\r\n\t\t<li>Kevin Gouverneur</li>\r\n\t</ul>\r\n</html>
