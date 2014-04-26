@@ -14,6 +14,7 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame(MainFrame f) {
 		super("Connexion");
+		
 		setSize(258, 215);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

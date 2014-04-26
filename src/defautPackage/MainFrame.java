@@ -29,7 +29,6 @@ public class MainFrame extends JFrame {
 			menuItemDel, menuItemSearch1, menuItemSearch2, menuItemAPropos;
 	private static StatusBar bar;
 	private Connection conn = null;
-
 	private Image icon;
 
 	public MainFrame() {
@@ -38,6 +37,7 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
+
 		// icon
 		icon = new javax.swing.ImageIcon("res/icon.png").getImage();
 		this.setIconImage(icon);

@@ -17,9 +17,7 @@ public class Principal {
 
 			new MainFrame();
 		} catch (Exception e) {
-			System.out
-					.println("Impossible de définir le Look & feel par défaut: "
-							+ e);
+			System.out.println("Impossible de définir le Look & feel par défaut: "+ e);
 		}
 
 	}
