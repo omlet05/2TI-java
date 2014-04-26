@@ -1,10 +1,9 @@
 package defautPackage;
 
-
 import java.awt.Container;
-import javax.swing.*;
-import java.sql.*;
+import java.sql.Connection;
 
+import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class AddFrame extends JFrame {
@@ -13,38 +12,31 @@ public class AddFrame extends JFrame {
 	private Connection conn;
 	private MainFrame mainFrame;
 
-
 	public AddFrame(MainFrame main) {
 		setTitle("Ajouter une installation.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 486);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		
+
 		mainFrame = main;
 		setConn(mainFrame.getConn());
-		
-		panel = new AddPane(AddFrame.this); //passer fenêtre 
-		
-		
-		cont = getContentPane(); 
-		cont.setLayout(null); 
+
+		panel = new AddPane(AddFrame.this); // passer fenêtre
+
+		cont = getContentPane();
+		cont.setLayout(null);
 		cont.add(panel);
-		
+
 		setVisible(true);
 	}
-
 
 	public Connection getConn() {
 		return conn;
 	}
 
-
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
-	
-	
-	
 
 }
