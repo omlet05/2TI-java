@@ -7,8 +7,11 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class MainPane extends JPanel {
 	private JLabel motd;
+	private JPanel contentP;
+	private MainFrame myParentMainFrame;
 
-	public MainPane() {
+	public MainPane(MainFrame mF) {
+		myParentMainFrame = mF;
 		this.setBounds(10, 10, 374, 338);
 		setLayout(null);
 
@@ -21,4 +24,5 @@ public class MainPane extends JPanel {
 
 		add(motd);
 	}
+	
 }

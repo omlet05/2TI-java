@@ -2,6 +2,7 @@ package defautPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,8 @@ import AccesBD.AccesBDGen;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
+	public static Search1Pane search1;
+	public static Search2Pane search2;
 	private static Container cont;
 	public static MainPane mainPane;
 	public static AproposPane proposPane;
@@ -30,6 +33,7 @@ public class MainFrame extends JFrame {
 	private static StatusBar bar;
 	private Connection conn = null;
 	private Image icon;
+	
 
 	public MainFrame() {
 		super("Java 2014 Serie U LM-KG 2TIc: Fenêtre Principale.");
@@ -95,6 +99,8 @@ public class MainFrame extends JFrame {
 		menuItemAdd.addActionListener(new Add());
 		menuItemDel.addActionListener(new Del());
 		menuItemAPropos.addActionListener(new Apropos());
+		menuItemSearch1.addActionListener(new Search1());
+		menuItemSearch1.addActionListener(new Search2());
 
 		// statusBar
 		bar = new StatusBar();
@@ -105,7 +111,7 @@ public class MainFrame extends JFrame {
 		setJMenuBar(barMenu);
 
 		// mainPanel
-		mainPane = new MainPane();
+		mainPane = new MainPane(MainFrame.this);
 		proposPane = new AproposPane(MainFrame.this);
 		getContentPane().add(mainPane, BorderLayout.CENTER);
 
@@ -195,15 +201,34 @@ public class MainFrame extends JFrame {
 	private class Apropos implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			proposPane = new AproposPane(MainFrame.this);
-
 			cont.remove(mainPane);
 			cont.add(proposPane, BorderLayout.CENTER);
 			cont.repaint();
 		}
 	}
+	
+	private class Search1 implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			search1 = new Search1Pane(MainFrame.this);
+			
+			cont.remove(mainPane);
+			cont.add(search1, BorderLayout.CENTER);
+			cont.repaint();
+		}
+	}
 
+	private class Search2 implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			search2 = new Search2Pane(MainFrame.this);
+			
+			cont.remove(mainPane);
+			cont.add(search2, BorderLayout.CENTER);
+			cont.repaint();
+		}
+	}
 	public void redrawNewMain() {
-		mainPane = new MainPane();
+		mainPane = new MainPane(MainFrame.this);
+		
 		cont.remove(proposPane);
 		cont.add(mainPane, BorderLayout.CENTER);
 		cont.repaint();
