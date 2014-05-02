@@ -9,15 +9,15 @@ import javax.swing.JPanel;
 
 
 public class Search1Pane extends JPanel {
-	private MainFrame myFenetre1Pane;
+	
 	private JButton btnBackS1;
 	
 	
 	
-	public Search1Pane(MainFrame mainF){
+	public Search1Pane(Search1Frame search1Frame){
 		this.setBounds(10, 10, 631, 396);
 		setLayout(null);
-		myFenetre1Pane = mainF;
+		
 	
 		btnBackS1 = new JButton("Retour");
 		btnBackS1.addActionListener(new Back());
@@ -26,7 +26,7 @@ public class Search1Pane extends JPanel {
 	}
 	private class Back implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			myFenetre1Pane.redrawNewMain();
+			
 		}
 	}
 }
