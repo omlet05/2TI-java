@@ -10,6 +10,8 @@ import javax.swing.table.AbstractTableModel;
  * 
  */
 
+
+
 /*
  * Tout objet de cette classe est un modèle de données, à savoir un ensemble de
  * lignes et de colonnes sous forme d'un tableau à deux dimensions. Un modèle de
