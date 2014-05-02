@@ -26,9 +26,9 @@ import net.sf.nachocalendar.components.DateField;
 import AccesBD.AccesBDGen;
 
 
-public class UpdatePane extends JPanel{
+@SuppressWarnings("serial")
+public class UpdateFormPane extends JPanel{
 
-		private JPanel contentPane;
 		private JTextField textField;
 		private JTextField textField_5;
 		private JComboBox<?> comboBox, comboBox_1, comboBox_2;
@@ -36,13 +36,16 @@ public class UpdatePane extends JPanel{
 		private JTextPane textPane;
 		private JSpinner spinner;
 		private UpdateFrame myFenParent;
+		private int index;
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		public UpdatePane(UpdateFrame p) {
+		public UpdateFormPane(UpdateFrame p, int index2) {
 			// réception mypanel pour interagir sur la frame.
 			myFenParent = p;
-
-			setBounds(10, 10, 400, 450);
+			index = index2;
+			
+			
+			setBounds(10, 10, 400, 440);
 			setLayout(null);
 
 			textField = new JTextField();
@@ -101,13 +104,13 @@ public class UpdatePane extends JPanel{
 			lblCodeos.setBounds(10, 273, 173, 22);
 			add(lblCodeos);
 
-			JButton btnInserer = new JButton("Insérer");
-			btnInserer.setBounds(21, 382, 118, 28);
-			btnInserer.addActionListener(new Insert());
+			JButton btnInserer = new JButton("Modifier");
+			btnInserer.setBounds(221, 382, 118, 28);
+			btnInserer.addActionListener(new Update());
 			add(btnInserer);
 
-			JButton btnRinitialiser = new JButton("Réinitialiser");
-			btnRinitialiser.setBounds(151, 382, 118, 28);
+			JButton btnRinitialiser = new JButton("Recharger");
+			btnRinitialiser.setBounds(59, 382, 118, 28);
 			btnRinitialiser.addActionListener(new Reinit());
 			add(btnRinitialiser);
 
@@ -128,11 +131,6 @@ public class UpdatePane extends JPanel{
 
 			comboBox_2.setBounds(195, 271, 144, 27);
 			add(comboBox_2);
-
-			JButton btnRetour = new JButton("Retour");
-			btnRetour.addActionListener(new Retour());
-			btnRetour.setBounds(281, 382, 90, 28);
-			add(btnRetour);
 
 			JLabel lblDateinstallation = new JLabel("DateInstallation");
 			lblDateinstallation.setBounds(39, 55, 144, 25);
@@ -207,43 +205,37 @@ public class UpdatePane extends JPanel{
 			Object[] toReturn = null;
 			PreparedStatement prep;
 			try {
-				prep = myFenParent.getConn().prepareStatement(
-						"SELECT CodeOS FROM OS");
+				prep = myFenParent.getConn().prepareStatement("SELECT CodeOS FROM OS");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 			return toReturn;
 
 		}
 
-		private class Retour implements ActionListener {
-			public void actionPerformed(ActionEvent arg0) {
-				myFenParent.dispose();
-			}
-		}
+	
 
 		private class Reinit implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				reinit();
+				reMatch();
 			}
 		}
 
-		public void reinit() {
-			try {
-				textField.setText(getNextfreeID());
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+		public void reMatch() {
+			
+			
+			
+			textField.setText(String.valueOf(index));
+			System.out.println(index);
 			// textField_1.setText("");
 			datefield.setValue(new Date());
-			spinner.setValue(0);
+			spinner.setValue(index);
 			textPane.setText(null);
 			textField_5.setText(null);
-			comboBox.setSelectedIndex(0);
-			comboBox_1.setSelectedIndex(0);
-			comboBox_2.setSelectedIndex(0);
+			comboBox.setSelectedIndex(index);
+			comboBox_1.setSelectedIndex(index);
+			comboBox_2.setSelectedIndex(index);
 		}
 
 		private String setNullIfBlank(String toVerif) {
@@ -253,37 +245,24 @@ public class UpdatePane extends JPanel{
 				return toVerif;
 		}
 
-		private class Insert implements ActionListener {
+		private class Update implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				PreparedStatement prep;
 				int nbModif;
 
-				// format the date for mysql insert
+				// format the date for mysql update
 				Date date = (Date) datefield.getValue();
 				Timestamp dateInsert = new Timestamp(date.getTime());
 
 				try {
-					prep = myFenParent.getConn().prepareStatement(
-							"INSERT INTO  `test`.`Installation` VALUES ('"
-									+ getNextfreeID() + "',  '" + dateInsert
-									+ "', ? ,  '" + spinner.getValue()
-									+ "', ? ,  '"
-									+ comboBox.getSelectedItem().toString()
-									+ "',  '"
-									+ comboBox_1.getSelectedItem().toString()
-									+ "',  '"
-									+ comboBox_2.getSelectedItem().toString()
-									+ "')");
+					prep = myFenParent.getConn().prepareStatement("");
 					prep.setString(1, setNullIfBlank(textPane.getText()));
 					prep.setString(2, setNullIfBlank(textField_5.getText()));
 					nbModif = AccesBDGen.executerInstruction(prep);
-					JOptionPane.showMessageDialog(null, nbModif
-							+ " ligne(s) modifiée(s).", "Ajout réussit!",
-							JOptionPane.INFORMATION_MESSAGE);
-					reinit();
+					JOptionPane.showMessageDialog(null, nbModif+" ligne(s) modifiée(s).", "Modification réussie!",JOptionPane.INFORMATION_MESSAGE);
+					reMatch();
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "Erreur",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
