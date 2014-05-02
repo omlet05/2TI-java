@@ -131,6 +131,7 @@ public class MainFrame extends JFrame {
 			menuItemLogout.setEnabled(false);
 			menuItemAdd.setEnabled(false);
 			menuItemDel.setEnabled(false);
+			menuItemUpdate.setEnabled(false);
 			menuItemSearch1.setEnabled(false);
 			menuItemSearch2.setEnabled(false);
 			// enable needed
@@ -142,6 +143,7 @@ public class MainFrame extends JFrame {
 			menuItemLogout.setEnabled(true);
 			menuItemAdd.setEnabled(true);
 			menuItemDel.setEnabled(true);
+			menuItemUpdate.setEnabled(true);
 			menuItemSearch1.setEnabled(true);
 			menuItemSearch2.setEnabled(true);
 			// same
