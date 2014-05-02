@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 	private JMenuBar barMenu;
 	private JMenu menuDb, MenuInstal, menuListing, menuExit;
 	private static JMenuItem menuItemLogin, menuItemLogout, menuItemAdd,
-			menuItemDel, menuItemSearch1, menuItemSearch2, menuItemAPropos;
+			menuItemDel, menuItemUpdate, menuItemSearch1, menuItemSearch2, menuItemAPropos;
 	private static StatusBar bar;
 	private Connection conn = null;
 	private Image icon;
@@ -64,6 +64,7 @@ public class MainFrame extends JFrame {
 
 		menuItemAdd = new JMenuItem("Ajout");
 		menuItemDel = new JMenuItem("Supression");
+		menuItemUpdate = new JMenuItem("Modification");
 
 		menuItemSearch1 = new JMenuItem(
 				"Software sans code d'installation, en fonction d'une année scolaire.");
@@ -77,6 +78,7 @@ public class MainFrame extends JFrame {
 
 		MenuInstal.add(menuItemAdd);
 		MenuInstal.add(menuItemDel);
+		MenuInstal.add(menuItemUpdate);
 
 		menuListing.add(menuItemSearch1);
 		menuListing.add(menuItemSearch2);
@@ -98,9 +100,11 @@ public class MainFrame extends JFrame {
 		menuItemLogout.addActionListener(new Logout());
 		menuItemAdd.addActionListener(new Add());
 		menuItemDel.addActionListener(new Del());
+		menuItemUpdate.addActionListener(new Update());
 		menuItemAPropos.addActionListener(new Apropos());
 		menuItemSearch1.addActionListener(new Search1());
-		menuItemSearch1.addActionListener(new Search2());
+		menuItemSearch2.addActionListener(new Search2());
+		
 
 		// statusBar
 		bar = new StatusBar();
@@ -143,7 +147,7 @@ public class MainFrame extends JFrame {
 			// same
 			menuItemLogin.setEnabled(false);
 			txt = " Status connexion: on";
-			// Hexa color
+			// Hexa colorUpdateFrame
 			Color aColor = new Color(0x009900);
 			bar.setForeground(aColor);
 		}
@@ -172,6 +176,13 @@ public class MainFrame extends JFrame {
 	private class Del implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			new DelFrame(MainFrame.this);
+			
+		}
+	}
+	
+	private class Update implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			new UpdateFrame(MainFrame.this);
 
 		}
 	}
