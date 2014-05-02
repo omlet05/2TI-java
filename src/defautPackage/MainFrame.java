@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -60,18 +61,24 @@ public class MainFrame extends JFrame {
 		menuExit = new JMenu("Application");
 
 		menuItemLogin = new JMenuItem("Connexion");
+		menuItemLogin.setIcon(new ImageIcon("res/icons/login-icon.png"));
 		menuItemLogout = new JMenuItem("Déconnexion");
+		menuItemLogout.setIcon(new ImageIcon("res/icons/logout-icon.png"));
 
 		menuItemAdd = new JMenuItem("Ajout");
+		menuItemAdd.setIcon(new ImageIcon("res/icons/add-icon.png"));
 		menuItemDel = new JMenuItem("Supression");
+		menuItemDel.setIcon(new ImageIcon("res/icons/remove-icon.png"));
 		menuItemUpdate = new JMenuItem("Modification");
+		menuItemUpdate.setIcon(new ImageIcon("res/icons/edit-icon.png"));
 
-		menuItemSearch1 = new JMenuItem(
-				"Software sans code d'installation, en fonction d'une année scolaire.");
-		menuItemSearch2 = new JMenuItem(
-				"Software après une date et par un responsable réseau particulier.");
+		menuItemSearch1 = new JMenuItem("Software sans code d'installation, en fonction d'une année scolaire.");
+		menuItemSearch2 = new JMenuItem("Software après une date et par un responsable réseau particulier.");
+		menuItemSearch1.setIcon(new ImageIcon("res/icons/listing-icon.png"));
+		menuItemSearch2.setIcon(new ImageIcon("res/icons/listing-icon.png"));
 
 		menuItemAPropos = new JMenuItem("A Propos");
+		menuItemAPropos.setIcon(new ImageIcon("res/icons/about-icon.png"));
 
 		menuDb.add(menuItemLogin);
 		menuDb.add(menuItemLogout);
@@ -205,8 +212,7 @@ public class MainFrame extends JFrame {
 					setBarStat(false);
 				}
 			} catch (Exception e1) {
-				System.out.println("Erreur lors de la déconnexion : "
-						+ e1.getMessage());
+				System.out.println("Erreur lors de la déconnexion : "+ e1.getMessage());
 			}
 		}
 	}
