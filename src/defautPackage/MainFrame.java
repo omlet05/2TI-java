@@ -209,21 +209,13 @@ public class MainFrame extends JFrame {
 	
 	private class Search1 implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			search1 = new Search1Pane(MainFrame.this);
-			
-			cont.remove(mainPane);
-			cont.add(search1, BorderLayout.CENTER);
-			cont.repaint();
+			new Search1Frame(MainFrame.this);
 		}
 	}
 
 	private class Search2 implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			search2 = new Search2Pane(MainFrame.this);
-			
-			cont.remove(mainPane);
-			cont.add(search2, BorderLayout.CENTER);
-			cont.repaint();
+			new Search2Frame(MainFrame.this);
 		}
 	}
 	public void redrawNewMain() {
