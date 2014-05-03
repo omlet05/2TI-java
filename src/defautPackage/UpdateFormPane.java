@@ -29,30 +29,30 @@ import AccesBD.AccesBDGen;
 @SuppressWarnings("serial")
 public class UpdateFormPane extends JPanel{
 
-		private JTextField textField;
-		private JTextField textField_5;
-		private JComboBox<?> comboBox, comboBox_1, comboBox_2;
-		private DateField datefield = CalendarFactory.createDateField();
-		private JTextPane textPane;
-		private JSpinner spinner;
+		private JTextField txtFldIDInstall;
+		private JTextField RefProcInstallTxtFld;
+		private JComboBox<?> codeSoftComboBox, matriculeComboBox, codeOsCombobox;
+		private DateField dateInstallFld = CalendarFactory.createDateField();
+		private JTextPane commentTextPane;
+		private JSpinner dureeInstallSpinner;
 		private UpdateFrame myFenParent;
-		private int index;
+		private int idInstall;
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public UpdateFormPane(UpdateFrame p, int index2) {
 			// réception mypanel pour interagir sur la frame.
 			myFenParent = p;
-			index = index2;
+			idInstall = index2;
 			
 			
 			setBounds(10, 10, 400, 440);
 			setLayout(null);
 
-			textField = new JTextField();
-			textField.setEnabled(false);
-			textField.setBounds(195, 11, 144, 27);
-			add(textField);
-			textField.setColumns(10);
+			txtFldIDInstall = new JTextField();
+			txtFldIDInstall.setEnabled(false);
+			txtFldIDInstall.setBounds(195, 11, 144, 27);
+			add(txtFldIDInstall);
+			txtFldIDInstall.setColumns(10);
 
 			JLabel lblNewLabel = new JLabel("IdInstallation");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -60,9 +60,9 @@ public class UpdateFormPane extends JPanel{
 			add(lblNewLabel);
 
 			// date
-			datefield.setBounds(195, 53, 144, 27);
-			datefield.setValue(new Date());
-			add(datefield);
+			dateInstallFld.setBounds(195, 53, 144, 27);
+			dateInstallFld.setValue(new Date());
+			add(dateInstallFld);
 			// datefield.getValue();
 
 			JLabel lblCommentaires = new JLabel("Commentaires");
@@ -84,10 +84,10 @@ public class UpdateFormPane extends JPanel{
 			lblRefprocedureinstallation.setBounds(21, 135, 162, 27);
 			add(lblRefprocedureinstallation);
 
-			textField_5 = new JTextField();
-			textField_5.setColumns(10);
-			textField_5.setBounds(195, 135, 144, 27);
-			add(textField_5);
+			RefProcInstallTxtFld = new JTextField();
+			RefProcInstallTxtFld.setColumns(10);
+			RefProcInstallTxtFld.setBounds(195, 135, 144, 27);
+			add(RefProcInstallTxtFld);
 
 			JLabel lblNewLabel_1 = new JLabel("CodeSoftware");
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -111,56 +111,63 @@ public class UpdateFormPane extends JPanel{
 
 			JButton btnRinitialiser = new JButton("Recharger");
 			btnRinitialiser.setBounds(59, 382, 118, 28);
-			btnRinitialiser.addActionListener(new Reinit());
+			btnRinitialiser.addActionListener(new Rematch());
 			add(btnRinitialiser);
 
 			try {
-				textField.setText(getNextfreeID());
-				comboBox = new JComboBox(getCodeSoftware());
-				comboBox_1 = new JComboBox(getMatricule());
-				comboBox_2 = new JComboBox(getCodeOs());
+				txtFldIDInstall.setText("");
+				codeSoftComboBox = new JComboBox(getCodeSoftware());
+				matriculeComboBox = new JComboBox(getMatricule());
+				codeOsCombobox = new JComboBox(getCodeOs());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
-			comboBox.setBounds(195, 178, 144, 27);
-			add(comboBox);
+			codeSoftComboBox.setBounds(195, 178, 144, 27);
+			add(codeSoftComboBox);
 
-			comboBox_1.setBounds(195, 222, 144, 27);
-			add(comboBox_1);
+			matriculeComboBox.setBounds(195, 222, 144, 27);
+			add(matriculeComboBox);
 
-			comboBox_2.setBounds(195, 271, 144, 27);
-			add(comboBox_2);
+			codeOsCombobox.setBounds(195, 271, 144, 27);
+			add(codeOsCombobox);
 
 			JLabel lblDateinstallation = new JLabel("DateInstallation");
 			lblDateinstallation.setBounds(39, 55, 144, 25);
 			add(lblDateinstallation);
 			lblDateinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
 
-			spinner = new JSpinner();
-			spinner.setModel(new SpinnerNumberModel(0, 0, 500, 1));
-			spinner.setBounds(195, 91, 144, 27);
-			add(spinner);
+			dureeInstallSpinner = new JSpinner();
+			dureeInstallSpinner.setModel(new SpinnerNumberModel(0, 0, 500, 1));
+			dureeInstallSpinner.setBounds(195, 91, 144, 27);
+			add(dureeInstallSpinner);
 
-			textPane = new JTextPane();
-			textPane.setBounds(195, 315, 144, 56);
-			add(textPane);
+			commentTextPane = new JTextPane();
+			commentTextPane.setBounds(195, 315, 144, 56);
+			add(commentTextPane);
 
 			JLabel lblChamp = new JLabel("* Champ Facultatif.");
 			lblChamp.setForeground(Color.RED);
 			lblChamp.setBounds(21, 357, 162, 14);
 			add(lblChamp);
 		}
-
-		private String getNextfreeID() throws SQLException {
-			String toReturn = null;
-			String sql = "SELECT MAX(IdInstallation)+1 FROM Installation";
+		
+		private void getChamps() throws SQLException {
+			
+			String sql = "SELECT * FROM Installation WHERE IdInstallation ="+idInstall;
 			try {
-
 				Statement prep = myFenParent.getConn().createStatement();
 				ResultSet result = prep.executeQuery(sql);
 				while (result.next()) {
-					toReturn = result.getString(1);
+					
+					txtFldIDInstall.setText(result.getString(1));		
+					dateInstallFld.setValue(result.getDate(2));
+					dureeInstallSpinner.setValue(result.getObject(4));
+					RefProcInstallTxtFld.setText(result.getString(5));
+					//codeSoftComboBox.setSelectedIndex(result.getInt(6));
+					//matriculeComboBox.setSelectedIndex(result.getInt(7));
+					//codeOsCombobox.setSelectedIndex(result.getInt(8));
+					commentTextPane.setText(result.getString(3));
 				}
 				result.close();
 
@@ -168,7 +175,7 @@ public class UpdateFormPane extends JPanel{
 				JOptionPane.showMessageDialog(null, e, "Erreur",
 						JOptionPane.WARNING_MESSAGE);
 			}
-			return toReturn;
+			
 
 		}
 
@@ -214,35 +221,24 @@ public class UpdateFormPane extends JPanel{
 
 		}
 
-	
-
-		private class Reinit implements ActionListener {
-			public void actionPerformed(ActionEvent e) {
-				reMatch();
-			}
-		}
-
-		public void reMatch() {
-			
-			
-			
-			textField.setText(String.valueOf(index));
-			System.out.println(index);
-			// textField_1.setText("");
-			datefield.setValue(new Date());
-			spinner.setValue(index);
-			textPane.setText(null);
-			textField_5.setText(null);
-			comboBox.setSelectedIndex(index);
-			comboBox_1.setSelectedIndex(index);
-			comboBox_2.setSelectedIndex(index);
-		}
-
 		private String setNullIfBlank(String toVerif) {
 			if (toVerif.equals("") || toVerif.equals(null))
 				return null;
 			else
 				return toVerif;
+		}
+		
+		private class Rematch implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+					try {
+						getChamps();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
+
+			}
 		}
 
 		private class Update implements ActionListener {
@@ -251,13 +247,13 @@ public class UpdateFormPane extends JPanel{
 				int nbModif;
 
 				// format the date for mysql update
-				Date date = (Date) datefield.getValue();
+				Date date = (Date) dateInstallFld.getValue();
 				Timestamp dateInsert = new Timestamp(date.getTime());
 
 				try {
 					prep = myFenParent.getConn().prepareStatement("");
-					prep.setString(1, setNullIfBlank(textPane.getText()));
-					prep.setString(2, setNullIfBlank(textField_5.getText()));
+					prep.setString(1, setNullIfBlank(commentTextPane.getText()));
+					prep.setString(2, setNullIfBlank(RefProcInstallTxtFld.getText()));
 					nbModif = AccesBDGen.executerInstruction(prep);
 					JOptionPane.showMessageDialog(null, nbModif+" ligne(s) modifiée(s).", "Modification réussie!",JOptionPane.INFORMATION_MESSAGE);
 					reMatch();
