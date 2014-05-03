@@ -150,6 +150,12 @@ public class UpdateFormPane extends JPanel{
 			lblChamp.setForeground(Color.RED);
 			lblChamp.setBounds(21, 357, 162, 14);
 			add(lblChamp);
+			/* on remplit les champs */
+			try {
+				getChamps();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+			}
 		}
 		
 		private void getChamps() throws SQLException {
@@ -164,16 +170,15 @@ public class UpdateFormPane extends JPanel{
 					dateInstallFld.setValue(result.getDate(2));
 					dureeInstallSpinner.setValue(result.getObject(4));
 					RefProcInstallTxtFld.setText(result.getString(5));
-					//codeSoftComboBox.setSelectedIndex(result.getInt(6));
-					//matriculeComboBox.setSelectedIndex(result.getInt(7));
-					//codeOsCombobox.setSelectedIndex(result.getInt(8));
+					codeSoftComboBox.setSelectedItem(result.getObject(6));
+					matriculeComboBox.setSelectedItem(result.getObject(7));
+					codeOsCombobox.setSelectedItem(result.getObject(8));
 					commentTextPane.setText(result.getString(3));
 				}
 				result.close();
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 			
 
@@ -230,13 +235,11 @@ public class UpdateFormPane extends JPanel{
 		
 		private class Rematch implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-					try {
-						getChamps();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
+				try {
+					getChamps();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
+				}
 
 			}
 		}
@@ -249,15 +252,17 @@ public class UpdateFormPane extends JPanel{
 				// format the date for mysql update
 				Date date = (Date) dateInstallFld.getValue();
 				Timestamp dateInsert = new Timestamp(date.getTime());
-
+				
 				try {
-					prep = myFenParent.getConn().prepareStatement("");
+					prep = myFenParent.getConn().prepareStatement("UPDATE Installation SET DateInstallation = '"+dateInsert+"', Commentaires = ?, DureeInstallation = '"+dureeInstallSpinner.getValue()+"', RefProcedureInstallation = ?, CodeSoftware = '"+codeSoftComboBox.getSelectedItem().toString()+"', Matricule = '"+matriculeComboBox.getSelectedItem().toString()+"', CodeOS = '"+codeOsCombobox.getSelectedItem().toString()+"' WHERE IdInstallation="+idInstall);
 					prep.setString(1, setNullIfBlank(commentTextPane.getText()));
 					prep.setString(2, setNullIfBlank(RefProcInstallTxtFld.getText()));
 					nbModif = AccesBDGen.executerInstruction(prep);
+					
 					JOptionPane.showMessageDialog(null, nbModif+" ligne(s) modifiée(s).", "Modification réussie!",JOptionPane.INFORMATION_MESSAGE);
-					reMatch();
-				} catch (Exception e1) {
+					getChamps();
+					myFenParent.updateTabpane();
+					} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 

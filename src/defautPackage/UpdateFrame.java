@@ -35,8 +35,8 @@ public class UpdateFrame extends JFrame {
 	public UpdateFrame(MainFrame f) {
 		setTitle("Modification d'une Installation.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(749, 527);
-		setLayout(null);
+		setSize(749, 675);
+		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
@@ -52,7 +52,7 @@ public class UpdateFrame extends JFrame {
 		
 		
 		tabbedPane = new JTabbedPane();
-		tabbedPane.setBounds(10, 10, 700, 465);
+		tabbedPane.setBounds(10, 10, 700, 575);
 		getContentPane().add(tabbedPane);
 		
 		panel2 = new UpdateTablePane(UpdateFrame.this); 
@@ -70,6 +70,10 @@ public class UpdateFrame extends JFrame {
 	public Connection getConn() {
 		return conn;
 	}
+	
+	public void updateTabpane(){
+    	panel2.updateTable();
+    }
 
 	public void setConn(Connection conn) {
 		this.conn = conn;
@@ -109,6 +113,8 @@ public class UpdateFrame extends JFrame {
 		
 	}
 	
+	
+	
 	private class MyCloseActionHandler implements ActionListener {
 
 	    private String tabName;
@@ -120,6 +126,7 @@ public class UpdateFrame extends JFrame {
 	    public String getTabName() {
 	        return tabName;
 	    }
+	    
 
 	    public void actionPerformed(ActionEvent evt) {
 
@@ -130,6 +137,8 @@ public class UpdateFrame extends JFrame {
 	        }
 
 	    }
+	    
+	    
 
 	}   
 
