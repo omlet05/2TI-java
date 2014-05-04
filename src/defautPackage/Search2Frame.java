@@ -11,7 +11,7 @@ public class Search2Frame extends JFrame {
 	private Connection conn;
 	private MainFrame mainFrame;
 	public Search2Frame(MainFrame main){
-		setTitle("Software après une date et par un responsable réseau particulier.");
+		setTitle("Software après une date et par un responsable réseau particulier. ");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 550);
 		setResizable(false);

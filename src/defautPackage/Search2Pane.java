@@ -109,6 +109,7 @@ public class Search2Pane extends JPanel {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
+	 
 	
 
 
@@ -126,6 +127,7 @@ public class Search2Pane extends JPanel {
 		/*java.sql.Date datesql= new java.sql.Date(dateS.getTimeInMillis());
 		GregorianCalendar dateS =new GregorianCalendar();
 		dateS.setTime(datesql);*/
+		
 		try {
 			prep = myParentS2.getConn().prepareStatement("SELECT dateinstallation from installation ");
 			

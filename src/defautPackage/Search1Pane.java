@@ -110,6 +110,7 @@ public class Search1Pane extends JPanel {
 
 	}
 	
+	
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.HORIZONTAL);
