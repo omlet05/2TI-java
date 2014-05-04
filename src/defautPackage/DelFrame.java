@@ -11,8 +11,6 @@ public class DelFrame extends JFrame {
 	private Container cont;
 	private DelPane panel;
 	private Connection conn;
-	@SuppressWarnings("unused")
-	private MainFrame mainFrame;
 
 	public DelFrame(MainFrame mainFrame) {
 		setTitle("Supression d'un software.");

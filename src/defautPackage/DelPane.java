@@ -154,9 +154,7 @@ public class DelPane extends JPanel {
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.CENTER);
-		for (int i = 0; i < table.getColumnCount(); table.getColumnModel()
-				.getColumn(i).setCellRenderer(custom), i++)
-			;
+		for (int i = 0; i < table.getColumnCount(); table.getColumnModel().getColumn(i).setCellRenderer(custom), i++);
 	}
 
 }

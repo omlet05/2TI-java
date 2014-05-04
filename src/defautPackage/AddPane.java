@@ -264,7 +264,7 @@ public class AddPane extends JPanel {
 
 			try {
 				prep = myFenParent.getConn().prepareStatement(
-						"INSERT INTO  `test`.`Installation` VALUES ('"
+						"INSERT INTO  Installation VALUES ('"
 								+ getNextfreeID() + "',  '" + dateInsert
 								+ "', ? ,  '" + spinner.getValue()
 								+ "', ? ,  '"
