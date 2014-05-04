@@ -14,7 +14,7 @@ public class Search1Frame extends JFrame {
 	public Search1Frame(MainFrame main){
 		setTitle("Recherche n°1");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(665, 475);
+		setSize(1000, 550);
 		setResizable(false);
 		setLocationRelativeTo(null);
 

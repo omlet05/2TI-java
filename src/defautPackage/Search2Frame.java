@@ -14,7 +14,7 @@ public class Search2Frame extends JFrame {
 	public Search2Frame(MainFrame main){
 		setTitle("Recherche n°2");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(792, 526);
+		setSize(1000, 550);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
