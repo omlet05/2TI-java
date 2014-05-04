@@ -14,6 +14,7 @@ public class DelFrame extends JFrame {
 
 	public DelFrame(MainFrame mainFrame) {
 		setTitle("Supression d'un software.");
+		setIconImage(new javax.swing.ImageIcon("res/icons/remove-icon.png").getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(792, 526);
 		setResizable(false);

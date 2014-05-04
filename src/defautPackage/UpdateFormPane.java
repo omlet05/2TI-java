@@ -45,12 +45,12 @@ public class UpdateFormPane extends JPanel{
 			idInstall = index2;
 			
 			
-			setBounds(10, 10, 400, 440);
+			setBounds(10, 10, 559, 441);
 			setLayout(null);
 
 			txtFldIDInstall = new JTextField();
 			txtFldIDInstall.setEnabled(false);
-			txtFldIDInstall.setBounds(195, 11, 144, 27);
+			txtFldIDInstall.setBounds(195, 11, 252, 27);
 			add(txtFldIDInstall);
 			txtFldIDInstall.setColumns(10);
 
@@ -60,7 +60,7 @@ public class UpdateFormPane extends JPanel{
 			add(lblNewLabel);
 
 			// date
-			dateInstallFld.setBounds(195, 53, 144, 27);
+			dateInstallFld.setBounds(195, 53, 252, 27);
 			dateInstallFld.setValue(new Date());
 			add(dateInstallFld);
 			// datefield.getValue();
@@ -86,7 +86,7 @@ public class UpdateFormPane extends JPanel{
 
 			RefProcInstallTxtFld = new JTextField();
 			RefProcInstallTxtFld.setColumns(10);
-			RefProcInstallTxtFld.setBounds(195, 135, 144, 27);
+			RefProcInstallTxtFld.setBounds(195, 135, 252, 27);
 			add(RefProcInstallTxtFld);
 
 			JLabel lblNewLabel_1 = new JLabel("CodeSoftware");
@@ -105,12 +105,12 @@ public class UpdateFormPane extends JPanel{
 			add(lblCodeos);
 
 			JButton btnInserer = new JButton("Modifier");
-			btnInserer.setBounds(221, 382, 118, 28);
+			btnInserer.setBounds(329, 402, 118, 28);
 			btnInserer.addActionListener(new Update());
 			add(btnInserer);
 
 			JButton btnRinitialiser = new JButton("Recharger");
-			btnRinitialiser.setBounds(59, 382, 118, 28);
+			btnRinitialiser.setBounds(195, 402, 118, 28);
 			btnRinitialiser.addActionListener(new Rematch());
 			add(btnRinitialiser);
 
@@ -123,13 +123,13 @@ public class UpdateFormPane extends JPanel{
 				e.printStackTrace();
 			}
 
-			codeSoftComboBox.setBounds(195, 178, 144, 27);
+			codeSoftComboBox.setBounds(195, 178, 252, 27);
 			add(codeSoftComboBox);
 
-			matriculeComboBox.setBounds(195, 222, 144, 27);
+			matriculeComboBox.setBounds(195, 222, 252, 27);
 			add(matriculeComboBox);
 
-			codeOsCombobox.setBounds(195, 271, 144, 27);
+			codeOsCombobox.setBounds(195, 271, 252, 27);
 			add(codeOsCombobox);
 
 			JLabel lblDateinstallation = new JLabel("DateInstallation");
@@ -139,16 +139,16 @@ public class UpdateFormPane extends JPanel{
 
 			dureeInstallSpinner = new JSpinner();
 			dureeInstallSpinner.setModel(new SpinnerNumberModel(0, 0, 500, 1));
-			dureeInstallSpinner.setBounds(195, 91, 144, 27);
+			dureeInstallSpinner.setBounds(195, 91, 252, 27);
 			add(dureeInstallSpinner);
 
 			commentTextPane = new JTextPane();
-			commentTextPane.setBounds(195, 315, 144, 56);
+			commentTextPane.setBounds(195, 315, 252, 76);
 			add(commentTextPane);
 
 			JLabel lblChamp = new JLabel("* Champ Facultatif.");
 			lblChamp.setForeground(Color.RED);
-			lblChamp.setBounds(21, 357, 162, 14);
+			lblChamp.setBounds(21, 409, 162, 14);
 			add(lblChamp);
 			/* on remplit les champs */
 			try {
