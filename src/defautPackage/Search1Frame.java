@@ -12,7 +12,7 @@ public class Search1Frame extends JFrame {
 	private Connection conn;
 	private MainFrame mainFrame;
 	public Search1Frame(MainFrame main){
-		setTitle("Recherche n°1");
+		setTitle("Software sans code d'installation, en fonction d'une année scolaire.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 550);
 		setResizable(false);

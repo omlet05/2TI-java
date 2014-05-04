@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -25,10 +27,11 @@ public class Search2Pane extends JPanel {
 	private JComboBox comboBox;
 	private JComboBox comboBox2;
 	private JScrollPane scrollPane;
-	private JLabel lblEditeur;
+	private JLabel lblResponsable;
 	private Search2Frame myParentS2;
 	private JButton btnRetourS2;
-	
+	private JLabel lblDate;
+	private GregorianCalendar dateS;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Search2Pane(Search2Frame p) {
@@ -61,7 +64,8 @@ public class Search2Pane extends JPanel {
 		
 		
 		
-		comboBox.setBounds(514, 40, 231, 20);
+		
+		comboBox.setBounds(714, 40, 231, 20);
 		this.add(comboBox);
 
 		comboBox2.setBounds(714, 10, 231, 20);
@@ -84,15 +88,19 @@ public class Search2Pane extends JPanel {
 		this.add(btnRetourS2);
 
 		
-		lblEditeur = new JLabel("");
-		lblEditeur.setBounds(458, 13, 46, 14);
-		this.add(lblEditeur);
+		lblResponsable = new JLabel("Responsable:");
+		lblResponsable.setBounds(640, 12, 70, 14);
+		this.add(lblResponsable);
+		
+		lblDate = new JLabel("Date d'installation:");
+		lblDate.setBounds(620, 42, 100, 14);
+		this.add(lblDate);
 
 	}
 
 	private void updateTable() {
 		try {
-			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM installation i join responsablereseaux on responsablereseaux.matricule=i.matricule WHERE responsablereseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and i.dateinstallation ="+comboBox.getSelectedItem().toString() );	
+			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM responsablereseaux join installation i on responsablereseaux.matricule=i.matricule WHERE responsablereseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and dateinstallation ='"+ comboBox.getSelectedItem().toString()+"'");	
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			centerJtable(table);
 
@@ -115,9 +123,17 @@ public class Search2Pane extends JPanel {
 	private Object[] getDate() throws SQLException {
 		Object[] toReturn = null;
 		PreparedStatement prep;
+		/*java.sql.Date datesql= new java.sql.Date(dateS.getTimeInMillis());
+		GregorianCalendar dateS =new GregorianCalendar();
+		dateS.setTime(datesql);*/
 		try {
 			prep = myParentS2.getConn().prepareStatement("SELECT dateinstallation from installation ");
+			
+			
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
+			
+				
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}

@@ -9,10 +9,9 @@ public class Search2Frame extends JFrame {
 	private Container cont;
 	private Search2Pane panel;
 	private Connection conn;
-	@SuppressWarnings("unused")
 	private MainFrame mainFrame;
 	public Search2Frame(MainFrame main){
-		setTitle("Recherche n°2");
+		setTitle("Software après une date et par un responsable réseau particulier.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 550);
 		setResizable(false);

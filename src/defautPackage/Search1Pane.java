@@ -30,13 +30,15 @@ public class Search1Pane extends JPanel {
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
 	private JLabel lblAnneeEtude;
-	private JLabel lblAnneeEtude2;
 	private JScrollPane scrollPane;
 	@SuppressWarnings("unchecked")
+	
 	public Search1Pane(Search1Frame search1Fram){
+		
 		this.setBounds(10, 10, 1000, 550);
 		setLayout(null);
 		search1Frame =search1Fram;
+		
 		try {
 			comboBox = new JComboBox(getAnneeEtude());
 
@@ -68,21 +70,20 @@ public class Search1Pane extends JPanel {
 		scrollPane.setBounds(10, 43, 940, 400);
 		this.add(scrollPane);
 		
-		lblAnneeEtude = new JLabel("Année d'");
-		lblAnneeEtude.setBounds(715, 13, 46, 14);
+		lblAnneeEtude = new JLabel("Année d'étude :");
+		lblAnneeEtude.setBounds(715, 13, 80, 14);
 		this.add(lblAnneeEtude);
 		
-		lblAnneeEtude2 = new JLabel("étude:");
-		lblAnneeEtude2.setBounds(760, 13, 46, 14);
-		this.add(lblAnneeEtude2);
 		
 	}
+	
 	private class Back implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			search1Frame.dispose();
 		}
 	}
-	 private void updateTable() {
+	
+	private void updateTable() {
 		try {
 			PreparedStatement prepS = search1Frame.getConn().prepareStatement("SELECT Nom, Codeinstallation, software.codesoftware, a.annee, a.codesection  FROM anneeetude a JOIN utilisationsoftware ON a.idanneeetude = utilisationsoftware.idanneeetude JOIN software  ON utilisationSoftware.codesoftware = Software.codesoftware  where software.codeinstallation is null and a.annee= '"+ comboBox.getSelectedItem().toString()+"'");			
 			tableS.setModel(AccesBDGen.creerTableModel(prepS));
@@ -108,6 +109,7 @@ public class Search1Pane extends JPanel {
 		return toReturn;
 
 	}
+	
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.HORIZONTAL);
