@@ -37,8 +37,8 @@ public class MainFrame extends JFrame {
 	
 
 	public MainFrame() {
-		super("Java 2014 Serie U LM-KG 2TIc: Fenêtre Principale.");
-		setSize(640, 480);
+		super("Java 2014 série U LM-KG 2TIc: Fenêtre principale.");
+		setSize(640, 494);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
 
 		menuItemAdd = new JMenuItem("Ajout");
 		menuItemAdd.setIcon(new ImageIcon("res/icons/add-icon.png"));
-		menuItemDel = new JMenuItem("Supression");
+		menuItemDel = new JMenuItem("Suppression");
 		menuItemDel.setIcon(new ImageIcon("res/icons/remove-icon.png"));
 		menuItemUpdate = new JMenuItem("Modification");
 		menuItemUpdate.setIcon(new ImageIcon("res/icons/edit-icon.png"));
@@ -143,7 +143,7 @@ public class MainFrame extends JFrame {
 			menuItemSearch2.setEnabled(false);
 			// enable needed
 			menuItemLogin.setEnabled(true);
-			txt = " Status connexion: off";
+			txt = " État de la connexion: non établie";
 			bar.setForeground(Color.red);
 		} else {
 			// same
@@ -155,7 +155,7 @@ public class MainFrame extends JFrame {
 			menuItemSearch2.setEnabled(true);
 			// same
 			menuItemLogin.setEnabled(false);
-			txt = " Status connexion: on";
+			txt = " État de la connexion: établie";
 			// Hexa colorUpdateFrame
 			Color aColor = new Color(0x009900);
 			bar.setForeground(aColor);
@@ -223,6 +223,7 @@ public class MainFrame extends JFrame {
 			cont.remove(mainPane);
 			cont.add(proposPane, BorderLayout.CENTER);
 			cont.repaint();
+			menuItemAPropos.setEnabled(false);
 		}
 	}
 	
@@ -239,10 +240,10 @@ public class MainFrame extends JFrame {
 	}
 	public void redrawNewMain() {
 		mainPane = new MainPane(MainFrame.this);
-		
 		cont.remove(proposPane);
 		cont.add(mainPane, BorderLayout.CENTER);
 		cont.repaint();
+		menuItemAPropos.setEnabled(true);
 	}
 
 	public Connection getConn() {

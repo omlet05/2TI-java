@@ -71,7 +71,7 @@ public class UpdateTablePane extends JPanel {
 				lblEditeur.setBounds(10, 15, 46, 14);
 				this.add(lblEditeur);
 				
-				JButton btnModifier = new JButton("Modifier la selection");
+				JButton btnModifier = new JButton("Modifier la sélection");
 				btnModifier.setBounds(527, 11, 134, 23);
 				btnModifier.addActionListener(new Update());
 				add(btnModifier);
@@ -88,16 +88,12 @@ public class UpdateTablePane extends JPanel {
 
 			public void updateTable() {
 				try {
-					PreparedStatement prep = myParentFen
-							.getConn()
-							.prepareStatement(
-									"SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+ comboBox.getSelectedItem().toString()	+ "'");
+					PreparedStatement prep = myParentFen.getConn().prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+ comboBox.getSelectedItem().toString()	+ "'");
 					table.setModel(AccesBDGen.creerTableModel(prep));
 					centerJtable(table);
 
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "Erreur",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			
@@ -109,12 +105,10 @@ public class UpdateTablePane extends JPanel {
 				Object[] toReturn = null;
 				PreparedStatement prep;
 				try {
-					prep = myParentFen.getConn().prepareStatement(
-							"SELECT Designation FROM Editeur");
+					prep = myParentFen.getConn().prepareStatement("SELECT Designation FROM Editeur");
 					toReturn = AccesBDGen.creerListe1Colonne(prep);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e, "Erreur",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 				return toReturn;
 
@@ -133,7 +127,7 @@ public class UpdateTablePane extends JPanel {
 					idInstall = (int) table.getValueAt(table.getSelectedRow(), 0);
 					if (rowcheck > -1) {
 						myParentFen.newtab(idInstall);
-						JOptionPane.showMessageDialog(null,"l'enregistrement a bien été chargé sous l'onglet Modification","Selection réussie", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"L'enregistrement a bien été chargé sous un nouvel onglet de modification","Sélection réussie", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
 					JOptionPane.showMessageDialog(null,

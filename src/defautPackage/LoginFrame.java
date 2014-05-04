@@ -3,6 +3,7 @@ package defautPackage;
 import java.awt.Container;
 import java.sql.Connection;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -14,7 +15,7 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame(MainFrame f) {
 		super("Connexion");
-		
+		setIconImage(new javax.swing.ImageIcon("res/icons/login-icon.png").getImage());
 		setSize(258, 215);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

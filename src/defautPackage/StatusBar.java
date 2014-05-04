@@ -9,7 +9,7 @@ public class StatusBar extends JLabel {
 
 	// Creates a new instance of StatusBar
 	public StatusBar() {
-		super.setPreferredSize(new Dimension(100, 16));
+		super.setPreferredSize(new Dimension(100, 24));
 		setMessage("");
 	}
 

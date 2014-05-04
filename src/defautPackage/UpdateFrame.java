@@ -34,6 +34,7 @@ public class UpdateFrame extends JFrame {
 
 	public UpdateFrame(MainFrame f) {
 		setTitle("Modification d'une Installation.");
+		setIconImage(new javax.swing.ImageIcon("res/icons/edit-icon.png").getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(749, 675);
 		getContentPane().setLayout(null);
@@ -81,7 +82,7 @@ public class UpdateFrame extends JFrame {
 	
 	public void newtab(int index){
 		JPanel newPane;
-		String tabName = "Modification de l'installation "+index+"     ";
+		String tabName = "Modification de l'installation: "+index+"     ";
 		// icon
 		Icon iconUpdate = new ImageIcon("res/modifier-icon.png");
 		
@@ -89,7 +90,7 @@ public class UpdateFrame extends JFrame {
 		tabbedPane.addTab(tabName, iconUpdate, newPane, null);
 		
 		
-		//close button
+		//close button on the tab
 		int index2 = tabbedPane.indexOfTab(tabName);
 		JPanel pnlTab = new JPanel(new GridBagLayout());
 		pnlTab.setOpaque(false);

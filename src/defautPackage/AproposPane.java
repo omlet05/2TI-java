@@ -19,7 +19,7 @@ public class AproposPane extends JPanel {
 	private MainFrame myParentFrame;
 
 	public AproposPane(MainFrame mainFrame) {
-		this.setBounds(10, 10, 631, 396);
+		this.setBounds(10, 10, 597, 335);
 		setLayout(null);
 		myParentFrame = mainFrame;
 

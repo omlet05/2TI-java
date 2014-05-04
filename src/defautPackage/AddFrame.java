@@ -14,6 +14,7 @@ public class AddFrame extends JFrame {
 
 	public AddFrame(MainFrame main) {
 		setTitle("Ajouter une installation.");
+		setIconImage(new javax.swing.ImageIcon("res/icons/add-icon.png").getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 486);
 		setLocationRelativeTo(null);
