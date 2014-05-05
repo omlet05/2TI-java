@@ -19,6 +19,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Search2Pane extends JPanel {
@@ -35,6 +36,7 @@ public class Search2Pane extends JPanel {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Search2Pane(Search2Frame p) {
+		super();
 		myParentS2 = p;
 		this.setBounds(10, 10, 1000,550);
 		this.setLayout(null);
@@ -89,18 +91,20 @@ public class Search2Pane extends JPanel {
 
 		
 		lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setBounds(640, 12, 70, 14);
+		lblResponsable.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblResponsable.setBounds(574, 12, 131, 14);
 		this.add(lblResponsable);
 		
 		lblDate = new JLabel("Date d'installation:");
-		lblDate.setBounds(620, 42, 100, 14);
+		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDate.setBounds(554, 42, 151, 14);
 		this.add(lblDate);
 
 	}
 
 	private void updateTable() {
 		try {
-			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM responsablereseaux join installation i on responsablereseaux.matricule=i.matricule WHERE responsablereseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and dateinstallation ='"+ comboBox.getSelectedItem().toString()+"'");	
+			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM ResponsableReseaux join Installation i on ResponsableReseaux.Matricule=i.Matricule WHERE ResponsableReseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and DateInstallation ='"+ comboBox.getSelectedItem().toString()+"'");	
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			centerJtable(table);
 
@@ -129,7 +133,7 @@ public class Search2Pane extends JPanel {
 		dateS.setTime(datesql);*/
 		
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT dateinstallation from installation ");
+			prep = myParentS2.getConn().prepareStatement("SELECT DateInstallation from Installation ");
 			
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
@@ -146,7 +150,7 @@ public class Search2Pane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT nomprenom from responsablereseaux ");
+			prep = myParentS2.getConn().prepareStatement("SELECT NomPrenom from ResponsableReseaux ");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
@@ -158,9 +162,7 @@ public class Search2Pane extends JPanel {
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.CENTER);
-		for (int i = 0; i < table.getColumnCount(); table.getColumnModel()
-				.getColumn(i).setCellRenderer(custom), i++)
-			;
+		for (int i = 0; i < table.getColumnCount(); table.getColumnModel().getColumn(i).setCellRenderer(custom), i++);
 	}
 
 }
