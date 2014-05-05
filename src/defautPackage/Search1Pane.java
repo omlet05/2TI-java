@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
+import javax.swing.SwingConstants;
 
 
 
@@ -71,7 +72,8 @@ public class Search1Pane extends JPanel {
 		this.add(scrollPane);
 		
 		lblAnneeEtude = new JLabel("Année d'étude :");
-		lblAnneeEtude.setBounds(715, 13, 80, 14);
+		lblAnneeEtude.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAnneeEtude.setBounds(645, 13, 150, 14);
 		this.add(lblAnneeEtude);
 		
 		
@@ -85,7 +87,7 @@ public class Search1Pane extends JPanel {
 	
 	private void updateTable() {
 		try {
-			PreparedStatement prepS = search1Frame.getConn().prepareStatement("SELECT Nom, Codeinstallation, software.codesoftware, a.annee, a.codesection  FROM anneeetude a JOIN utilisationsoftware ON a.idanneeetude = utilisationsoftware.idanneeetude JOIN software  ON utilisationSoftware.codesoftware = Software.codesoftware  where software.codeinstallation is null and a.annee= '"+ comboBox.getSelectedItem().toString()+"'");			
+			PreparedStatement prepS = search1Frame.getConn().prepareStatement("SELECT Nom, CodeInstallation, Software.CodeSoftware, a.Annee, a.CodeSection  FROM AnneeEtude a JOIN UtilisationSoftware ON a.IdAnneeEtude = UtilisationSoftware.IdAnneeEtude JOIN Software  ON UtilisationSoftware.CodeSoftware = Software.CodeSoftware  where Software.CodeInstallation is NULL and a.Annee= '"+ comboBox.getSelectedItem().toString()+"'");			
 			tableS.setModel(AccesBDGen.creerTableModel(prepS));
 			centerJtable(tableS);
 			
@@ -99,7 +101,7 @@ public class Search1Pane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prepS;
 		try {
-			String sqlInstruction="SELECT DISTINCT Annee FROM Anneeetude ";
+			String sqlInstruction="SELECT DISTINCT Annee FROM AnneeEtude ";
 			prepS = search1Frame.getConn().prepareStatement(sqlInstruction);
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prepS);
@@ -114,8 +116,6 @@ public class Search1Pane extends JPanel {
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.HORIZONTAL);
-		for (int i = 0; i < table.getColumnCount(); table.getColumnModel().getColumn(i).setCellRenderer(custom), i++)
-			;
+		for (int i = 0; i < table.getColumnCount(); table.getColumnModel().getColumn(i).setCellRenderer(custom), i++);
 	}
-  
 }
