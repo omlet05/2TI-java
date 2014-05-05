@@ -81,12 +81,7 @@ public class DelPane extends JPanel {
 
 	private void updateTable() {
 		try {
-			PreparedStatement prep = myParentFen
-					.getConn()
-					.prepareStatement(
-							"SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"
-									+ comboBox.getSelectedItem().toString()
-									+ "'");
+			PreparedStatement prep = myParentFen.getConn().prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+ comboBox.getSelectedItem().toString()+ "'");
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			centerJtable(table);
 
@@ -110,30 +105,28 @@ public class DelPane extends JPanel {
 	}
 
 	private void deleteRow() {
-		try {
-
-			int rowcheck = table.getSelectedRow();
-			int idInstall = (int) table.getValueAt(table.getSelectedRow(), 0);
-
-			if (rowcheck > -1) {
-				PreparedStatement prep = myParentFen.getConn()
-						.prepareStatement(
-								"DELETE FROM Installation WHERE Installation.IdInstallation = "
-										+ idInstall);
-				AccesBDGen.executerInstruction(prep);
+		int confirmation = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer cette entrée?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
+		if(confirmation == 0){
+			try {
+	
+				int rowcheck = table.getSelectedRow();
+				int idInstall = (int) table.getValueAt(table.getSelectedRow(), 0);
+	
+				if (rowcheck > -1) {
+					PreparedStatement prep = myParentFen.getConn().prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+ idInstall);
+					AccesBDGen.executerInstruction(prep);
+					JOptionPane.showMessageDialog(null,"l'enregistrement a bien été supprimé","Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
 				JOptionPane.showMessageDialog(null,
-						"l'enregistrement a bien été supprimé",
-						"Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
+						"Aucune sélection, veuillez sélectionner une ligne!","Erreur", JOptionPane.WARNING_MESSAGE);
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null,
-					"Aucune sélection, veuillez sélectionner une ligne!",
-					"Erreur", JOptionPane.WARNING_MESSAGE);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			finally{
+				updateTable();
+			}
 		}
-		updateTable();
 	}
 
 	private Object[] getEditeur() throws SQLException {

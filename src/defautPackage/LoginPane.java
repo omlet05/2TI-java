@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,7 +39,7 @@ public class LoginPane extends JPanel {
 
 		// Form
 
-		dbLabel = new JLabel(" Bdd: ");
+		dbLabel = new JLabel(" Table: ");
 		add(dbLabel);
 		dbField = new JTextField("test");
 		add(dbField);
@@ -93,16 +94,27 @@ public class LoginPane extends JPanel {
 				Connection conTMP = null;
 				String passwordString = new String(passwordField.getPassword());
 
-				conTMP = AccesBDGen.connecter(typedb.getSelectedItem()
-						.toString(), dbField.getText(), loginField.getText(),
-						passwordString);
+				conTMP = AccesBDGen.connecter(typedb.getSelectedItem().toString(), dbField.getText(), loginField.getText(),passwordString);
 				myParentMainFrame.setConn(conTMP);
 				myParentMainFrame.setBarStat(true);
 				myParentFrame.dispose();
-			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(null,
-						"Erreur lors de la connexion : " + e1.getMessage(),
-						"Erreur!", JOptionPane.ERROR_MESSAGE);
+			} 
+			catch (SQLException sqle){
+				int errorCode = sqle.getErrorCode();
+				if(errorCode == 0)
+					JOptionPane.showMessageDialog(null,"Pas de connexion à la base de données, vérifiez la connectivité avec le serveur.","Erreur de connectivité!", JOptionPane.ERROR_MESSAGE);
+				else if(errorCode == 1045)
+					JOptionPane.showMessageDialog(null,"Vérifiez vos identifiants de connexions.\n"+ sqle.getMessage(),"Connexion impossible!", JOptionPane.ERROR_MESSAGE);
+				else if(errorCode == 1049)
+					JOptionPane.showMessageDialog(null,"La table introduite n'existe pas.\n"+ sqle.getMessage(),"Mauvaise table!", JOptionPane.ERROR_MESSAGE);
+				else{
+					JOptionPane.showMessageDialog(null,"Erreur lors de la connexion : "+ sqle.getMessage(),"Erreur mysql!", JOptionPane.ERROR_MESSAGE);
+					System.out.println("MYSQL ErrorCode = "+errorCode);
+				}
+				
+			}
+			catch (Exception e1) {
+				JOptionPane.showMessageDialog(null,"Erreur lors de la connexion : " + e1.getMessage(),"Erreur!", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
