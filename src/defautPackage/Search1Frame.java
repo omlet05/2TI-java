@@ -14,6 +14,7 @@ public class Search1Frame extends JFrame {
 	public Search1Frame(MainFrame main){
 		setTitle("Software sans code d'installation, en fonction d'une année scolaire.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setIconImage(new javax.swing.ImageIcon("res/icons/listing-icon.png").getImage());
 		setSize(1000, 550);
 		setResizable(false);
 		setLocationRelativeTo(null);

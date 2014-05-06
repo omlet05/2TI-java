@@ -13,6 +13,7 @@ public class Search2Frame extends JFrame {
 	public Search2Frame(MainFrame main){
 		setTitle("Software après une date et par un responsable réseau particulier. ");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setIconImage(new javax.swing.ImageIcon("res/icons/listing-icon.png").getImage());
 		setSize(1000, 550);
 		setResizable(false);
 		setLocationRelativeTo(null);
