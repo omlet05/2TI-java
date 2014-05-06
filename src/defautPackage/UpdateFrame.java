@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ public class UpdateFrame extends JFrame {
 	private MainFrame MyMainFrame;
 	private Connection conn;
 	private JTabbedPane tabbedPane;
+	private int i;
 
 	public UpdateFrame(MainFrame f) {
 		setTitle("Modification d'une Installation.");
@@ -31,6 +33,8 @@ public class UpdateFrame extends JFrame {
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		/* i to prevent duplicate tab */
+		i = 1;
 		
 		// icon
 		Icon iconListing = new ImageIcon("res/tabUpdate.png");
@@ -65,12 +69,15 @@ public class UpdateFrame extends JFrame {
 	public void updateTabpane(){
     	panel2.updateTable();
     }
+	
 
 	
 	public void newtab(int index){
 		JPanel newPane;
-		String tabName = "Modification de l'installation: "+index+"     ";
-		// icon
+		String tabName = i+". Modification de l'installation: "+index+"     ";
+		
+		
+		//tab icon
 		Icon iconUpdate = new ImageIcon("res/modifier-icon.png");
 		
 		newPane = new UpdateFormPane(UpdateFrame.this, index); 
@@ -79,10 +86,14 @@ public class UpdateFrame extends JFrame {
 		
 		//close button on the tab
 		int index2 = tabbedPane.indexOfTab(tabName);
-		JPanel pnlTab = new JPanel(new GridBagLayout());
+		JPanel pnlTab;
+		
+		pnlTab = new JPanel(new GridBagLayout());
 		pnlTab.setOpaque(false);
 		JLabel lblTitle = new JLabel(tabName);
 		JButton btnClose = new JButton(new ImageIcon("res/Delete.png"));
+		btnClose.setBorder(BorderFactory.createEmptyBorder());
+		btnClose.setContentAreaFilled(false);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -98,7 +109,7 @@ public class UpdateFrame extends JFrame {
 		tabbedPane.setTabComponentAt(index2, pnlTab);
 
 		btnClose.addActionListener(new MyCloseActionHandler(tabName));
-		
+		i++;
 	}
 	
 	
@@ -119,8 +130,11 @@ public class UpdateFrame extends JFrame {
 	    public void actionPerformed(ActionEvent evt) {
 
 	        int index = tabbedPane.indexOfTab(getTabName());
-	        if (index >= 0) 
+	        if (index >= 0){
 	        	tabbedPane.removeTabAt(index);
+	        	i--;
+	        }
+	        	
 	        /* remove tab */
 	        
 
