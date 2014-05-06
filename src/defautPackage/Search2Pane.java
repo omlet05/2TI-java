@@ -1,13 +1,13 @@
 package defautPackage;
 import javax.swing.JPanel;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.GregorianCalendar;
+import java.util.Date;
+
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,26 +15,24 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import net.sf.nachocalendar.CalendarFactory;
 import net.sf.nachocalendar.components.DateField;
 import AccesBD.AccesBDGen;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Search2Pane extends JPanel {
 	private static JTable table;
 	@SuppressWarnings("rawtypes")
-	private JComboBox comboBox;
 	private JComboBox comboBox2;
 	private JScrollPane scrollPane;
 	private JLabel lblResponsable;
 	private Search2Frame myParentS2;
-	private JButton btnRetourS2;
+	private JButton btnRetourS2, btnFiltrer;
 	private JLabel lblDate;
-	private GregorianCalendar dateS;
 	private DateField datefield = CalendarFactory.createDateField();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -44,38 +42,20 @@ public class Search2Pane extends JPanel {
 		this.setLayout(null);
 
 		try {
-			comboBox = new JComboBox(getDate());
 			comboBox2 = new JComboBox(getResponsable());
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",
 					JOptionPane.WARNING_MESSAGE);
 		}
-
-		
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateTable();
-			}
-		});
-		comboBox2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateTable();
-			}
-		});
 		
 		
-		datefield.setBounds(714, 40, 231, 20);
-		datefield.setValue(0);
+		datefield.setBounds(648, 40, 194, 20);
+		datefield.setValue(new Date());
 		add(datefield);
 		
-		
-		
-		
-		comboBox.setBounds(14, 40, 231, 20);
-		this.add(comboBox);
 
-		comboBox2.setBounds(714, 10, 231, 20);
+		comboBox2.setBounds(648, 12, 194, 20);
 		this.add(comboBox2);
 		// table
 		table = new JTable(null);
@@ -96,24 +76,33 @@ public class Search2Pane extends JPanel {
 
 		
 		lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setBounds(640, 12, 70, 14);
+		lblResponsable.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblResponsable.setBounds(508, 15, 122, 14);
 		this.add(lblResponsable);
 		
 		lblDate = new JLabel("Date d'installation:");
-		lblDate.setBounds(620, 42, 100, 14);
+		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDate.setBounds(488, 46, 142, 14);
 		this.add(lblDate);
+		
+		btnFiltrer = new JButton("Filtrer");
+		btnFiltrer.addActionListener(new Update());
+		btnFiltrer.setBounds(854, 25, 117, 25);
+		add(btnFiltrer);
 
 	}
 
 	private void updateTable() {
 		try {
-			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM responsablereseaux join installation i on responsablereseaux.matricule=i.matricule WHERE responsablereseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and dateinstallation >='"+ datefield+"'");	
+			Date date = (Date) datefield.getValue();
+			java.sql.Date dateSQL = new java.sql.Date(date.getTime());
+			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM ResponsableReseaux JOIN Installation i on ResponsableReseaux.Matricule = i.Matricule WHERE ResponsableReseaux.NomPrenom = '"+ comboBox2.getSelectedItem().toString()+"' AND DateInstallation >= ?");	
+			prep.setDate(1, dateSQL);
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			centerJtable(table);
 
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(null, e1, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	 
@@ -126,20 +115,20 @@ public class Search2Pane extends JPanel {
 		}
 	}
 
+	private class Update implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			updateTable();
+		}
+	}
+
 	
 
 	private Object[] getDate() throws SQLException {
 		Object[] toReturn = null;
 		PreparedStatement prep;
-/*
-		java.sql.Date datesql= new java.sql.Date(dateS.getTimeInMillis());
-		GregorianCalendar dateS =new GregorianCalendar();
-		dateS.setTime(datesql);
-		*/
+		
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT dateinstallation from installation ");
-			
-			
+			prep = myParentS2.getConn().prepareStatement("SELECT DateInstallation from Installation ");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 			
 				
@@ -154,7 +143,7 @@ public class Search2Pane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT nomprenom from responsablereseaux ");
+			prep = myParentS2.getConn().prepareStatement("SELECT NomPrenom from ResponsableReseaux ");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
@@ -170,6 +159,5 @@ public class Search2Pane extends JPanel {
 				.getColumn(i).setCellRenderer(custom), i++)
 			;
 	}
-
 }
 

@@ -64,7 +64,7 @@ public class Search1Pane extends JPanel {
 		
 		btnBackS1 = new JButton("Retour");
 		btnBackS1.addActionListener(new Back());
-		btnBackS1.setBounds(900, 475, 65, 23);
+		btnBackS1.setBounds(827, 475, 138, 23);
 		add(btnBackS1);
 		
 		scrollPane = new JScrollPane(tableS);

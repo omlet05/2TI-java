@@ -118,8 +118,7 @@ public class DelPane extends JPanel {
 					JOptionPane.showMessageDialog(null,"l'enregistrement a bien été supprimé","Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null,
-						"Aucune sélection, veuillez sélectionner une ligne!","Erreur", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Aucune sélection, veuillez sélectionner une ligne!","Erreur", JOptionPane.WARNING_MESSAGE);
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
