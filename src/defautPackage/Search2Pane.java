@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
@@ -18,8 +19,9 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import net.sf.nachocalendar.CalendarFactory;
+import net.sf.nachocalendar.components.DateField;
 import AccesBD.AccesBDGen;
-import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Search2Pane extends JPanel {
@@ -33,10 +35,10 @@ public class Search2Pane extends JPanel {
 	private JButton btnRetourS2;
 	private JLabel lblDate;
 	private GregorianCalendar dateS;
+	private DateField datefield = CalendarFactory.createDateField();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Search2Pane(Search2Frame p) {
-		super();
 		myParentS2 = p;
 		this.setBounds(10, 10, 1000,550);
 		this.setLayout(null);
@@ -63,11 +65,14 @@ public class Search2Pane extends JPanel {
 		});
 		
 		
+		datefield.setBounds(714, 40, 231, 20);
+		datefield.setValue(0);
+		add(datefield);
 		
 		
 		
 		
-		comboBox.setBounds(714, 40, 231, 20);
+		comboBox.setBounds(14, 40, 231, 20);
 		this.add(comboBox);
 
 		comboBox2.setBounds(714, 10, 231, 20);
@@ -91,20 +96,18 @@ public class Search2Pane extends JPanel {
 
 		
 		lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblResponsable.setBounds(574, 12, 131, 14);
+		lblResponsable.setBounds(640, 12, 70, 14);
 		this.add(lblResponsable);
 		
 		lblDate = new JLabel("Date d'installation:");
-		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDate.setBounds(554, 42, 151, 14);
+		lblDate.setBounds(620, 42, 100, 14);
 		this.add(lblDate);
 
 	}
 
 	private void updateTable() {
 		try {
-			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM ResponsableReseaux join Installation i on ResponsableReseaux.Matricule=i.Matricule WHERE ResponsableReseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and DateInstallation ='"+ comboBox.getSelectedItem().toString()+"'");	
+			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM responsablereseaux join installation i on responsablereseaux.matricule=i.matricule WHERE responsablereseaux.NomPrenom='"+ comboBox2.getSelectedItem().toString()+"'"+"and dateinstallation >='"+ datefield+"'");	
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			centerJtable(table);
 
@@ -128,12 +131,13 @@ public class Search2Pane extends JPanel {
 	private Object[] getDate() throws SQLException {
 		Object[] toReturn = null;
 		PreparedStatement prep;
-		/*java.sql.Date datesql= new java.sql.Date(dateS.getTimeInMillis());
+/*
+		java.sql.Date datesql= new java.sql.Date(dateS.getTimeInMillis());
 		GregorianCalendar dateS =new GregorianCalendar();
-		dateS.setTime(datesql);*/
-		
+		dateS.setTime(datesql);
+		*/
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT DateInstallation from Installation ");
+			prep = myParentS2.getConn().prepareStatement("SELECT dateinstallation from installation ");
 			
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
@@ -144,13 +148,13 @@ public class Search2Pane extends JPanel {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
-
+		
 	}
 	private Object[] getResponsable() throws SQLException {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT NomPrenom from ResponsableReseaux ");
+			prep = myParentS2.getConn().prepareStatement("SELECT nomprenom from responsablereseaux ");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
@@ -162,7 +166,9 @@ public class Search2Pane extends JPanel {
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.CENTER);
-		for (int i = 0; i < table.getColumnCount(); table.getColumnModel().getColumn(i).setCellRenderer(custom), i++);
+		for (int i = 0; i < table.getColumnCount(); table.getColumnModel()
+				.getColumn(i).setCellRenderer(custom), i++)
+			;
 	}
 
 }
