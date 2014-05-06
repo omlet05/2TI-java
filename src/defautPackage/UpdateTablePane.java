@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,32 +14,29 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
-import javax.swing.JButton;
 
 
 
 @SuppressWarnings("serial")
 public class UpdateTablePane extends JPanel {
 			private static JTable table;
-			@SuppressWarnings("rawtypes")
-			private JComboBox comboBox;
+			
+			private JComboBox<Object> comboBox;
 			private JScrollPane scrollPane;
 			private JLabel lblEditeur;
 			private UpdateFrame myParentFen;
 
-			@SuppressWarnings({ "unchecked", "rawtypes" })
+			
 			public UpdateTablePane(UpdateFrame  f) {
 				myParentFen = f;
 				this.setBounds(10, 10, 686, 424);
 				this.setLayout(null);
 
 				try {
-					comboBox = new JComboBox(getEditeur());
+					comboBox = new JComboBox<Object>(getEditeur());
 
 				} catch (SQLException e) {
 					JOptionPane.showMessageDialog(null, e, "Erreur",

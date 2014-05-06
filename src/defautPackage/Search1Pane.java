@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
-
-import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 
 
@@ -36,7 +36,7 @@ public class Search1Pane extends JPanel {
 	
 	public Search1Pane(SearchFrame search1Fram){
 		
-		this.setBounds(10, 10, 1000, 550);
+		this.setBounds(0, 0, 1000, 520);
 		setLayout(null);
 		searchFrame =search1Fram;
 		
@@ -47,11 +47,6 @@ public class Search1Pane extends JPanel {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
-		comboBoxAnneeEtude.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateTable();
-			}
-		});
 		comboBoxAnneeEtude.setBounds(800, 10, 150, 20);
 		this.add(comboBoxAnneeEtude);
 		comboBoxAnneeEtude.addActionListener(new ActionListener() {
@@ -71,7 +66,7 @@ public class Search1Pane extends JPanel {
 		
 		btnBackS1 = new JButton("Retour");
 		btnBackS1.addActionListener(new Back());
-		btnBackS1.setBounds(827, 475, 138, 23);
+		btnBackS1.setBounds(875, 486, 115, 23);
 		add(btnBackS1);
 		
 		scrollPane = new JScrollPane(tableS);
@@ -90,6 +85,11 @@ public class Search1Pane extends JPanel {
 		
 		comboBoxCodeSection.setBounds(800, 33, 150, 20);
 		this.add(comboBoxCodeSection);
+		
+		JLabel lblInfos = new JLabel("<html><i>\"Danc cette fenêtre, vous pouvez lister les softwares qui ne requièrent pas de code d’installation et qui sont utilisés dans une année d’étude choisie.\"</i></html>");
+		lblInfos.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblInfos.setBounds(29, 13, 606, 41);
+		add(lblInfos);
 		comboBoxCodeSection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateTable();
@@ -135,7 +135,7 @@ public class Search1Pane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prepS;
 		try {
-			String sqlInstruction="SELECT  CodeSection FROM AnneeEtude ";
+			String sqlInstruction="SELECT DISTINCT CodeSection FROM AnneeEtude ";
 			prepS = searchFrame.getConn().prepareStatement(sqlInstruction);
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prepS);

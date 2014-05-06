@@ -1,14 +1,12 @@
 package defautPackage;
 
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,14 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.mysql.jdbc.Messages;
-
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
+@SuppressWarnings("serial")
 public class UpdateFrame extends JFrame {
 	private Container cont;
 	private UpdateTablePane panel2;
@@ -46,11 +37,10 @@ public class UpdateFrame extends JFrame {
 		
 		
 		MyMainFrame = f;
-		setConn(f.getConn());
+		conn = MyMainFrame.getConn();
+		
 
 		cont = getContentPane();
-		
-		
 		
 		tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(10, 10, 700, 575);
@@ -76,9 +66,6 @@ public class UpdateFrame extends JFrame {
     	panel2.updateTable();
     }
 
-	public void setConn(Connection conn) {
-		this.conn = conn;
-	}
 	
 	public void newtab(int index){
 		JPanel newPane;
@@ -132,10 +119,10 @@ public class UpdateFrame extends JFrame {
 	    public void actionPerformed(ActionEvent evt) {
 
 	        int index = tabbedPane.indexOfTab(getTabName());
-	        if (index >= 0) {
-	        	/* remove tab */
+	        if (index >= 0) 
 	        	tabbedPane.removeTabAt(index);
-	        }
+	        /* remove tab */
+	        
 
 	    }
 	    

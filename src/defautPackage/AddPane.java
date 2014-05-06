@@ -31,13 +31,12 @@ public class AddPane extends JPanel {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_5;
-	private JComboBox<?> comboBox, comboBox_1, comboBox_2;
+	private JComboBox<Object> comboBox, comboBox_1, comboBox_2;
 	private DateField datefield = CalendarFactory.createDateField();
 	private JTextPane textPane;
 	private JSpinner spinner;
 	private AddFrame myFenParent;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public AddPane(AddFrame p) {
 		// réception mypanel pour interagir sur la frame.
 		myFenParent = p;
@@ -113,9 +112,9 @@ public class AddPane extends JPanel {
 
 		try {
 			textField.setText(getNextfreeID());
-			comboBox = new JComboBox(getCodeSoftware());
-			comboBox_1 = new JComboBox(getMatricule());
-			comboBox_2 = new JComboBox(getCodeOs());
+			comboBox = new JComboBox<Object>(getCodeSoftware());
+			comboBox_1 = new JComboBox<Object>(getMatricule());
+			comboBox_2 = new JComboBox<Object>(getCodeOs());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -276,9 +275,7 @@ public class AddPane extends JPanel {
 				prep.setString(1, setNullIfBlank(textPane.getText()));
 				prep.setString(2, setNullIfBlank(textField_5.getText()));
 				nbModif = AccesBDGen.executerInstruction(prep);
-				JOptionPane.showMessageDialog(null, nbModif
-						+ " ligne(s) modifiée(s).", "Ajout réussit!",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Ajout réussit avec: "+nbModif+ " ligne(s) modifiée(s).", "Ajout réussit!",JOptionPane.INFORMATION_MESSAGE);
 				reinit();
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, e1, "Erreur",

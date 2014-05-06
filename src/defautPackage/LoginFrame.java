@@ -3,7 +3,6 @@ package defautPackage;
 import java.awt.Container;
 import java.sql.Connection;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -18,7 +17,9 @@ public class LoginFrame extends JFrame {
 		setIconImage(new javax.swing.ImageIcon("res/icons/login-icon.png").getImage());
 		setSize(258, 215);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		setAlwaysOnTop (true);
 		setResizable(false);
 
 		mainF = f;
@@ -34,6 +35,14 @@ public class LoginFrame extends JFrame {
 
 		setVisible(true);
 	}
+	
+	/* to prevent MenuItemLogin enabled after connection Grant*/
+	public void dispose() {
+		if(mainF.getConn() != null)
+			mainF.setLoginMenuItem(false);
+		super.dispose();
+	}
+	
 
 	public Connection getConn() {
 		return conn;
@@ -42,4 +51,5 @@ public class LoginFrame extends JFrame {
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
+		
 }

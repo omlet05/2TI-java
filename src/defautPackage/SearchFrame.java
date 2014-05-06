@@ -13,10 +13,10 @@ public class SearchFrame extends JFrame {
 	private Connection conn;
 	private MainFrame mainFrame;
 	public SearchFrame(MainFrame main, int i){
-		setTitle("Software sans code d'installation, en fonction d'une année scolaire.");
+		setTitle("Recherche sur les installations.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setIconImage(new javax.swing.ImageIcon("res/icons/listing-icon.png").getImage());
-		setSize(1000, 550);
+		setSize(1018, 576);
 		setResizable(false);
 		setLocationRelativeTo(null);
 
@@ -25,7 +25,7 @@ public class SearchFrame extends JFrame {
 
 		cont = getContentPane();
 		cont.setLayout(null);
-		if (i==1){
+		if (i == 1){
 			panel1 = new Search1Pane(SearchFrame.this);
 			cont.add(panel1);
 		}

@@ -33,6 +33,7 @@ public class LoginPane extends JPanel {
 	public LoginPane(MainFrame mainF, LoginFrame f) {
 		myParentFrame = f;
 		myParentMainFrame = mainF;
+		myParentMainFrame.setLoginMenuItem(false);
 
 		setBounds(10, 10, 220, 160);
 		setLayout(new GridLayout(5, 2));
@@ -66,7 +67,7 @@ public class LoginPane extends JPanel {
 		add(buttonBack);
 
 		buttonConnexion.addActionListener(new Connexion());
-		buttonBack.addActionListener(new Exit());
+		buttonBack.addActionListener(new Back());
 
 		// default button allow the user to press enter to get connection.
 
@@ -77,6 +78,8 @@ public class LoginPane extends JPanel {
 
 	}
 
+	
+	/* focus PasswordField by default on frame creation */
 	private class FocusPass implements WindowFocusListener {
 		public void windowGainedFocus(WindowEvent e) {
 			passwordField.requestFocusInWindow();
@@ -119,8 +122,9 @@ public class LoginPane extends JPanel {
 		}
 	}
 
-	private class Exit implements ActionListener {
+	private class Back implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			myParentMainFrame.setLoginMenuItem(true);
 			myParentFrame.dispose();
 		}
 	}

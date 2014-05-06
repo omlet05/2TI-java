@@ -31,14 +31,13 @@ public class UpdateFormPane extends JPanel{
 
 		private JTextField txtFldIDInstall;
 		private JTextField RefProcInstallTxtFld;
-		private JComboBox<?> codeSoftComboBox, matriculeComboBox, codeOsCombobox;
+		private JComboBox<Object> codeSoftComboBox, matriculeComboBox, codeOsCombobox;
 		private DateField dateInstallFld = CalendarFactory.createDateField();
 		private JTextPane commentTextPane;
 		private JSpinner dureeInstallSpinner;
 		private UpdateFrame myFenParent;
 		private int idInstall;
 
-		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public UpdateFormPane(UpdateFrame p, int index2) {
 			// réception mypanel pour interagir sur la frame.
 			myFenParent = p;
@@ -116,9 +115,9 @@ public class UpdateFormPane extends JPanel{
 
 			try {
 				txtFldIDInstall.setText("");
-				codeSoftComboBox = new JComboBox(getCodeSoftware());
-				matriculeComboBox = new JComboBox(getMatricule());
-				codeOsCombobox = new JComboBox(getCodeOs());
+				codeSoftComboBox = new JComboBox<Object>(getCodeSoftware());
+				matriculeComboBox = new JComboBox<Object>(getMatricule());
+				codeOsCombobox = new JComboBox<Object>(getCodeOs());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -187,13 +186,11 @@ public class UpdateFormPane extends JPanel{
 		private Object[] getCodeSoftware() throws SQLException {
 			Object[] toReturn = null;
 			try {
-				PreparedStatement prep = myFenParent.getConn().prepareStatement(
-						"SELECT CodeSoftware FROM Software");
+				PreparedStatement prep = myFenParent.getConn().prepareStatement("SELECT CodeSoftware FROM Software");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, e, "Erreur", JOptionPane.WARNING_MESSAGE);
 			}
 			return toReturn;
 
@@ -206,8 +203,7 @@ public class UpdateFormPane extends JPanel{
 						"SELECT Matricule FROM ResponsableReseaux");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, e, "Erreur", JOptionPane.WARNING_MESSAGE);
 			}
 			return toReturn;
 

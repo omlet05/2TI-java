@@ -1,6 +1,4 @@
 package defautPackage;
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,26 +6,26 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import net.sf.nachocalendar.CalendarFactory;
 import net.sf.nachocalendar.components.DateField;
 import AccesBD.AccesBDGen;
-import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class Search2Pane extends JPanel {
 	private static JTable table;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBox2;
+	private JComboBox<Object> comboBox2;
 	private JScrollPane scrollPane;
 	private JLabel lblResponsable;
 	private SearchFrame myParentS2;
@@ -35,27 +33,27 @@ public class Search2Pane extends JPanel {
 	private JLabel lblDate;
 	private DateField datefield = CalendarFactory.createDateField();
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Search2Pane(SearchFrame p) {
 		myParentS2 = p;
-		this.setBounds(10, 10, 1000,550);
+		this.setBounds(0, 0, 1000,520);
 		this.setLayout(null);
 
 		try {
-			comboBox2 = new JComboBox(getResponsable());
+			comboBox2 = new JComboBox<Object>(getResponsable());
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",
 					JOptionPane.WARNING_MESSAGE);
 		}
+		datefield.getFormattedTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		datefield.setBounds(648, 40, 194, 20);
+		datefield.setBounds(650, 13, 194, 20);
 		datefield.setValue(new Date());
 		add(datefield);
 		
 
-		comboBox2.setBounds(648, 12, 194, 20);
+		comboBox2.setBounds(650, 44, 194, 20);
 		this.add(comboBox2);
 		// table
 		table = new JTable(null);
@@ -64,30 +62,35 @@ public class Search2Pane extends JPanel {
 		table.setBackground(Color.white);
 
 		updateTable();
+		
+		JLabel lblInfos = new JLabel("<html><i>\"Danc cette fenêtre vous pouvez lister les installations effectuées après une date introduite par vos soins et  qui ont été conduites par un responsable réseaux définit.\"</i></html>");
+		lblInfos.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblInfos.setBounds(10, 13, 501, 41);
+		add(lblInfos);
 		// JscrollPane pane
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 70, 940, 400);
 		this.add(scrollPane);
 
 		btnRetourS2 = new JButton("Retour");
-		btnRetourS2.setBounds(900, 475, 65, 23);
+		btnRetourS2.setBounds(873, 486, 117, 23);
 		btnRetourS2.addActionListener(new Retour());
 		this.add(btnRetourS2);
 
 		
 		lblResponsable = new JLabel("Responsable:");
 		lblResponsable.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblResponsable.setBounds(508, 15, 122, 14);
+		lblResponsable.setBounds(510, 47, 122, 14);
 		this.add(lblResponsable);
 		
 		lblDate = new JLabel("Date d'installation:");
 		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDate.setBounds(488, 46, 142, 14);
+		lblDate.setBounds(490, 19, 142, 14);
 		this.add(lblDate);
 		
 		btnFiltrer = new JButton("Filtrer");
 		btnFiltrer.addActionListener(new Update());
-		btnFiltrer.setBounds(854, 25, 117, 25);
+		btnFiltrer.setBounds(873, 19, 117, 25);
 		add(btnFiltrer);
 
 	}

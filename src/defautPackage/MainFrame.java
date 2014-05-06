@@ -2,7 +2,6 @@ package defautPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -72,8 +71,8 @@ public class MainFrame extends JFrame {
 		menuItemUpdate = new JMenuItem("Modification");
 		menuItemUpdate.setIcon(new ImageIcon("res/icons/edit-icon.png"));
 
-		menuItemSearch1 = new JMenuItem("Software sans code d'installation, en fonction d'une année scolaire.");
-		menuItemSearch2 = new JMenuItem("Software après une date et par un responsable réseau particulier.");
+		menuItemSearch1 = new JMenuItem("Logiciels sans code d'installation, en fonction d'une année scolaire.");
+		menuItemSearch2 = new JMenuItem("Installations après une date et conduites par un responsable réseau particulier.");
 		menuItemSearch1.setIcon(new ImageIcon("res/icons/listing-icon.png"));
 		menuItemSearch2.setIcon(new ImageIcon("res/icons/listing-icon.png"));
 
@@ -244,6 +243,13 @@ public class MainFrame extends JFrame {
 		cont.add(mainPane, BorderLayout.CENTER);
 		cont.repaint();
 		menuItemAPropos.setEnabled(true);
+	}
+	
+	public void setLoginMenuItem(Boolean bool){
+		if(bool)
+			menuItemLogin.setEnabled(true);
+		else
+			menuItemLogin.setEnabled(false);
 	}
 
 	public Connection getConn() {
