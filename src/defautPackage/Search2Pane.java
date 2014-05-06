@@ -30,13 +30,13 @@ public class Search2Pane extends JPanel {
 	private JComboBox comboBox2;
 	private JScrollPane scrollPane;
 	private JLabel lblResponsable;
-	private Search2Frame myParentS2;
+	private SearchFrame myParentS2;
 	private JButton btnRetourS2, btnFiltrer;
 	private JLabel lblDate;
 	private DateField datefield = CalendarFactory.createDateField();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Search2Pane(Search2Frame p) {
+	public Search2Pane(SearchFrame p) {
 		myParentS2 = p;
 		this.setBounds(10, 10, 1000,550);
 		this.setLayout(null);
@@ -121,24 +121,6 @@ public class Search2Pane extends JPanel {
 		}
 	}
 
-	
-
-	private Object[] getDate() throws SQLException {
-		Object[] toReturn = null;
-		PreparedStatement prep;
-		
-		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT DateInstallation from Installation ");
-			toReturn = AccesBDGen.creerListe1Colonne(prep);
-			
-				
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
-		}
-		return toReturn;
-		
-	}
 	private Object[] getResponsable() throws SQLException {
 		Object[] toReturn = null;
 		PreparedStatement prep;

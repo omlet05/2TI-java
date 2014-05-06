@@ -229,13 +229,13 @@ public class MainFrame extends JFrame {
 	
 	private class Search1 implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			new Search1Frame(MainFrame.this);
+			new SearchFrame(MainFrame.this, 1);
 		}
 	}
 
 	private class Search2 implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			new Search2Frame(MainFrame.this);
+			new SearchFrame(MainFrame.this, 2);
 		}
 	}
 	public void redrawNewMain() {

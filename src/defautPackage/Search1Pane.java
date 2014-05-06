@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
+
 import javax.swing.SwingConstants;
 
 
@@ -26,33 +26,40 @@ import javax.swing.SwingConstants;
 public class Search1Pane extends JPanel {
 	
 	private JButton btnBackS1;
-	private Search1Frame search1Frame;
+	private SearchFrame searchFrame;
 	private static JTable tableS;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBox;
+	private JComboBox<Object> comboBoxAnneeEtude;
 	private JLabel lblAnneeEtude;
 	private JScrollPane scrollPane;
-	@SuppressWarnings("unchecked")
+	private JComboBox<Object> comboBoxCodeSection;
+	private JLabel lblSection;
 	
-	public Search1Pane(Search1Frame search1Fram){
+	public Search1Pane(SearchFrame search1Fram){
 		
 		this.setBounds(10, 10, 1000, 550);
 		setLayout(null);
-		search1Frame =search1Fram;
+		searchFrame =search1Fram;
 		
 		try {
-			comboBox = new JComboBox(getAnneeEtude());
+			comboBoxAnneeEtude = new JComboBox<Object>(getAnneeEtude());
+			comboBoxCodeSection =new JComboBox<Object>(getCodeSection());
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
-		comboBox.addActionListener(new ActionListener() {
+		comboBoxAnneeEtude.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateTable();
 			}
 		});
-		comboBox.setBounds(800, 10, 150, 20);
-		this.add(comboBox);
+		comboBoxAnneeEtude.setBounds(800, 10, 150, 20);
+		this.add(comboBoxAnneeEtude);
+		comboBoxAnneeEtude.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable();
+			}
+		});
+		
 
 		
 		
@@ -68,7 +75,7 @@ public class Search1Pane extends JPanel {
 		add(btnBackS1);
 		
 		scrollPane = new JScrollPane(tableS);
-		scrollPane.setBounds(10, 43, 940, 400);
+		scrollPane.setBounds(10, 65, 940, 400);
 		this.add(scrollPane);
 		
 		lblAnneeEtude = new JLabel("Année d'étude :");
@@ -76,18 +83,30 @@ public class Search1Pane extends JPanel {
 		lblAnneeEtude.setBounds(645, 13, 150, 14);
 		this.add(lblAnneeEtude);
 		
+		lblSection = new JLabel("Section :");
+		lblSection.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSection.setBounds(645, 33, 150, 14);
+		this.add(lblSection);
+		
+		comboBoxCodeSection.setBounds(800, 33, 150, 20);
+		this.add(comboBoxCodeSection);
+		comboBoxCodeSection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable();
+			}
+		});
 		
 	}
 	
 	private class Back implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			search1Frame.dispose();
+			searchFrame.dispose();
 		}
 	}
 	
 	private void updateTable() {
 		try {
-			PreparedStatement prepS = search1Frame.getConn().prepareStatement("SELECT Nom, CodeInstallation, Software.CodeSoftware, a.Annee, a.CodeSection  FROM AnneeEtude a JOIN UtilisationSoftware ON a.IdAnneeEtude = UtilisationSoftware.IdAnneeEtude JOIN Software  ON UtilisationSoftware.CodeSoftware = Software.CodeSoftware  where Software.CodeInstallation is NULL and a.Annee= '"+ comboBox.getSelectedItem().toString()+"'");			
+			PreparedStatement prepS = searchFrame.getConn().prepareStatement("SELECT Nom, CodeInstallation, Software.CodeSoftware, a.Annee, a.CodeSection  FROM AnneeEtude a JOIN UtilisationSoftware ON a.IdAnneeEtude = UtilisationSoftware.IdAnneeEtude JOIN Software  ON UtilisationSoftware.CodeSoftware = Software.CodeSoftware  where Software.CodeInstallation is NULL and a.Annee= '"+ comboBoxAnneeEtude.getSelectedItem().toString()+"'AND a.CodeSection ='"+comboBoxCodeSection.getSelectedItem().toString()+"'");			
 			tableS.setModel(AccesBDGen.creerTableModel(prepS));
 			centerJtable(tableS);
 			
@@ -102,7 +121,22 @@ public class Search1Pane extends JPanel {
 		PreparedStatement prepS;
 		try {
 			String sqlInstruction="SELECT DISTINCT Annee FROM AnneeEtude ";
-			prepS = search1Frame.getConn().prepareStatement(sqlInstruction);
+			prepS = searchFrame.getConn().prepareStatement(sqlInstruction);
+			
+			toReturn = AccesBDGen.creerListe1Colonne(prepS);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+		}
+		return toReturn;
+
+	}
+	
+	private Object[] getCodeSection() throws SQLException {
+		Object[] toReturn = null;
+		PreparedStatement prepS;
+		try {
+			String sqlInstruction="SELECT  CodeSection FROM AnneeEtude ";
+			prepS = searchFrame.getConn().prepareStatement(sqlInstruction);
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prepS);
 		} catch (Exception e) {

@@ -6,12 +6,13 @@ import java.sql.Connection;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
-public class Search1Frame extends JFrame {
+public class SearchFrame extends JFrame {
 	private Container cont;
-	private Search1Pane panel;
+	private Search2Pane panel2;
+	private Search1Pane panel1;
 	private Connection conn;
 	private MainFrame mainFrame;
-	public Search1Frame(MainFrame main){
+	public SearchFrame(MainFrame main, int i){
 		setTitle("Software sans code d'installation, en fonction d'une année scolaire.");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setIconImage(new javax.swing.ImageIcon("res/icons/listing-icon.png").getImage());
@@ -21,12 +22,17 @@ public class Search1Frame extends JFrame {
 
 		mainFrame = main;
 		setConn(mainFrame.getConn());
-		
-		panel = new Search1Pane(Search1Frame.this);
 
 		cont = getContentPane();
 		cont.setLayout(null);
-		cont.add(panel);
+		if (i==1){
+			panel1 = new Search1Pane(SearchFrame.this);
+			cont.add(panel1);
+		}
+		else{
+			panel2 = new Search2Pane(SearchFrame.this);
+			cont.add(panel2);
+		}
 
 		setVisible(true);
 	}
