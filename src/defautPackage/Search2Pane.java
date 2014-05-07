@@ -28,13 +28,13 @@ public class Search2Pane extends JPanel {
 	private JComboBox<Object> comboBox2;
 	private JScrollPane scrollPane;
 	private JLabel lblResponsable;
-	private SearchFrame myParentS2;
+	private SearchFrame myParentSearchFrame;
 	private JButton btnRetourS2, btnFiltrer;
 	private JLabel lblDate;
 	private DateField datefield = CalendarFactory.createDateField();
 
 	public Search2Pane(SearchFrame p) {
-		myParentS2 = p;
+		myParentSearchFrame = p;
 		this.setBounds(0, 0, 1000,520);
 		this.setLayout(null);
 
@@ -99,13 +99,13 @@ public class Search2Pane extends JPanel {
 		try {
 			Date date = (Date) datefield.getValue();
 			java.sql.Date dateSQL = new java.sql.Date(date.getTime());
-			PreparedStatement prep = myParentS2.getConn().prepareStatement("SELECT * FROM ResponsableReseaux JOIN Installation i on ResponsableReseaux.Matricule = i.Matricule WHERE ResponsableReseaux.NomPrenom = '"+ comboBox2.getSelectedItem().toString()+"' AND DateInstallation >= ?");	
+			PreparedStatement prep = myParentSearchFrame.getConn().prepareStatement("SELECT * FROM ResponsableReseaux JOIN Installation i on ResponsableReseaux.Matricule = i.Matricule WHERE ResponsableReseaux.NomPrenom = '"+ comboBox2.getSelectedItem().toString()+"' AND DateInstallation >= ?");	
 			prep.setDate(1, dateSQL);
 			table.setModel(AccesBDGen.creerTableModel(prep));
 			centerJtable(table);
 
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentSearchFrame, "Impossible de mettre à jour le tableau, erreur:"+e1, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	 
@@ -114,7 +114,7 @@ public class Search2Pane extends JPanel {
 
 	private class Retour implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			myParentS2.dispose();
+			myParentSearchFrame.dispose();
 		}
 	}
 
@@ -128,10 +128,10 @@ public class Search2Pane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = myParentS2.getConn().prepareStatement("SELECT NomPrenom from ResponsableReseaux ");
+			prep = myParentSearchFrame.getConn().prepareStatement("SELECT NomPrenom from ResponsableReseaux ");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentSearchFrame, "Impossible de charger les Noms et Prénoms des responsables réseau, erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
@@ -140,9 +140,7 @@ public class Search2Pane extends JPanel {
 	private void centerJtable(JTable table) {
 		DefaultTableCellRenderer custom = new DefaultTableCellRenderer();
 		custom.setHorizontalAlignment(JLabel.CENTER);
-		for (int i = 0; i < table.getColumnCount(); table.getColumnModel()
-				.getColumn(i).setCellRenderer(custom), i++)
-			;
+		for (int i = 0; i < table.getColumnCount(); table.getColumnModel().getColumn(i).setCellRenderer(custom), i++);
 	}
 }
 

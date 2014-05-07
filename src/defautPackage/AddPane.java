@@ -35,11 +35,11 @@ public class AddPane extends JPanel {
 	private DateField datefield = CalendarFactory.createDateField();
 	private JTextPane textPane;
 	private JSpinner spinner;
-	private AddFrame myFenParent;
+	private AddFrame myParentAddFrame;
 
 	public AddPane(AddFrame p) {
 		// réception mypanel pour interagir sur la frame.
-		myFenParent = p;
+		myParentAddFrame = p;
 
 		setBounds(10, 10, 400, 450);
 		setLayout(null);
@@ -72,8 +72,7 @@ public class AddPane extends JPanel {
 		lblDureeinstallation.setBounds(21, 95, 162, 27);
 		add(lblDureeinstallation);
 
-		JLabel lblRefprocedureinstallation = new JLabel(
-				"RefProcedureInstallation");
+		JLabel lblRefprocedureinstallation = new JLabel("RefProcedureInstallation");
 		lblRefprocedureinstallation.setForeground(Color.RED);
 		lblRefprocedureinstallation
 				.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -116,7 +115,7 @@ public class AddPane extends JPanel {
 			comboBox_1 = new JComboBox<Object>(getMatricule());
 			comboBox_2 = new JComboBox<Object>(getCodeOs());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de charger les ComboBox, erreur: "+e, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 
 		comboBox.setBounds(195, 178, 144, 27);
@@ -158,7 +157,7 @@ public class AddPane extends JPanel {
 		String sql = "SELECT MAX(IdInstallation)+1 FROM Installation";
 		try {
 
-			Statement prep = myFenParent.getConn().createStatement();
+			Statement prep = myParentAddFrame.getConn().createStatement();
 			ResultSet result = prep.executeQuery(sql);
 			while (result.next()) {
 				toReturn = result.getString(1);
@@ -166,8 +165,7 @@ public class AddPane extends JPanel {
 			result.close();
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de charger le prochain ID disponible, erreur:"+e, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
@@ -176,13 +174,11 @@ public class AddPane extends JPanel {
 	private Object[] getCodeSoftware() throws SQLException {
 		Object[] toReturn = null;
 		try {
-			PreparedStatement prep = myFenParent.getConn().prepareStatement(
-					"SELECT CodeSoftware FROM Software");
+			PreparedStatement prep = myParentAddFrame.getConn().prepareStatement("SELECT CodeSoftware FROM Software");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de récupérer les codes de logiciels, erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
@@ -191,12 +187,10 @@ public class AddPane extends JPanel {
 	private Object[] getMatricule() throws SQLException {
 		Object[] toReturn = null;
 		try {
-			PreparedStatement prep = myFenParent.getConn().prepareStatement(
-					"SELECT Matricule FROM ResponsableReseaux");
+			PreparedStatement prep = myParentAddFrame.getConn().prepareStatement("SELECT Matricule FROM ResponsableReseaux");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de récupérer les matricules des responsables réseau, erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
@@ -206,12 +200,10 @@ public class AddPane extends JPanel {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = myFenParent.getConn().prepareStatement(
-					"SELECT CodeOS FROM OS");
+			prep = myParentAddFrame.getConn().prepareStatement("SELECT CodeOS FROM OS");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de récupérer les codes des OS, erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
@@ -219,7 +211,7 @@ public class AddPane extends JPanel {
 
 	private class Retour implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			myFenParent.dispose();
+			myParentAddFrame.dispose();
 		}
 	}
 
@@ -233,7 +225,7 @@ public class AddPane extends JPanel {
 		try {
 			textField.setText(getNextfreeID());
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de charger le prochain ID disponible, erreur:"+e1, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		// textField_1.setText("");
 		datefield.setValue(new Date());
@@ -262,7 +254,7 @@ public class AddPane extends JPanel {
 			Timestamp dateInsert = new Timestamp(date.getTime());
 
 			try {
-				prep = myFenParent.getConn().prepareStatement(
+				prep = myParentAddFrame.getConn().prepareStatement(
 						"INSERT INTO  Installation VALUES ('"+ getNextfreeID() + "',  '" + dateInsert
 								+ "', ? ,  '" + spinner.getValue()
 								+ "', ? ,  '"
@@ -272,14 +264,14 @@ public class AddPane extends JPanel {
 								+ "',  '"
 								+ comboBox_2.getSelectedItem().toString()
 								+ "')");
+				/* to prevent MYSQL INJECTIONS  */
 				prep.setString(1, setNullIfBlank(textPane.getText()));
 				prep.setString(2, setNullIfBlank(textField_5.getText()));
 				nbModif = AccesBDGen.executerInstruction(prep);
-				JOptionPane.showMessageDialog(null, "Ajout réussit avec: "+nbModif+ " ligne(s) modifiée(s).", "Ajout réussit!",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(myParentAddFrame, "Ajout réussit avec: "+nbModif+ " ligne(s) modifiée(s).", "Ajout réussit!",JOptionPane.INFORMATION_MESSAGE);
 				reinit();
 			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(null, e1, "Erreur",
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myParentAddFrame, "Impossible d'ajouter l'enregistrement, erreur: "+e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 
 		}

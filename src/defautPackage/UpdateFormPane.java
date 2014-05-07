@@ -35,12 +35,12 @@ public class UpdateFormPane extends JPanel{
 		private DateField dateInstallFld = CalendarFactory.createDateField();
 		private JTextPane commentTextPane;
 		private JSpinner dureeInstallSpinner;
-		private UpdateFrame myFenParent;
+		private UpdateFrame myFenParentUpdateFrame;
 		private int idInstall;
 
 		public UpdateFormPane(UpdateFrame p, int index2) {
 			// réception mypanel pour interagir sur la frame.
-			myFenParent = p;
+			myFenParentUpdateFrame = p;
 			idInstall = index2;
 			
 			
@@ -119,7 +119,7 @@ public class UpdateFormPane extends JPanel{
 				matriculeComboBox = new JComboBox<Object>(getMatricule());
 				codeOsCombobox = new JComboBox<Object>(getCodeOs());
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de charger les Combobox erreur: "+e, "Erreur", JOptionPane.WARNING_MESSAGE);
 			}
 
 			codeSoftComboBox.setBounds(195, 178, 252, 27);
@@ -153,7 +153,7 @@ public class UpdateFormPane extends JPanel{
 			try {
 				getChamps();
 			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de récupérer les champs de l'enregistrement erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		
@@ -161,7 +161,7 @@ public class UpdateFormPane extends JPanel{
 			
 			String sql = "SELECT * FROM Installation WHERE IdInstallation ="+idInstall;
 			try {
-				Statement prep = myFenParent.getConn().createStatement();
+				Statement prep = myFenParentUpdateFrame.getConn().createStatement();
 				ResultSet result = prep.executeQuery(sql);
 				while (result.next()) {
 					
@@ -177,7 +177,7 @@ public class UpdateFormPane extends JPanel{
 				result.close();
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de récupérer les champs de l'enregistrement erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 			
 
@@ -186,11 +186,11 @@ public class UpdateFormPane extends JPanel{
 		private Object[] getCodeSoftware() throws SQLException {
 			Object[] toReturn = null;
 			try {
-				PreparedStatement prep = myFenParent.getConn().prepareStatement("SELECT CodeSoftware FROM Software");
+				PreparedStatement prep = myFenParentUpdateFrame.getConn().prepareStatement("SELECT CodeSoftware FROM Software");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de récupérer les codes des Logiciels erreur: "+e, "Erreur", JOptionPane.WARNING_MESSAGE);
 			}
 			return toReturn;
 
@@ -199,11 +199,10 @@ public class UpdateFormPane extends JPanel{
 		private Object[] getMatricule() throws SQLException {
 			Object[] toReturn = null;
 			try {
-				PreparedStatement prep = myFenParent.getConn().prepareStatement(
-						"SELECT Matricule FROM ResponsableReseaux");
+				PreparedStatement prep = myFenParentUpdateFrame.getConn().prepareStatement("SELECT Matricule FROM ResponsableReseaux");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de récupérer les matricules des responsables réseau, erreur: "+e, "Erreur", JOptionPane.WARNING_MESSAGE);
 			}
 			return toReturn;
 
@@ -213,10 +212,10 @@ public class UpdateFormPane extends JPanel{
 			Object[] toReturn = null;
 			PreparedStatement prep;
 			try {
-				prep = myFenParent.getConn().prepareStatement("SELECT CodeOS FROM OS");
+				prep = myFenParentUpdateFrame.getConn().prepareStatement("SELECT CodeOS FROM OS");
 				toReturn = AccesBDGen.creerListe1Colonne(prep);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de récupérer le code des OS "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 			return toReturn;
 
@@ -234,7 +233,7 @@ public class UpdateFormPane extends JPanel{
 				try {
 					getChamps();
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de récupérer les champs de l'enregistrement erreur: "+e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
@@ -250,16 +249,16 @@ public class UpdateFormPane extends JPanel{
 				Timestamp dateInsert = new Timestamp(date.getTime());
 				
 				try {
-					prep = myFenParent.getConn().prepareStatement("UPDATE Installation SET DateInstallation = '"+dateInsert+"', Commentaires = ?, DureeInstallation = '"+dureeInstallSpinner.getValue()+"', RefProcedureInstallation = ?, CodeSoftware = '"+codeSoftComboBox.getSelectedItem().toString()+"', Matricule = '"+matriculeComboBox.getSelectedItem().toString()+"', CodeOS = '"+codeOsCombobox.getSelectedItem().toString()+"' WHERE IdInstallation="+idInstall);
+					prep = myFenParentUpdateFrame.getConn().prepareStatement("UPDATE Installation SET DateInstallation = '"+dateInsert+"', Commentaires = ?, DureeInstallation = '"+dureeInstallSpinner.getValue()+"', RefProcedureInstallation = ?, CodeSoftware = '"+codeSoftComboBox.getSelectedItem().toString()+"', Matricule = '"+matriculeComboBox.getSelectedItem().toString()+"', CodeOS = '"+codeOsCombobox.getSelectedItem().toString()+"' WHERE IdInstallation="+idInstall);
 					prep.setString(1, setNullIfBlank(commentTextPane.getText()));
 					prep.setString(2, setNullIfBlank(RefProcInstallTxtFld.getText()));
 					nbModif = AccesBDGen.executerInstruction(prep);
 					
-					JOptionPane.showMessageDialog(null, nbModif+" ligne(s) modifiée(s).", "Modification réussie!",JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(myFenParentUpdateFrame, nbModif+" ligne(s) modifiée(s).", "Modification réussie!",JOptionPane.INFORMATION_MESSAGE);
 					getChamps();
-					myFenParent.updateTabpane();
+					myFenParentUpdateFrame.updateTabpane();
 					} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(myFenParentUpdateFrame, "Impossible de mettre à jour l'enregistrement, erreur: "+e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 
 			}

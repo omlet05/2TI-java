@@ -27,11 +27,11 @@ public class UpdateTablePane extends JPanel {
 			private JComboBox<Object> comboBox;
 			private JScrollPane scrollPane;
 			private JLabel lblEditeur;
-			private UpdateFrame myParentFen;
+			private UpdateFrame myParentUpdateFrame;
 
 			
 			public UpdateTablePane(UpdateFrame  f) {
-				myParentFen = f;
+				myParentUpdateFrame = f;
 				this.setBounds(10, 10, 686, 424);
 				this.setLayout(null);
 
@@ -86,12 +86,12 @@ public class UpdateTablePane extends JPanel {
 
 			public void updateTable() {
 				try {
-					PreparedStatement prep = myParentFen.getConn().prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+ comboBox.getSelectedItem().toString()	+ "'");
+					PreparedStatement prep = myParentUpdateFrame.getConn().prepareStatement("SELECT IdInstallation, DateInstallation, Installation.CodeSoftware, Installation.CodeOS FROM Installation JOIN Software ON Installation.CodeSoftware = Software.CodeSoftware JOIN Editeur ON Editeur.CodeEdit = Software.CodeEdit WHERE Designation ='"+ comboBox.getSelectedItem().toString()	+ "'");
 					table.setModel(AccesBDGen.creerTableModel(prep));
 					centerJtable(table);
 
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1, "Erreur",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(myParentUpdateFrame, "Impossible de rafraichir le tableau erreur: "+e1, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			
@@ -103,10 +103,10 @@ public class UpdateTablePane extends JPanel {
 				Object[] toReturn = null;
 				PreparedStatement prep;
 				try {
-					prep = myParentFen.getConn().prepareStatement("SELECT Designation FROM Editeur");
+					prep = myParentUpdateFrame.getConn().prepareStatement("SELECT Designation FROM Editeur");
 					toReturn = AccesBDGen.creerListe1Colonne(prep);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(myParentUpdateFrame, "Impossible de charger les Noms des éditeurs de logiciels erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 				}
 				return toReturn;
 
@@ -124,13 +124,11 @@ public class UpdateTablePane extends JPanel {
 					int rowcheck = table.getSelectedRow();
 					idInstall = (int) table.getValueAt(table.getSelectedRow(), 0);
 					if (rowcheck > -1) {
-						myParentFen.newtab(idInstall);
-						JOptionPane.showMessageDialog(null,"L'enregistrement a bien été chargé sous un nouvel onglet de modification","Sélection réussie", JOptionPane.INFORMATION_MESSAGE);
+						myParentUpdateFrame.newtab(idInstall);
+						JOptionPane.showMessageDialog(myParentUpdateFrame,"L'enregistrement a bien été chargé sous un nouvel onglet de modification.","Sélection réussie", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
-					JOptionPane.showMessageDialog(null,
-							"Aucune sélection, veuillez sélectionner une ligne!",
-							"Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(myParentUpdateFrame,"Aucune sélection, veuillez sélectionner une ligne dans le tableau!","Erreur", JOptionPane.WARNING_MESSAGE);
 				}
 				updateTable();
 				return idInstall;

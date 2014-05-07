@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 import AccesBD.AccesBDGen;
@@ -211,7 +212,7 @@ public class MainFrame extends JFrame {
 					setBarStat(false);
 				}
 			} catch (Exception e1) {
-				System.out.println("Erreur lors de la déconnexion : "+ e1.getMessage());
+				JOptionPane.showMessageDialog(MainFrame.this, "Déconnexion impossible erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}

@@ -26,7 +26,7 @@ import javax.swing.border.LineBorder;
 public class Search1Pane extends JPanel {
 	
 	private JButton btnBackS1;
-	private SearchFrame searchFrame;
+	private SearchFrame myParentsearchFrame;
 	private static JTable tableS;
 	private JComboBox<Object> comboBoxAnneeEtude;
 	private JLabel lblAnneeEtude;
@@ -38,14 +38,14 @@ public class Search1Pane extends JPanel {
 		
 		this.setBounds(0, 0, 1000, 520);
 		setLayout(null);
-		searchFrame =search1Fram;
+		myParentsearchFrame = search1Fram;
 		
 		try {
 			comboBoxAnneeEtude = new JComboBox<Object>(getAnneeEtude());
 			comboBoxCodeSection =new JComboBox<Object>(getCodeSection());
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentsearchFrame, "Impossible de charger les ComboBox erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		comboBoxAnneeEtude.setBounds(800, 10, 150, 20);
 		this.add(comboBoxAnneeEtude);
@@ -100,13 +100,13 @@ public class Search1Pane extends JPanel {
 	
 	private class Back implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			searchFrame.dispose();
+			myParentsearchFrame.dispose();
 		}
 	}
 	
 	private void updateTable() {
 		try {
-			PreparedStatement prepS = searchFrame.getConn().prepareStatement("SELECT Nom, CodeInstallation, Software.CodeSoftware, a.Annee, a.CodeSection  FROM AnneeEtude a JOIN UtilisationSoftware ON a.IdAnneeEtude = UtilisationSoftware.IdAnneeEtude JOIN Software  ON UtilisationSoftware.CodeSoftware = Software.CodeSoftware  where Software.CodeInstallation is NULL and a.Annee= '"+ comboBoxAnneeEtude.getSelectedItem().toString()+"'AND a.CodeSection ='"+comboBoxCodeSection.getSelectedItem().toString()+"'");			
+			PreparedStatement prepS = myParentsearchFrame.getConn().prepareStatement("SELECT Nom, CodeInstallation, Software.CodeSoftware, a.Annee, a.CodeSection  FROM AnneeEtude a JOIN UtilisationSoftware ON a.IdAnneeEtude = UtilisationSoftware.IdAnneeEtude JOIN Software  ON UtilisationSoftware.CodeSoftware = Software.CodeSoftware  where Software.CodeInstallation is NULL and a.Annee= '"+ comboBoxAnneeEtude.getSelectedItem().toString()+"'AND a.CodeSection ='"+comboBoxCodeSection.getSelectedItem().toString()+"'");			
 			tableS.setModel(AccesBDGen.creerTableModel(prepS));
 			centerJtable(tableS);
 			
@@ -121,11 +121,11 @@ public class Search1Pane extends JPanel {
 		PreparedStatement prepS;
 		try {
 			String sqlInstruction="SELECT DISTINCT Annee FROM AnneeEtude ";
-			prepS = searchFrame.getConn().prepareStatement(sqlInstruction);
+			prepS = myParentsearchFrame.getConn().prepareStatement(sqlInstruction);
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prepS);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentsearchFrame, "Impossible de charger les années d'études erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
@@ -136,11 +136,11 @@ public class Search1Pane extends JPanel {
 		PreparedStatement prepS;
 		try {
 			String sqlInstruction="SELECT DISTINCT CodeSection FROM AnneeEtude ";
-			prepS = searchFrame.getConn().prepareStatement(sqlInstruction);
+			prepS = myParentsearchFrame.getConn().prepareStatement(sqlInstruction);
 			
 			toReturn = AccesBDGen.creerListe1Colonne(prepS);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentsearchFrame, "Impossible de charger les Codes de Sections erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 

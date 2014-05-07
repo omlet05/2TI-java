@@ -21,21 +21,19 @@ import AccesBD.AccesBDGen;
 @SuppressWarnings("serial")
 public class DelPane extends JPanel {
 	private static JTable table;
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboBox;
+	private JComboBox<Object> comboBox;
 	private JScrollPane scrollPane;
 	private JLabel lblEditeur;
 	private DelFrame myParentFen;
 	private JButton btnRetour;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DelPane(DelFrame p) {
 		myParentFen = p;
 		this.setBounds(10, 10, 753, 462);
 		this.setLayout(null);
 
 		try {
-			comboBox = new JComboBox(getEditeur());
+			comboBox = new JComboBox<Object>(getEditeur());
 
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e, "Erreur",
@@ -86,8 +84,7 @@ public class DelPane extends JPanel {
 			centerJtable(table);
 
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(null, e1, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentFen, e1, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -105,39 +102,38 @@ public class DelPane extends JPanel {
 	}
 
 	private void deleteRow() {
-		int confirmation = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer cette entrée?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
-		if(confirmation == 0){
+		
 			try {
 	
 				int rowcheck = table.getSelectedRow();
 				int idInstall = (int) table.getValueAt(table.getSelectedRow(), 0);
 	
 				if (rowcheck > -1) {
-					PreparedStatement prep = myParentFen.getConn().prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+ idInstall);
-					AccesBDGen.executerInstruction(prep);
-					JOptionPane.showMessageDialog(null,"l'enregistrement a bien été supprimé","Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
+					int confirmation = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer cette entrée?", "Confirmation de suppression", JOptionPane.YES_NO_OPTION);
+					if(confirmation == 0){
+						PreparedStatement prep = myParentFen.getConn().prepareStatement("DELETE FROM Installation WHERE Installation.IdInstallation = "+ idInstall);
+						AccesBDGen.executerInstruction(prep);
+						JOptionPane.showMessageDialog(myParentFen,"l'enregistrement a bien été supprimé","Suppression réussie", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
-				JOptionPane.showMessageDialog(null,"Aucune sélection, veuillez sélectionner une ligne!","Erreur", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myParentFen,"Aucune sélection, veuillez sélectionner une ligne!","Erreur", JOptionPane.WARNING_MESSAGE);
 			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, e, "Erreur",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(myParentFen, e, "Erreur",JOptionPane.WARNING_MESSAGE);
 			}
 			finally{
 				updateTable();
 			}
-		}
 	}
 
 	private Object[] getEditeur() throws SQLException {
 		Object[] toReturn = null;
 		PreparedStatement prep;
 		try {
-			prep = myParentFen.getConn().prepareStatement(
-					"SELECT Designation FROM Editeur");
+			prep = myParentFen.getConn().prepareStatement("SELECT Designation FROM Editeur");
 			toReturn = AccesBDGen.creerListe1Colonne(prep);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e, "Erreur",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(myParentFen, "Impossible de récupérer les éditeurs erreur: "+e, "Erreur",JOptionPane.WARNING_MESSAGE);
 		}
 		return toReturn;
 
