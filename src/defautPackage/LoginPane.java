@@ -104,6 +104,7 @@ public class LoginPane extends JPanel {
 			} 
 			catch (SQLException sqle){
 				int errorCode = sqle.getErrorCode();
+				
 				if(errorCode == 0)
 					JOptionPane.showMessageDialog(null,"Pas de connexion à la base de données, vérifiez la connectivité avec le serveur.","Erreur de connectivité!", JOptionPane.ERROR_MESSAGE);
 				else if(errorCode == 1045)

@@ -38,8 +38,8 @@ public class LoginFrame extends JFrame {
 	
 	/* to prevent MenuItemLogin enabled after connection Grant*/
 	public void dispose() {
-		if(mainF.getConn() != null)
-			mainF.setLoginMenuItem(false);
+		if(mainF.getConn() == null)
+			mainF.setLoginMenuItem(true);
 		super.dispose();
 	}
 	
