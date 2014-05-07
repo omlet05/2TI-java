@@ -106,19 +106,19 @@ public class LoginPane extends JPanel {
 				int errorCode = sqle.getErrorCode();
 				
 				if(errorCode == 0)
-					JOptionPane.showMessageDialog(null,"Pas de connexion à la base de données, vérifiez la connectivité avec le serveur.","Erreur de connectivité!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(myParentFrame,"Pas de connexion à la base de données, vérifiez la connectivité avec le serveur.","Erreur de connectivité!", JOptionPane.ERROR_MESSAGE);
 				else if(errorCode == 1045)
-					JOptionPane.showMessageDialog(null,"Vérifiez vos identifiants de connexions.\n"+ sqle.getMessage(),"Connexion impossible!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(myParentFrame,"Vérifiez vos identifiants de connexions.\n"+ sqle.getMessage(),"Connexion impossible!", JOptionPane.ERROR_MESSAGE);
 				else if(errorCode == 1049)
-					JOptionPane.showMessageDialog(null,"La table introduite n'existe pas.\n"+ sqle.getMessage(),"Mauvaise table!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(myParentFrame,"La table introduite n'existe pas.\n"+ sqle.getMessage(),"Mauvaise table!", JOptionPane.ERROR_MESSAGE);
 				else{
-					JOptionPane.showMessageDialog(null,"Erreur lors de la connexion : "+ sqle.getMessage(),"Erreur mysql!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(myParentFrame,"Erreur lors de la connexion : "+ sqle.getMessage(),"Erreur mysql!", JOptionPane.ERROR_MESSAGE);
 					System.out.println("MYSQL ErrorCode = "+errorCode);
 				}
 				
 			}
 			catch (Exception e1) {
-				JOptionPane.showMessageDialog(null,"Erreur lors de la connexion : " + e1.getMessage(),"Erreur!", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(myParentFrame,"Erreur lors de la connexion : " + e1.getMessage(),"Erreur!", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
