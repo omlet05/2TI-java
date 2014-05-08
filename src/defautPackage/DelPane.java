@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class DelPane extends JPanel {
@@ -67,12 +68,13 @@ public class DelPane extends JPanel {
 		this.add(btnRetour);
 
 		JButton btnSupprimer = new JButton("Supprimer la selection");
-		btnSupprimer.setBounds(608, 429, 137, 23);
+		btnSupprimer.setBounds(528, 429, 217, 23);
 		btnSupprimer.addActionListener(new Del());
 		this.add(btnSupprimer);
 
 		lblEditeur = new JLabel("Editeur:");
-		lblEditeur.setBounds(458, 13, 46, 14);
+		lblEditeur.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEditeur.setBounds(396, 13, 108, 14);
 		this.add(lblEditeur);
 
 	}

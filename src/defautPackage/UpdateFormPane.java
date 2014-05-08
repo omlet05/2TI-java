@@ -137,7 +137,7 @@ public class UpdateFormPane extends JPanel{
 			lblDateinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
 
 			dureeInstallSpinner = new JSpinner();
-			dureeInstallSpinner.setModel(new SpinnerNumberModel(0, 0, 500, 1));
+			dureeInstallSpinner.setModel(new SpinnerNumberModel(0, 0, 9999, 1));
 			dureeInstallSpinner.setBounds(195, 91, 252, 27);
 			add(dureeInstallSpinner);
 

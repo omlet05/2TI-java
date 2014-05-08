@@ -27,13 +27,11 @@ import AccesBD.AccesBDGen;
 
 @SuppressWarnings("serial")
 public class AddPane extends JPanel {
-	@SuppressWarnings("unused")
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_5;
-	private JComboBox<Object> comboBox, comboBox_1, comboBox_2;
-	private DateField datefield = CalendarFactory.createDateField();
-	private JTextPane textPane;
+	private JTextField txtFldIdInstall;
+	private JTextField txtFieldRefInstall;
+	private JComboBox<Object> comboBoxCodeSoft, comboBoxMatricule, comboBoxCodeOs;
+	private DateField dateInstallField = CalendarFactory.createDateField();
+	private JTextPane txtPaneComment;
 	private JSpinner spinner;
 	private AddFrame myParentAddFrame;
 
@@ -44,11 +42,11 @@ public class AddPane extends JPanel {
 		setBounds(10, 10, 400, 450);
 		setLayout(null);
 
-		textField = new JTextField();
-		textField.setEnabled(false);
-		textField.setBounds(195, 11, 144, 27);
-		add(textField);
-		textField.setColumns(10);
+		txtFldIdInstall = new JTextField();
+		txtFldIdInstall.setEnabled(false);
+		txtFldIdInstall.setBounds(195, 11, 144, 27);
+		add(txtFldIdInstall);
+		txtFldIdInstall.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("IdInstallation");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -56,9 +54,9 @@ public class AddPane extends JPanel {
 		add(lblNewLabel);
 
 		// date
-		datefield.setBounds(195, 53, 144, 27);
-		datefield.setValue(new Date());
-		add(datefield);
+		dateInstallField.setBounds(195, 53, 144, 27);
+		dateInstallField.setValue(new Date());
+		add(dateInstallField);
 		// datefield.getValue();
 
 		JLabel lblCommentaires = new JLabel("Commentaires");
@@ -74,15 +72,14 @@ public class AddPane extends JPanel {
 
 		JLabel lblRefprocedureinstallation = new JLabel("RefProcedureInstallation");
 		lblRefprocedureinstallation.setForeground(Color.RED);
-		lblRefprocedureinstallation
-				.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRefprocedureinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRefprocedureinstallation.setBounds(21, 135, 162, 27);
 		add(lblRefprocedureinstallation);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(195, 135, 144, 27);
-		add(textField_5);
+		txtFieldRefInstall = new JTextField();
+		txtFieldRefInstall.setColumns(10);
+		txtFieldRefInstall.setBounds(195, 135, 144, 27);
+		add(txtFieldRefInstall);
 
 		JLabel lblNewLabel_1 = new JLabel("CodeSoftware");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -110,22 +107,22 @@ public class AddPane extends JPanel {
 		add(btnRinitialiser);
 
 		try {
-			textField.setText(getNextfreeID());
-			comboBox = new JComboBox<Object>(getCodeSoftware());
-			comboBox_1 = new JComboBox<Object>(getMatricule());
-			comboBox_2 = new JComboBox<Object>(getCodeOs());
+			txtFldIdInstall.setText(getNextfreeID());
+			comboBoxCodeSoft = new JComboBox<Object>(getCodeSoftware());
+			comboBoxMatricule = new JComboBox<Object>(getMatricule());
+			comboBoxCodeOs = new JComboBox<Object>(getCodeOs());
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de charger les ComboBox, erreur: "+e, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 
-		comboBox.setBounds(195, 178, 144, 27);
-		add(comboBox);
+		comboBoxCodeSoft.setBounds(195, 178, 144, 27);
+		add(comboBoxCodeSoft);
 
-		comboBox_1.setBounds(195, 222, 144, 27);
-		add(comboBox_1);
+		comboBoxMatricule.setBounds(195, 222, 144, 27);
+		add(comboBoxMatricule);
 
-		comboBox_2.setBounds(195, 271, 144, 27);
-		add(comboBox_2);
+		comboBoxCodeOs.setBounds(195, 271, 144, 27);
+		add(comboBoxCodeOs);
 
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.addActionListener(new Retour());
@@ -138,13 +135,13 @@ public class AddPane extends JPanel {
 		lblDateinstallation.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(0, 0, 500, 1));
+		spinner.setModel(new SpinnerNumberModel(0, 0, 9999, 1));
 		spinner.setBounds(195, 91, 144, 27);
 		add(spinner);
 
-		textPane = new JTextPane();
-		textPane.setBounds(195, 315, 144, 56);
-		add(textPane);
+		txtPaneComment = new JTextPane();
+		txtPaneComment.setBounds(195, 315, 144, 56);
+		add(txtPaneComment);
 
 		JLabel lblChamp = new JLabel("* Champ Facultatif.");
 		lblChamp.setForeground(Color.RED);
@@ -223,18 +220,18 @@ public class AddPane extends JPanel {
 
 	public void reinit() {
 		try {
-			textField.setText(getNextfreeID());
+			txtFldIdInstall.setText(getNextfreeID());
 		} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(myParentAddFrame, "Impossible de charger le prochain ID disponible, erreur:"+e1, "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
-		// textField_1.setText("");
-		datefield.setValue(new Date());
+		
+		dateInstallField.setValue(new Date());
 		spinner.setValue(0);
-		textPane.setText(null);
-		textField_5.setText(null);
-		comboBox.setSelectedIndex(0);
-		comboBox_1.setSelectedIndex(0);
-		comboBox_2.setSelectedIndex(0);
+		txtPaneComment.setText(null);
+		txtFieldRefInstall.setText(null);
+		comboBoxCodeSoft.setSelectedIndex(0);
+		comboBoxMatricule.setSelectedIndex(0);
+		comboBoxCodeOs.setSelectedIndex(0);
 	}
 
 	private String setNullIfBlank(String toVerif) {
@@ -250,7 +247,7 @@ public class AddPane extends JPanel {
 			int nbModif;
 
 			// format the date for mysql insert
-			Date date = (Date) datefield.getValue();
+			Date date = (Date) dateInstallField.getValue();
 			Timestamp dateInsert = new Timestamp(date.getTime());
 
 			try {
@@ -258,15 +255,16 @@ public class AddPane extends JPanel {
 						"INSERT INTO  Installation VALUES ('"+ getNextfreeID() + "',  '" + dateInsert
 								+ "', ? ,  '" + spinner.getValue()
 								+ "', ? ,  '"
-								+ comboBox.getSelectedItem().toString()
+								+ comboBoxCodeSoft.getSelectedItem().toString()
 								+ "',  '"
-								+ comboBox_1.getSelectedItem().toString()
+								+ comboBoxMatricule.getSelectedItem().toString()
 								+ "',  '"
-								+ comboBox_2.getSelectedItem().toString()
+								+ comboBoxCodeOs.getSelectedItem().toString()
 								+ "')");
 				/* to prevent MYSQL INJECTIONS  */
-				prep.setString(1, setNullIfBlank(textPane.getText()));
-				prep.setString(2, setNullIfBlank(textField_5.getText()));
+				prep.setString(1, setNullIfBlank(txtPaneComment.getText()));
+				prep.setString(2, setNullIfBlank(txtFieldRefInstall.getText()));
+				
 				nbModif = AccesBDGen.executerInstruction(prep);
 				JOptionPane.showMessageDialog(myParentAddFrame, "Ajout réussit avec: "+nbModif+ " ligne(s) modifiée(s).", "Ajout réussit!",JOptionPane.INFORMATION_MESSAGE);
 				reinit();

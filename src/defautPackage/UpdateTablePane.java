@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import AccesBD.AccesBDGen;
+import javax.swing.SwingConstants;
 
 
 
@@ -49,7 +50,7 @@ public class UpdateTablePane extends JPanel {
 					}
 				});
 
-				comboBox.setBounds(66, 12, 197, 20);
+				comboBox.setBounds(136, 12, 197, 20);
 				this.add(comboBox);
 
 				// table
@@ -66,11 +67,12 @@ public class UpdateTablePane extends JPanel {
 				this.add(scrollPane);
 
 				lblEditeur = new JLabel("Editeur:");
-				lblEditeur.setBounds(10, 15, 46, 14);
+				lblEditeur.setHorizontalAlignment(SwingConstants.RIGHT);
+				lblEditeur.setBounds(10, 15, 116, 14);
 				this.add(lblEditeur);
 				
 				JButton btnModifier = new JButton("Modifier la sélection");
-				btnModifier.setBounds(527, 11, 134, 23);
+				btnModifier.setBounds(473, 11, 188, 23);
 				btnModifier.addActionListener(new Update());
 				add(btnModifier);
 
