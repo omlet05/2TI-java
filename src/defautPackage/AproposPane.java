@@ -53,7 +53,7 @@ public class AproposPane extends JPanel {
 
 		JLabel lblPnom = new JLabel(
 				"Kevin Gouverneur               &&               Mathieu Lobet");
-		lblPnom.setBounds(139, 285, 310, 14);
+		lblPnom.setBounds(86, 285, 428, 14);
 		add(lblPnom);
 
 	}
