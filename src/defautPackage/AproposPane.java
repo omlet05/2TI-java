@@ -34,15 +34,13 @@ public class AproposPane extends JPanel {
 
 		iconKevin = new ImageIcon("res/Kevin.jpg");
 		lblKevin = new JLabel(iconKevin);
-		lblKevin.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1,
-				Color.black));
+		lblKevin.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1,Color.black));
 		lblKevin.setBounds(139, 143, 118, 129);
 		add(lblKevin);
 
 		iconMath = new ImageIcon("res/Mathieu.jpg");
 		lblMath = new JLabel(iconMath);
-		lblMath.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1,
-				Color.black));
+		lblMath.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1,Color.black));
 		lblMath.setBounds(319, 143, 130, 129);
 		add(lblMath);
 
