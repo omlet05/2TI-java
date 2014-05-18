@@ -75,16 +75,16 @@ public class LoginPane extends JPanel {
 
 		myParentFrame.getRootPane().setDefaultButton(buttonConnexion);
 
-		// choose the JpasswordField
-		myParentFrame.addWindowFocusListener(new FocusPass());
+		// choose the dbField
+		myParentFrame.addWindowFocusListener(new Focus());
 
 	}
 
 	
 	/* focus PasswordField by default on frame creation */
-	private class FocusPass implements WindowFocusListener {
+	private class Focus implements WindowFocusListener {
 		public void windowGainedFocus(WindowEvent e) {
-			passwordField.requestFocusInWindow();
+			dbField.requestFocusInWindow();
 		}
 
 		public void windowLostFocus(WindowEvent e) {
