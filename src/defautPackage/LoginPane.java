@@ -42,11 +42,13 @@ public class LoginPane extends JPanel {
 
 		dbLabel = new JLabel(" Table: ");
 		add(dbLabel);
-		dbField = new JTextField("test");
+		dbField = new JTextField("");
+		//dbField = new JTextField("test");
 		add(dbField);
 		loginLabel = new JLabel(" Login: ");
 		add(loginLabel);
-		loginField = new JTextField("root");
+		//loginField = new JTextField("root");
+		loginField = new JTextField("");
 		add(loginField);
 
 		passwordLabel = new JLabel(" Mot de passe: ");
