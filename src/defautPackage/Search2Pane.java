@@ -24,7 +24,7 @@ import AccesBD.AccesBDGen;
 
 @SuppressWarnings("serial")
 public class Search2Pane extends JPanel {
-	private static JTable table;
+	private JTable table;
 	private JComboBox<Object> comboBox2;
 	private JScrollPane scrollPane;
 	private JLabel lblResponsable;

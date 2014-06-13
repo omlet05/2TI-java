@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class UpdateTablePane extends JPanel {
-			private static JTable table;
+			private JTable table;
 			
 			private JComboBox<Object> comboBox;
 			private JScrollPane scrollPane;

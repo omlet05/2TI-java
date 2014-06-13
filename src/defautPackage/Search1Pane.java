@@ -27,7 +27,7 @@ public class Search1Pane extends JPanel {
 	
 	private JButton btnBackS1;
 	private SearchFrame myParentsearchFrame;
-	private static JTable tableS;
+	private JTable tableS;
 	private JComboBox<Object> comboBoxAnneeEtude;
 	private JLabel lblAnneeEtude;
 	private JScrollPane scrollPane;
