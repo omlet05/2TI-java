@@ -9,7 +9,4 @@
 	</ul>
 	
 	
-	pour l'examen:
-		- Expliquer les changements dans AccesBDGen.
-		- Programmer date avec madame.
 </html>
